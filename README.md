@@ -1,32 +1,46 @@
-# Turborepo react-native starter
+## Requirements
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+To run this project, ensure you have the following installed on your system:
 
-## Using this example
+* **Yarn:** Version `1.22.19`
+* **Node.js:** Version `>= 22`
 
-Run the following command:
+## Installation
 
-```sh
-npx create-turbo@latest -e with-react-native-web
-```
+1.  Clone the repository to your local machine.
+2.  Navigate to the project's root directory in your terminal.
+3.  Install the project dependencies using Yarn:
 
-## What's inside?
+    ```bash
+    yarn install
+    ```
 
-This Turborepo includes the following packages/apps:
+## Running the Application
 
-### Apps and Packages
+There are two ways to run the application, depending on whether you want to run the web version or the mobile version.
 
-- `native`: a [react-native](https://reactnative.dev/) app built with [expo](https://docs.expo.dev/)
-- `web`: a [Next.js](https://nextjs.org/) app built with [react-native-web](https://necolas.github.io/react-native-web/)
-- `@repo/ui`: a stub [react-native](https://reactnative.dev/) component library shared by both `web` and `native` applications
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Web Development
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+1.  From the project's root directory, start the development server:
 
-### Utilities
+    ```bash
+    yarn dev
+    ```
 
-This Turborepo has some additional tools already setup for you:
+    This command will typically start a local development server, and the application will be accessible in your web browser (usually at `http://localhost:3000` or a similar address).
 
-- [Expo](https://docs.expo.dev/) for native development
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [Prettier](https://prettier.io) for code formatting
+### Mobile Development
+
+1.  Navigate to the mobile application's directory:
+
+    ```bash
+    cd app/onesky-app
+    ```
+
+2.  Start the mobile development server:
+
+    ```bash
+    yarn dev
+    ```
+
+    This command will likely start a development server for your mobile application, which you can then connect to using an emulator or a physical device, depending on your mobile development setup (e.g., React Native, Flutter). Refer to the specific documentation for your mobile development framework for instructions on how to view the running application.
