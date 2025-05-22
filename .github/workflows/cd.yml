@@ -1,0 +1,52 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Deploy to Production
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          # Add your deployment commands here
+          echo "Deploying to production..."
+
+          # Example: Deploy server
+          cd packages/server
+          yarn deploy
+
+          # Example: Deploy web app
+          cd ../../apps/web
+          yarn deploy
+
+      - name: Notify deployment status
+        if: always()
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: 'deployments'
+          slack-message: |
+            Deployment to production ${{ job.status }}!
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

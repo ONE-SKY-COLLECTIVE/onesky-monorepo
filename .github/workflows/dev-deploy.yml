@@ -1,0 +1,52 @@
+name: Development Deployment
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  deploy-dev:
+    name: Deploy to Development
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Deploy to Development
+        env:
+          SUPABASE_URL: ${{ secrets.DEV_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.DEV_SUPABASE_KEY }}
+          DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
+        run: |
+          # Add your development deployment commands here
+          echo "Deploying to development..."
+
+          # Example: Deploy server
+          cd packages/server
+          yarn deploy:dev
+
+          # Example: Deploy web app
+          cd ../../apps/web
+          yarn deploy:dev
+
+      - name: Notify deployment status
+        if: always()
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          channel-id: 'deployments-dev'
+          slack-message: |
+            Development deployment ${{ job.status }}!
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
