@@ -4,6 +4,7 @@ import { Animated, Dimensions, Easing, Image, Text, View } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import Onboarding from "./(onboarding)/index";
 import icons from "@/lib/icons";
+import Homepage from "./(homepage)";
 // import Homepage from "./pages/Homepage";
 
 
@@ -133,6 +134,5 @@ export default function Index() {
   if (isSplashVisible || hasLaunched === null) {
     return <SplashScreen />;
   }
-    return <Onboarding />
-//   return hasLaunched ? <Onboarding /> : <Text>dshjfkksldj</Text>;
+  return hasLaunched ? <Onboarding /> : <Homepage />;
 }
