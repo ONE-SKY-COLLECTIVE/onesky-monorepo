@@ -18,6 +18,6 @@
   "engines": {
     "node": ">=22"
   },
-  "name": "with-react-native-web",
+  "name": "onesky",
   "packageManager": "yarn@1.22.19"
 }

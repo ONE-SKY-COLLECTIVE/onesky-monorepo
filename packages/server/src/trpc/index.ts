@@ -2,7 +2,11 @@ import { initTRPC } from '@trpc/server';
 import { ZodError } from 'zod';
 import superjson from 'superjson';
 
-const t = initTRPC.create({
+export interface Context {
+  // Add any context properties here if needed
+}
+
+const t = initTRPC.context<Context>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
     return {
@@ -15,6 +19,7 @@ const t = initTRPC.create({
     };
   },
 });
+
 
 export const router = t.router;
 export const publicProcedure = t.procedure; 

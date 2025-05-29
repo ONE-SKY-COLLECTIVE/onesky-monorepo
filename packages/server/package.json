@@ -8,7 +8,10 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "lint": "eslint src/",
-    "clean": "rm -rf .turbo node_modules"
+    "clean": "rm -rf .turbo node_modules",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@trpc/server": "^10.45.0",
@@ -16,7 +19,8 @@
     "postgres": "^3.4.3",
     "zod": "^3.22.4",
     "@supabase/supabase-js": "^2.39.3",
-    "drizzle-kit": "^0.20.14"
+    "drizzle-kit": "^0.20.14",
+    "dotenv": "^16.4.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.5",
