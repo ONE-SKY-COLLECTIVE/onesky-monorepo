@@ -5,11 +5,18 @@ import '../global.css'
 
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { TRPCProvider } from '@/utils/trpcProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
+    <TRPCProvider queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+      
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -35,5 +42,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </QueryClientProvider>
+    </TRPCProvider>
   );
 }
