@@ -10,7 +10,7 @@ import dashboardIcon from "../assets/images/dashboard.png";
 import dashboardselectedIcon from "../assets/images/dashboard-selected.png";
 import bagIcon from "../assets/images/bag.png";
 import groupIcon from "../assets/images/group.png";
-
+import xbuttonIcon from "../assets/images/x-button.png";
 import quizIcon from "../assets/images/quiz2.png";
 import logMealIcon from "../assets/images/log-meal.png";
 import waterRefillIcon from "../assets/images/water-refill.png";
@@ -30,6 +30,23 @@ import appleIcon from "../assets/images/apple.png";
 import profileIcon from "../assets/images/profile.png";
 import fireIcon from "../assets/images/fire.png";
 import diamondIcon from "../assets/images/diamond.png";
+import quizDoneIcon from "../assets/images/quiz-done.png";
+import incorrectIcon from "../assets/images/incorrect.png";
+import correctIcon from "../assets/images/correct.png";
+import incorrectWorldIcon from "../assets/images/incorrect-world.png";
+import correctWorldIcon from "../assets/images/correct-world.png";
+import refillConfirmIcon from "../assets/images/refill-confirm.png";
+import leaveIcon from "../assets/images/leave-icon.png";
+import warningIcon from "../assets/images/warning.png";
+import veganMealIcon from "../assets/images/vegan-meal-icon.png";
+import vegetarianMealIcon from "../assets/images/vegetarian-meal-icon.png";
+import flexitarianMealIcon from "../assets/images/flexitarian-meal-icon.png";
+import thecloudIcon from "../assets/images/thecloud.png";
+import starIcon from "../assets/images/star.png";
+import planetIcon from "../assets/images/planet.png";
+import arrowIcon from "../assets/images/arrow.png";
+import platesIcon from "../assets/images/plates.png";
+import mealPlanetIcon from "../assets/images/meal-planet.png";
 
 const icons = {
   oneskylogo: oneskylogoIcon,
@@ -63,6 +80,24 @@ const icons = {
   profile: profileIcon,
   fire: fireIcon,
   diamond: diamondIcon,
+  xbutton: xbuttonIcon,
+  quizDone: quizDoneIcon,
+  incorrect: incorrectIcon,
+  correct: correctIcon,
+  incorrectWorld: incorrectWorldIcon,
+  correctWorld: correctWorldIcon,
+  refillConfirm: refillConfirmIcon,
+  leave: leaveIcon,
+  warning: warningIcon,
+  veganMeal: veganMealIcon,
+  vegetarianMeal: vegetarianMealIcon,
+  flexitarianMeal: flexitarianMealIcon,
+  thecloud: thecloudIcon,
+  star: starIcon,
+  planet: planetIcon,
+  arrow: arrowIcon,
+  plates: platesIcon,
+  mealPlanet: mealPlanetIcon,
 };
 
 export default icons;

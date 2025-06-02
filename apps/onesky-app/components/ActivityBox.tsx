@@ -52,7 +52,7 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({
       disabled={inactive}
       className={`${title !== "More coming soon" ? "green-bg-50" : "gray-bg"} ${inactive && "opacity-50"}`}
       onPress={() =>
-        title !== "More coming soon" && router.push(`../pages/${id}` as any)
+        title !== "More coming soon" && router.push(`../${id}` as any)
       }
     >
       {title !== "More coming soon" && title !== "View more..." && (
