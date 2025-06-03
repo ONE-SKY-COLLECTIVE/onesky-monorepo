@@ -1,8 +1,6 @@
 import { trpc } from '@/utils/trpc';
 import { Text, View } from 'react-native';
 
-
-
 export default function HelloScreen() {
   const { data, isLoading, error } = trpc.sayHello.useQuery({ name: 'Buck4566' });
 
