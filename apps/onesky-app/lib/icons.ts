@@ -47,6 +47,17 @@ import planetIcon from "../assets/images/planet.png";
 import arrowIcon from "../assets/images/arrow.png";
 import platesIcon from "../assets/images/plates.png";
 import mealPlanetIcon from "../assets/images/meal-planet.png";
+import shootingStarIcon from "../assets/images/shooting-star.png"
+import plasticPollutionIcon from "../assets/images/plastic-pollution.png";
+import singleUserPlasticIcon from "../assets/images/single-user-plastic.png";
+import climateChangeIcon from "../assets/images/climate-change.png";
+import circularEconomyIcon from "../assets/images/circular-economy.png";
+import sustainabilityIcon from "../assets/images/sustainability.png";
+import activeTravelIcon from "../assets/images/active-travel.png";
+import globalWarmingIcon from "../assets/images/global-warming.png";
+import beachCleaningIcon from "../assets/images/beach-cleaning.png";
+
+
 
 const icons = {
   oneskylogo: oneskylogoIcon,
@@ -98,6 +109,15 @@ const icons = {
   arrow: arrowIcon,
   plates: platesIcon,
   mealPlanet: mealPlanetIcon,
+  shootingStar: shootingStarIcon,
+  plasticPollution: plasticPollutionIcon,
+  singleUserPlastic: singleUserPlasticIcon,
+  climateChange: climateChangeIcon,
+  circularEconomy: circularEconomyIcon,
+  sustainability: sustainabilityIcon,
+  activeTravel: activeTravelIcon,
+  globalWarming: globalWarmingIcon,
+  beachCleaning: beachCleaningIcon,
 };
 
 export default icons;
