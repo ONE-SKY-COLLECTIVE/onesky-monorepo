@@ -56,7 +56,14 @@ import sustainabilityIcon from "../assets/images/sustainability.png";
 import activeTravelIcon from "../assets/images/active-travel.png";
 import globalWarmingIcon from "../assets/images/global-warming.png";
 import beachCleaningIcon from "../assets/images/beach-cleaning.png";
-
+import userIcon from "../assets/images/user.png";
+import appleCompanyIcon from "../assets/images/apple-company.png";
+import emailVerificationIcon from "../assets/images/email-verification.png";
+import emailIcon from "../assets/images/email.png";
+import facebookCompanyIcon from "../assets/images/facebook-company.png";
+import handStarsIcon from "../assets/images/hand-stars.png";
+import passwordIcon from "../assets/images/password.png";
+import successAnimation from "../assets/animations/SuccessAnimation.json"
 
 
 const icons = {
@@ -118,6 +125,14 @@ const icons = {
   activeTravel: activeTravelIcon,
   globalWarming: globalWarmingIcon,
   beachCleaning: beachCleaningIcon,
+  user: userIcon,
+  appleCompany: appleCompanyIcon,
+  emailVerification: emailVerificationIcon,
+  email: emailIcon,
+  facebookCompany: facebookCompanyIcon,
+  handStars: handStarsIcon,
+  password: passwordIcon,
+  success: successAnimation,
 };
 
 export default icons;

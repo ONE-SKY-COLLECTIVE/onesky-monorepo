@@ -5,6 +5,7 @@ import * as SecureStore from "expo-secure-store";
 import Onboarding from "./(onboarding)/index";
 import icons from "@/lib/icons";
 import Homepage from "./(homepage)";
+import Login from "./(auth)/login"
 // import Homepage from "./pages/Homepage";
 
 
@@ -134,5 +135,5 @@ export default function Index() {
   if (isSplashVisible || hasLaunched === null) {
     return <SplashScreen />;
   }
-  return hasLaunched ? <Onboarding /> : <Homepage />;
+  return hasLaunched ? <Onboarding /> : <Login />;
 }

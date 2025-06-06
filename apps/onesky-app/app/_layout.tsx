@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 export default function RootLayout() {
  
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require('../assets/fonts/Raleway.ttf'),
   });
 
   if (!loaded) {
