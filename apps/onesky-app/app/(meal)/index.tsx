@@ -5,6 +5,7 @@ import images from "@/lib/images";
 import { useRouter } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
 import LottieView from "lottie-react-native";
+import React from "react";
 import { useEffect, useRef, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -250,7 +251,7 @@ const Meal = () => {
                     <View className="flex items-center">
                         <Image resizeMode="contain" source={icons.warning} className="w-[40px] h-[40px]"/>
                         <Text className="text-[20px] font-semibold sora py-5">
-                            Don't leave us!
+                            Don&apos;t leave us!
                         </Text>
                     </View>
                     <Text className="text-[14px] raleway w-half">Don’t leave us yet without logging your meal.</Text>

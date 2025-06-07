@@ -10,6 +10,7 @@ import {
   import { useRouter } from "expo-router";
 import ActivityBox from "@/components/ActivityBox";
 import icons from "@/lib/icons";
+import React from "react";
     
   const Activities = () => {
     const router = useRouter();
@@ -19,7 +20,7 @@ import icons from "@/lib/icons";
       { id: "(meal)", title: "Log your meal", inactive: true },
       { id: "(waterbottle)", title: "Water refill", inactive: false },
       { id: "3", title: "View to plant", inactive: true },
-      { id: "Appliances", title: "Switch-off", inactive: false },
+      { id: "(appliance", title: "Switch-off", inactive: false },
       { id: "6", title: "Recycle", inactive: true },
       { id: "7", title: "Steps", inactive: true },
       { id: "8", title: "Donate/resell", inactive: true },
