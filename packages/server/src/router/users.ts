@@ -9,15 +9,10 @@ export const usersRouter = router({
     return await db.select().from(users);
   }),
 
-  getById: publicProcedure
-    .input(z.object({ id: z.number() }))
-    .query(async ({ input }) => {
-      const result = await db
-        .select()
-        .from(users)
-        .where(eq(users.id, input.id));
-      return result[0];
-    }),
+  getById: publicProcedure.input(z.object({ id: z.number() })).query(async ({ input }) => {
+    const result = await db.select().from(users).where(eq(users.id, input.id));
+    return result[0];
+  }),
 
   create: publicProcedure
     .input(
@@ -30,4 +25,4 @@ export const usersRouter = router({
       const result = await db.insert(users).values(input).returning();
       return result[0];
     }),
-}); 
+});

@@ -1,0 +1,153 @@
+# name: Deploy to Production Environments
+
+# on:
+#   push:
+#     branches:
+#       - main # Trigger on push to the main branch
+
+# env:
+#   # Define the base API URL for your production environment
+#   PROD_API_URL: https://api.your-production-domain.com # <<< REPLACE WITH YOUR ACTUAL PRODUCTION API URL
+#   PROD_SUPABASE_PROJECT_ID: your-production-supabase-project-id # <<< REPLACE
+
+# jobs:
+#   deploy-nextjs-production:
+#     runs-on: ubuntu-latest
+#     environment:
+#       name: production # Associate with a GitHub Environment
+#       url: ${{ env.PROD_API_URL }} # Optional: Link to your production URL in GitHub UI
+#     # Optional: Require manual approval for production deployments
+#     # This will pause the workflow and require an authorized user to click "Approve"
+#     # To enable this, go to your GitHub repo settings -> Environments -> New Environment (named 'production') -> Add deployment protection rules
+#     # https://docs.github.com/en/actions/managing-workflow-runs/deploying-to-environments
+#     # environment:
+#     #   name: production
+#     #   url: ${{ env.PROD_API_URL }}
+#     #   required_reviewers:
+#     #     - team: your-release-managers-team # e.g., 'your-org/release-team'
+#     #     - user: github-username # e.g., 'jim'
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '22'
+#           cache: 'yarn'
+
+#       - name: Install Dependencies
+#         run: yarn install --frozen-lockfile
+
+#       - name: Turborepo Cache
+#         uses: actions/cache@v4
+#         with:
+#           path: .turbo
+#           key: ${{ runner.os }}-turbo-${{ github.sha }}
+#           restore-keys: |
+#             ${{ runner.os }}-turbo-
+
+#       - name: Build Next.js App for Production
+#         run: yarn build --filter=apps/nextjs
+#         env:
+#           NEXT_PUBLIC_API_URL: ${{ env.PROD_API_URL }}
+#           # Pass other production-specific env vars for Next.js
+#           # SUPABASE_URL: ${{ secrets.PROD_SUPABASE_URL }} # Your production Supabase keys
+#           # SUPABASE_ANON_KEY: ${{ secrets.PROD_SUPABASE_ANON_KEY }}
+
+#       - name: Deploy Next.js App to Production Vercel
+#         uses: vercel/actions/deploy@v2
+#         with:
+#           token: ${{ secrets.VERCEL_TOKEN }}
+#           teamId: ${{ secrets.VERCEL_ORG_ID }}
+#           projectId: ${{ secrets.VERCEL_NEXTJS_PRODUCTION_PROJECT_ID }} # Use your dedicated Production project ID
+#           prod: true # IMPORTANT: This deploys to production on Vercel
+
+#   run-supabase-migrations-production:
+#     runs-on: ubuntu-latest
+#     environment:
+#       name: production
+#       url: ${{ env.PROD_API_URL }}
+#     # It's HIGHLY RECOMMENDED to make production database migrations require manual approval
+#     # Configure this in GitHub Environments settings.
+#     # needs: [deploy-nextjs-production] # You might run migrations before or after app deploy based on strategy
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
+
+#       - name: Setup Supabase CLI
+#         uses: supabase/setup-cli@v1
+#         with:
+#           version: latest
+
+#       - name: Set Supabase Access Token
+#         run: supabase login --access-token ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+#       - name: Link to Production Supabase Project
+#         run: supabase link --project-ref ${{ env.PROD_SUPABASE_PROJECT_ID }} --org-id ${{ secrets.SUPABASE_ORG_ID }}
+#         working-directory: packages/api/supabase
+
+#       - name: Apply Production Database Migrations
+#         # For production, be extremely cautious.
+#         # 'db push' is convenient but can be risky if not fully tested.
+#         # Consider a more explicit 'supabase migration up' or manual intervention.
+#         run: supabase db push # Or 'supabase migration up' if you want more granular control
+#         working-directory: packages/api/supabase
+#         env:
+#           PGPASSWORD: ${{ secrets.PROD_SUPABASE_DB_PASSWORD }} # Ensure this secret is properly set
+#         # You might also want to run 'supabase db diff' against your existing schema
+#         # to confirm what changes will be applied before pushing.
+
+#   build-and-submit-expo-production:
+#     runs-on: ubuntu-latest
+#     environment:
+#       name: production
+#       url: ${{ env.PROD_API_URL }}
+#     needs: [deploy-nextjs-production, run-supabase-migrations-production] # Ensure backend/DB are ready
+#     # Manual approval for App Store submission is often preferred
+#     # Configure this in GitHub Environments settings.
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '22'
+#           cache: 'yarn'
+
+#       - name: Install Dependencies
+#         run: yarn install --frozen-lockfile
+
+#       - name: Turborepo Cache
+#         uses: actions/cache@v4
+#         with:
+#           path: .turbo
+#           key: ${{ runner.os }}-turbo-${{ github.sha }}
+#           restore-keys: |
+#             ${{ runner.os }}-turbo-
+
+#       - name: Run EAS Build for Production (iOS & Android)
+#         uses: expo/expo-github-action@v8
+#         with:
+#           expo-token: ${{ secrets.EXPO_TOKEN }}
+#           command: eas build --profile production --platform all # Use your 'production' profile
+#           working-directory: apps/expo
+
+#       - name: Submit to App Stores (iOS TestFlight & Google Play Internal Test Track / Production)
+#         # This step can be configured to automatically submit to TestFlight / Internal Test Track,
+#         # or directly to production for a full release.
+#         # For full production release, manual confirmation on App Store Connect/Google Play Console is common.
+#         uses: expo/expo-github-action@v8
+#         with:
+#           expo-token: ${{ secrets.EXPO_TOKEN }}
+#           command: eas submit --platform all --latest # Submits the latest build
+#           working-directory: apps/expo
+#           # Additional arguments for submission:
+#           # ios-username: ${{ secrets.APPLE_USERNAME }}
+#           # ios-password: ${{ secrets.APPLE_PASSWORD }} # Or API Key Auth
+#           # ios-app-specific-password: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+#           # android-service-account-key: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_KEY }}
+#           # Android requires a JSON key file; you'd likely pass this as a base64 encoded secret.
+#           # For test tracks, you can specify --track internal, alpha, beta, production
+#           # For first-time app submissions, many of these are required.

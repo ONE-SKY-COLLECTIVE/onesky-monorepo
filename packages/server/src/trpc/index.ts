@@ -9,12 +9,11 @@ const t = initTRPC.create({
       ...shape,
       data: {
         ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
+        zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
       },
     };
   },
 });
 
 export const router = t.router;
-export const publicProcedure = t.procedure; 
+export const publicProcedure = t.procedure;

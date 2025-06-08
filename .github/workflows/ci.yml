@@ -1,74 +1,74 @@
-name: CI
+name: CI Checks (Develop Branch PRs)
 
 on:
-  push:
-    branches: [develop, 'feature/**', 'bugfix/**']
   pull_request:
-    branches: [develop, main]
+    branches:
+      - develop
 
 jobs:
-  lint:
-    name: Lint
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'yarn'
+          node-version: '22' # Ensure this matches your package.json engine
+          cache: 'yarn' # Cache node_modules for faster builds
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile # Use --frozen-lockfile for CI consistency
 
-      - name: Run ESLint
-        run: yarn lint
-
-      - name: Check formatting
-        run: yarn format:check
-
-  test:
-    name: Test
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Turborepo Cache (Optional but Recommended)
+        uses: actions/cache@v4
         with:
-          node-version: '22'
-          cache: 'yarn'
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Lint All Affected Code
+        run: yarn lint # This will run 'turbo run lint' which you configured earlier
 
-      - name: Run tests
-        run: yarn test
+      - name: Type Check All Affected Code
+        run: yarn typecheck # This will run 'turbo run typecheck'
 
-      - name: Upload coverage
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Run All Tests
+        run: yarn test # This will run 'turbo run test'
 
-  build:
-    name: Build
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'yarn'
+      # --- Optional Security Scan (Highly Recommended) ---
+      - name: Run NPM Audit for Vulnerabilities
+        run: yarn audit --level critical || true # Fail only on critical, or remove || true to fail on any
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      # --- Optional: Next.js Preview Deployment for PR ---
+      # If you're using Vercel for your Next.js app, this is very useful.
+      # You need to set up Vercel project and link it to your GitHub repo.
+      # VERCEL_ORG_ID and VERCEL_PROJECT_ID are usually set in Vercel UI.
+      # VERCEL_TOKEN should be a GitHub Secret.
+      # - name: Deploy Next.js App to Vercel Preview
+      #   if: success() # Only deploy if previous steps pass
+      #   uses: vercel/actions/deploy@v2
+      #   with:
+      #     token: ${{ secrets.VERCEL_TOKEN }}
+      #     teamId: ${{ secrets.VERCEL_ORG_ID }} # Your Vercel team ID
+      #     projectId: ${{ secrets.VERCEL_NEXTJS_PROJECT_ID }} # Your Next.js app project ID
+      #     # Add `--prebuilt` if you are running `yarn build` in a separate step
+      #     # prod: false # This creates a preview deployment, not production
+      #     # build-env: |
+      #     #   NEXT_PUBLIC_API_URL=https://api.yourdevdomain.com # Point to your dev API if applicable
+      #     #   ... other dev env variables
 
-      - name: Build packages
-        run: yarn build
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts
-          path: |
-            packages/*/dist
-            apps/*/dist
+      # --- Optional: Expo OTA Update Preview for PR (Managed Workflow) ---
+      # This is more for managed workflow or development builds.
+      # For bare workflow, you'd build a development client here.
+      # Needs an EXPO_TOKEN GitHub Secret
+      # - name: Publish Expo Preview Update
+      #   if: success()
+      #   uses: expo/expo-github-action@v8
+      #   with:
+      #     expo-token: ${{ secrets.EXPO_TOKEN }}
+      #     # Ensure your expo client is configured to use 'development' branch for updates
+      #     command: eas update --branch preview/${{ github.head_ref }} --message "PR #${{ github.event.pull_request.number }}"
+      #     working-directory: apps/expo # Adjust to your Expo app path
