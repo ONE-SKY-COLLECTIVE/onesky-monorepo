@@ -4,7 +4,12 @@ import icons from '@/lib/icons';
 import images from '@/lib/images';
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
+<<<<<<< HEAD
 import LottieView from 'lottie-react-native';
+=======
+import LottieView from "lottie-react-native";
+import React from "react";
+>>>>>>> refs/remotes/origin/develop
 import { useEffect, useRef, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -286,7 +291,101 @@ const Meal = () => {
                     >
                       <Text className="text-center">Collect your points</Text>
                     </TouchableOpacity>
+<<<<<<< HEAD
                   ) : (
+=======
+                </View>
+            )}
+            {!confirm && (remindMeMealLog || remindMe) && (
+                <>
+                    <View className='mt-8 mx-4'>
+                        <Text className="text-[20px] font-semibold sora py-5">Select the type of meal</Text>
+                    </View>
+                    <View className="flex-1 flex-col gap-4 m-4">
+                        {mealTypes.map((mealType) => (
+                            <Pressable
+                                key={mealType.id}
+                                onPress={() => handleMealSelect(mealType.id)}
+                                className={`meals-card ${selectedMealId !== mealType.id ? 'bg-white' : 'green-bg-50'}`}
+                            >
+                                <View className={`meals-radio ${selectedMealId !== mealType.id ? 'border border-[#E7E5E4]' : 'border-[2px] border-[#A1CE3F]'}`} />
+                                <Image resizeMode="contain" source={mealType.icon} className="size-[100px]"/>
+                                <Text className="text-sm font-semibold absolute bottom-3">{mealType.title}</Text>
+                            </Pressable>
+                        ))}
+                        <TouchableOpacity
+                            disabled={!selectedMealId}
+                            onPress={() => handleSubmit()}
+                            className={`w-full py-3 rounded-lg ${!selectedMealId ? "opacity-50 disabled-bg" : "green-bg-500"}`}
+                        >
+                            <Text className="text-center">Submit</Text>
+                        </TouchableOpacity>
+                    </View>
+                </>
+            )}
+
+            {confirm && (remindMeMealLog || remindMe) && (
+                <>
+                    <Image resizeMode="contain" source={selectedMealId ? mealImages[selectedMealId] : undefined} className="w-3/5 mx-auto"/>
+                    <View className='mx-auto w-10/12 -mt-12'>
+                        <Text className='text-center text-4xl'>{selectedMealId ? mealTypes.find(meal => meal.id === selectedMealId)?.title : undefined}</Text>
+                    </View>
+                    <View className='mx-auto w-10/12 mt-4'>
+                        <Text className='text-center text-xl'>{selectedMealId ? mealTypes.find(meal => meal.id === selectedMealId)?.description : undefined}</Text>
+                    </View>
+                    <View className={`${confirm ? "refill-div-confirm" : ""} refill-div `}>
+                        <View className="yellow-bg-500 rounded-[100px] p-3 text-[12px] fit-width self-start">
+                            <Text>+{totalMeals} {totalMeals === 1 ? 'log added today' : 'logs added today'}</Text>
+                        </View>
+                        <Text className="text-[20px] font-semibold sora py-5">
+                            {!confirm
+                                ? "How many bottles do you have"
+                                : totalMeals >= dailyGoal
+                                    ? "You're Amazing!"
+                                    : "Good job!"
+                            }
+                        </Text>
+                        <Text className="text-[14px] raleway">{totalMeals >= dailyGoal ? "Today's activity is complete!\nCome back tomorrow to keep saving the planet." : "Keep sharing your meal log"}</Text>
+                        {confirm &&
+                            <Image resizeMode="contain" source={icons.mealPlanet} className="absolute size-[100px] left-3/4 top-[20px]"/>
+                        }
+                        {!confirm ?
+                            <TouchableOpacity className={"w-full py-3 rounded-[8px] green-bg-500"}><Text className="text-center">Confirm meal log</Text></TouchableOpacity>
+                            :
+                            <View>
+                                {totalMeals >= dailyGoal ?
+                                    <TouchableOpacity onPress={() => setCollectPoints(true)} className="green-bg-500 rounded-[8px] py-3 mb-2 mt-8"><Text className="text-center">Collect your points</Text></TouchableOpacity>
+                                    :
+                                    <View>
+                                    <TouchableOpacity onPress={() => router.push("../(homepage)")} className="border-2 rounded-[8px] py-3 mb-2 mt-8"><Text className="text-center">Go to home</Text></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => handleAdditionalSubmit()} className="green-bg-500 w-full py-3 rounded-[8px] mt-2"><Text className="text-center">Submit another meal log</Text></TouchableOpacity>
+                                    </View>
+                                }
+                            </View>
+                        }
+                        <LottieView
+                            ref={confettiAnimationRef}
+                            source={require("@/assets/animations/ConfettiAnimation.json")}
+                            style={styles.confettiAnimation}
+                            autoPlay={true}
+                            loop={false}
+                        />
+                    </View>
+                </>
+            )}
+
+            {exitWithoutMealLog && (
+                <View className="refill-div">
+                    <View className="flex items-center">
+                        <Image resizeMode="contain" source={icons.warning} className="w-[40px] h-[40px]"/>
+                        <Text className="text-[20px] font-semibold sora py-5">
+                            Don&apos;t leave us!
+                        </Text>
+                    </View>
+                    <Text className="text-[14px] raleway w-half">Don’t leave us yet without logging your meal.</Text>
+                    <Image resizeMode="contain" source={icons.leave} className="absolute h-[100px] w-[100px] left-3/4 top-[20px]"/>
+
+>>>>>>> refs/remotes/origin/develop
                     <View>
                       <TouchableOpacity
                         onPress={() => router.replace('../(tabs)')}
