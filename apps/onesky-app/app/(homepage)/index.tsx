@@ -1,7 +1,6 @@
 import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ActivityBox from '../../components/ActivityBox';
-import NavBar from '../../components/NavBar';
 import { useState } from 'react';
 import images from '@/lib/images';
 import icons from '@/lib/icons';

@@ -6,8 +6,6 @@ import veganMeal from '../assets/images/vegan-meal.jpg';
 import vegetarianMeal from '../assets/images/vegetarian-meal.jpg';
 import flexitarianMeal from '../assets/images/flexitarian-meal.jpg';
 import plates from '../assets/images/plates.png';
-<<<<<<< HEAD
-=======
 import applianceStartedMain from '../assets/images/socket-with-charger 1.png';
 import applianceStarter1 from '../assets/images/Vector-app1.png';
 import applianceStarter2 from '../assets/images/Vector-app2.png';
@@ -18,7 +16,6 @@ import applianceTv from '../assets/images/tv-appl.png';
 import appliancePrinter from '../assets/images/printer-appl.png';
 import applianceJoystick from '../assets/images/joystick-appl.png';
 import applianceOven from '../assets/images/oven-appl1.png';
->>>>>>> refs/remotes/origin/develop
 
 const images = {
   onboarding1: onboarding1,
@@ -29,8 +26,6 @@ const images = {
   vegetarianMeal: vegetarianMeal,
   flexitarianMeal: flexitarianMeal,
   plates: plates,
-<<<<<<< HEAD
-=======
   applianceStartedMain: applianceStartedMain,
   applianceStarter1,
   applianceStarter2,
@@ -41,7 +36,6 @@ const images = {
   appliancePrinter,
   applianceJoystick,
   applianceOven,
->>>>>>> refs/remotes/origin/develop
 };
 
 export default images;

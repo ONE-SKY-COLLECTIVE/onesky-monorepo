@@ -5,6 +5,7 @@ import ActivityBox from '../../components/ActivityBox';
 import { useState } from 'react';
 import images from '@/lib/images';
 import icons from '@/lib/icons';
+import React from 'react';
 
 export default function Homepage() {
   const [contentSelect, setContentSelect] = useState(0);

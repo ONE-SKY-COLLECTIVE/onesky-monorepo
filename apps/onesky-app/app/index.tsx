@@ -5,6 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import Onboarding from './(onboarding)/index';
 import icons from '@/lib/icons';
 import Homepage from './(tabs)';
+import React from 'react';
 
 // import Homepage from "./pages/Homepage";
 
