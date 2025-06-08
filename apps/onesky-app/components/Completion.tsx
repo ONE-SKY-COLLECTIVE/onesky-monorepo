@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { TouchableOpacity, Text, View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '@/lib/icons';
+import React from 'react';
 const Completion = ({ points, activityName }: { points: number; activityName: string }) => {
   return (
     <SafeAreaView className=" pt-4 flex-v h-full green-bg-50" edges={['top']}>
