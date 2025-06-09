@@ -1,10 +1,12 @@
 import { Stack, useRouter } from 'expo-router';
-import { Text, TouchableOpacity, View, Image } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
 import { Dimensions } from 'react-native';
 import images from '../../lib/images';
 import icons from '../../lib/icons';
+import React from 'react';
+import { Image } from 'expo-image';
 
 const Onboarding = () => {
   const onboardingData = [
@@ -37,7 +39,7 @@ const Onboarding = () => {
 
   if (!currentStep) {
     // Fallback for invalid progress values
-    router.replace('../(tabs)');
+    router.replace('/(auth)/login');
     return null;
   }
 
@@ -45,7 +47,7 @@ const Onboarding = () => {
     if (onboardingProgress < 3) {
       setOnboardingProgress(onboardingProgress + 1);
     } else {
-      router.replace('../(tabs)');
+      router.replace('/(auth)/login');
     }
   };
 
