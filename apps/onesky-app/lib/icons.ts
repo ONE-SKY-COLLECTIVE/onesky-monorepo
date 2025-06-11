@@ -10,7 +10,7 @@ import dashboardIcon from "../assets/images/dashboard.png";
 import dashboardselectedIcon from "../assets/images/dashboard-selected.png";
 import bagIcon from "../assets/images/bag.png";
 import groupIcon from "../assets/images/group.png";
-import xbuttonIcon from "../assets/images/x-button.png";
+import xbuttonIcon from "../assets/images/x-button.svg";
 import quizIcon from "../assets/images/quiz2.png";
 import logMealIcon from "../assets/images/log-meal.png";
 import waterRefillIcon from "../assets/images/water-refill.png";
@@ -29,7 +29,7 @@ import vintedAppIcon from "../assets/images/vinted-app.png";
 import appleIcon from "../assets/images/apple.png";
 import profileIcon from "../assets/images/profile.png";
 import fireIcon from "../assets/images/fire.png";
-import diamondIcon from "../assets/images/diamond.png";
+import diamondIcon from "../assets/images/diamond.svg";
 import quizDoneIcon from "../assets/images/quiz-done.png";
 import incorrectIcon from "../assets/images/incorrect.png";
 import correctIcon from "../assets/images/correct.png";
@@ -47,15 +47,15 @@ import planetIcon from "../assets/images/planet.png";
 import arrowIcon from "../assets/images/arrow.png";
 import platesIcon from "../assets/images/plates.png";
 import mealPlanetIcon from "../assets/images/meal-planet.png";
-import shootingStarIcon from "../assets/images/shooting-star.png"
-import plasticPollutionIcon from "../assets/images/plastic-pollution.png";
-import singleUserPlasticIcon from "../assets/images/single-user-plastic.png";
-import climateChangeIcon from "../assets/images/climate-change.png";
-import circularEconomyIcon from "../assets/images/circular-economy.png";
-import sustainabilityIcon from "../assets/images/sustainability.png";
-import activeTravelIcon from "../assets/images/active-travel.png";
-import globalWarmingIcon from "../assets/images/global-warming.png";
-import beachCleaningIcon from "../assets/images/beach-cleaning.png";
+import shootingStarIcon from "../assets/images/shooting-star.svg"
+import plasticPollutionIcon from "../assets/images/plastic-pollution.svg";
+import singleUserPlasticIcon from "../assets/images/single-use-plastic.svg";
+import climateChangeIcon from "../assets/images/climate-change.svg";
+import circularEconomyIcon from "../assets/images/circular-economy.svg";
+import sustainabilityIcon from "../assets/images/sustainability.svg";
+import activeTravelIcon from "../assets/images/active-travel.svg";
+import globalWarmingIcon from "../assets/images/global-warming.svg";
+import beachCleaningIcon from "../assets/images/beach-cleaning.svg";
 
 
 

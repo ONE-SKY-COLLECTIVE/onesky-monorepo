@@ -1,29 +1,66 @@
 import { router } from "expo-router"
-import { TouchableOpacity, Text, View, Image } from "react-native"
+import { TouchableOpacity, Text, View, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import icons from "@/lib/icons";
+import { Image } from "expo-image";
 const Completion = ({points, activityName}: {points: number, activityName: string}) => {
+    // TODO: API to check user's total points, replace this
+    const userPoints = 12020;
     return (
-        <SafeAreaView className=" pt-4 flex-v h-full green-bg-50" edges={["top"]}>
-            <TouchableOpacity className="px-5" onPress={() => router.push("/(homepage)")}>
-                <Image resizeMode="contain" className="h-[40px] w-[40px]" source={icons.xbutton} />
-            </TouchableOpacity>
-            <View className="flex-v justify-center flex-grow pb-20">
-                <Text className="raleway text-[22px] font-bold text-center">
+        <SafeAreaView className="pt-4 flex-v h-full green-bg-50 px-5" edges={["top", "bottom"]}>
+            <View className="w-full items-end">
+                <View className="bg-white px-3 py-2 flex-row rounded-[18px] border-[.5px] items-center">
+                    <Image contentFit="contain" source={icons.diamond} style={style.diamond}/>
+                    <Text className="mx-1">{userPoints}</Text>
+                </View>
+            </View>
+
+            <View className="flex-v justify-between pb-20 items-center h-full">
+                <Text className="sora text-[34px] font-bold text-center w-3/4">
                     Yay, Congratulations!
                 </Text>
-                <Image resizeMode="contain" source={icons.quizDone} className="quiz-done"/>
-                <Text className="text-center mt-4 mb-8 gray-800">You have successfully completed {activityName}!</Text>
-                <View className="flex items-center justify-center">
-                    <Image className="diamond-large"source={icons.diamond}/>
-                    <Text className="raleway test-[16px] font-bold ml-2">{points} pts</Text>
+                <View>
+                    <Image contentFit="contain" source={icons.quizDone} style={style.quizDone}/>
+                    <Text className="text-center mt-8 mb-8 gray-800 text-[15px]">You have successfully completed {activityName}!</Text>
                 </View>
-                <Text className="gray-800 text-center mt-5">
-                {points} pts are on your way!!
-                </Text>
+                
+                <View className="flex-col items-center w-full">
+                    <View className="flex items-center justify-center">
+                        <Text className="text-[16px] font-semibold">You Earned</Text>
+                        <Image style={style.largeDiamond} source={icons.diamond}/>
+                        <Text className="text-[16px] font-semibold">{points} pts</Text>
+                    </View>
+                    
+                    <TouchableOpacity className="w-full py-4 mt-10 green-bg-500 rounded-[8px]" onPress={() => router.push("/(homepage)")}>
+                        <Text className="text-center">Back to Home</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
         </SafeAreaView>
     )
 }
 
 export default Completion;
+
+const style = StyleSheet.create({
+    xbutton: {
+        height: 32,
+        width: 32,
+    },
+    diamond: {
+        height: 20,
+        width: 20,
+    },
+    largeDiamond: {
+        height: 40,
+        width: 45,
+        marginInline: 5
+    },
+    quizDone: {
+        marginTop: 40,
+        width: 150,
+        height: 180,
+        alignSelf: 'center'
+    }
+})

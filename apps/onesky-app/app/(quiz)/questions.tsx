@@ -1,11 +1,12 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LottieView from "lottie-react-native";
 import ProgressBar from "@/components/Progressbar";
 import Completion from "@/components/Completion";
 import icons from "@/lib/icons";
+import { Image } from "expo-image";
 const Quiz = () => {
     const router = useRouter();
     const [quizProgression, setQuizProgression] = useState(1);
@@ -59,13 +60,13 @@ const Quiz = () => {
     // If every part of the quiz is done, display this page instead
     if (finished) {
         return (
-            <Completion points={50} activityName=""/>
+            <Completion points={answerCorrect ? 50 : 25} activityName="the quiz"/>
         )
     }
 
     return (
         <View className="bg-white">
-            <SafeAreaView className=" pt-4 flex-v h-full" edges={["top"]}>
+            <SafeAreaView className=" pt-4 flex-v h-full" edges={["top", "bottom"]}>
                 <ProgressBar progression={quizProgression} numProgressions={4} points={20} title={quizTopic as string}/>
                 {quizProgression !== 4 ? 
                 <View className="flex-col px-[20px] mt-[20px]">
@@ -78,7 +79,7 @@ const Quiz = () => {
                     </Text>
                 </View> 
                 : 
-                <View className="mt-[50px] px-5">
+                <View className="pt-[20px] px-5">
                     <Text className="text-[20px] font-bold">
                         {question1}
                     </Text>
@@ -98,13 +99,13 @@ const Quiz = () => {
                     </View>
                 </View>
 }
-                <SafeAreaView className={`h-[280px] mt-auto rounded-t-[36px] pt-5 ${bgClass}`} edges={['bottom']}>
+                <View className={`h-[300px] absolute bottom-0 z-[1000] w-full rounded-t-[36px] pt-5 pb-[15%] ${bgClass}`}>
                     <View className={`flex-v justify-end pt-5 px-5 h-full`}>
                         {answerCorrect !== undefined &&
                             <View className="flex mb-auto justify-between">
                                 <View className="flex-v">
                                     <View className="flex items-center">
-                                        {answerCorrect ?
+                                        {/* {answerCorrect ?
                                             <LottieView
                                                 ref={animationRef}
                                                 source={require("@/assets/animations/SuccessAnimation.json")}
@@ -112,43 +113,63 @@ const Quiz = () => {
                                                 loop={false}
                                             />
                                         :
-                                            <Image resizeMode="contain" className="mr-1" source={icons.incorrect} />
-                                        }
+                                            <Image contentFit="contain" className="mr-1" source={icons.incorrect} />
+                                        } */}
                                         <Text className="sora font-bold text-[20px]">
-                                            {answerCorrect ? "Correct" : "Oops!!"}
+                                            {answerCorrect ? "Nice Work!" : "Uh-oh!!"}
                                         </Text>
                                     </View>
-                                    <Text className="ml-3">
-                                        {answerCorrect ? "Good job" : "The correct answer is:"}
+                                    <Text className="w-[50vw] text-[15px] my-3">
+                                        {answerCorrect ? "You're on a roll!" : "Nice try! You still earned points 🎉"}
                                     </Text>
-                                    <Text className="ml-3">
-                                        {answerCorrect ? "keep it up!" : `Option ${rightAnswerIndex + 1}`}
+                                    <Text className="w-[50vw] text-[13px]">
+                                        {answerCorrect ? "Your knowledge helps save the planet" : `The correct answer is:`} <Text className="font-semibold"> {!answerCorrect && answers1[rightAnswerIndex]} </Text>
+                                    </Text>
+                                    <Text className="w-[50vw] text-[13px] my-2">
+                                        {answerCorrect && "Come back tomorrow to keep making a difference 🌍"}
                                     </Text>
                                 </View>
                                 {answerCorrect ?
                                 <Image
                                     source={answerCorrect ? icons.correctWorld : icons.incorrectWorld}
-                                    resizeMode="contain"
-                                    className="h-[120px] w-[138px]"
+                                    contentFit="contain"
+                                    style={style.correct}
                                 />
                                 :
                                 <Image
                                     source={answerCorrect ? icons.correctWorld : icons.incorrectWorld}
-                                    resizeMode="contain"
-                                    className="h-[120px] w-[147px]"
+                                    contentFit="contain"
+                                    style={style.incorrect}
                                 />
                             }
                             </View>
                         }
-                        <TouchableOpacity className="green-bg-500 w-full py-5 rounded-[8px] s" onPress={handleSubmitAnswer}>
-                            <Text className="text-center raleway text-[14px] font-semibold">{quizProgression !== 3 ? 'Continue' : 'Start the quiz'}</Text>
+                        <TouchableOpacity className="flex-row green-bg-500 w-full py-5 rounded-[8px] justify-center items-center" onPress={handleSubmitAnswer}>
+                            {answerCorrect || answerCorrect !== undefined && <Image contentFit="contain" source={icons.diamond} style={style.diamond}/>}
+                            <Text className="text-center raleway text-[14px] ">{answerCorrect ? 'Collect Points' : answerCorrect !== undefined ? "Got it, let's move on" : quizProgression !== 3 ? 'Continue' : 'Start the quiz'}</Text>
                         </TouchableOpacity>
                     </View>
-                </SafeAreaView>
+                </View>
             </SafeAreaView>
         </View>
     )
 }
 
-
 export default Quiz;
+
+const style = StyleSheet.create({
+    incorrect: {
+        height: 120,
+        width: 147,
+        marginRight: 2
+    },
+    correct: {
+        height: 120,
+        width: 138,
+    },
+    diamond: {
+        height: 20,
+        width: 20,
+        marginRight: 3,
+    }
+})
