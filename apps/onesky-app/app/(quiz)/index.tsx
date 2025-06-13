@@ -21,7 +21,7 @@ const Quiz = () => {
             <Header title="Quiz"/>
             <SafeAreaView className="" edges={["bottom"]}>
                 <View className="flex-col py-[24px] px-[20px]">
-                    <Text className="text-[20px] font-semibold raleway">Choose a topic that interests you to begin your learning journey</Text>
+                    <Text className="text-[20px] font-semibold">Choose a topic that interests you to begin your learning journey</Text>
                     <View className="flex-row items-center my-4">
                         <Image contentFit="contain" style={style.icon} source={icons.shootingStar} alt="shooting star"/>
                         <Text>Complete 1 quiz daily to earn 20 points</Text>

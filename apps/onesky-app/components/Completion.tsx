@@ -3,9 +3,17 @@ import { TouchableOpacity, Text, View, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import icons from "@/lib/icons";
 import { Image } from "expo-image";
+import { useEffect, useRef } from "react";
+import LottieView from "lottie-react-native";
 const Completion = ({points, activityName}: {points: number, activityName: string}) => {
     // TODO: API to check user's total points, replace this
     const userPoints = 12020;
+    const confettiAnimationRef = useRef<LottieView>(null);
+    useEffect(() => {
+        if (confettiAnimationRef.current) {
+            confettiAnimationRef.current.play(0, 110);
+        }
+    }, [])
     return (
         <SafeAreaView className="pt-4 flex-v h-full green-bg-50 px-5" edges={["top", "bottom"]}>
             <View className="w-full items-end">
@@ -21,6 +29,12 @@ const Completion = ({points, activityName}: {points: number, activityName: strin
                 </Text>
                 <View>
                     <Image contentFit="contain" source={icons.quizDone} style={style.quizDone}/>
+                    <LottieView
+                    ref={confettiAnimationRef}
+                    source={require("@/assets/animations/ConfettiAnimation.json")}
+                    style={style.confettiAnimation}
+                    autoPlay={false}
+                    loop={false}/>
                     <Text className="text-center mt-8 mb-8 gray-800 text-[15px]">You have successfully completed {activityName}!</Text>
                 </View>
                 
@@ -62,5 +76,15 @@ const style = StyleSheet.create({
         width: 150,
         height: 180,
         alignSelf: 'center'
+    },
+    confettiAnimation: {
+        height: 400,
+        width: '100%',
+        padding: 0,
+        margin: 0,
+        bottom: '-20%',
+        left: '-10%',
+        position: 'absolute',
+        zIndex: 100
     }
 })

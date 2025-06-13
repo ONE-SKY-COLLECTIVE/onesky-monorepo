@@ -7,7 +7,7 @@ import ProgressBar from "@/components/Progressbar";
 import Completion from "@/components/Completion";
 import icons from "@/lib/icons";
 import { Image } from "expo-image";
-const Quiz = () => {
+const Quiz: React.FC<{ testQuestion?: {question: string, answers: string[], rightAnswerIndex: number } }> = ({testQuestion}) => {
     const router = useRouter();
     const [quizProgression, setQuizProgression] = useState(1);
     const [userAnswer, setUserAnswer] = useState<number | undefined>(undefined);
@@ -16,9 +16,15 @@ const Quiz = () => {
     const { quizTopic } = useLocalSearchParams();
 
     // Temporary question and answer options, will take from API when available
-    const question1 = "How do synthetic clothes contribute to microplastics?"
-    const answers1 = ["They release fibres that enter waterways when washed", "They attract glitter from the air", "When they are exposed to sunlight", "If they are left in washing basket for too long"]
-    const rightAnswerIndex = 2;
+    let question = "How do synthetic clothes contribute to microplastics?"
+    let answers = ["They release fibres that enter waterways when washed", "They attract glitter from the air", "When they are exposed to sunlight", "If they are left in washing basket for too long"]
+    let rightAnswerIndex = 2;
+     if (testQuestion) {
+        question = testQuestion.question;
+        answers = testQuestion.answers;
+        rightAnswerIndex = testQuestion.rightAnswerIndex;
+    }
+
     const [answerCorrect, setAnswerCorrect] = useState<boolean | undefined>(undefined);
     const quizInformation = ["Synthetic fabrics like polyester release microfibres when washed.", "These microplastics go down the drain and often end up in waterways.", "Washing bags or filters can reduce the amount released."]
     // Submit/Next Question button
@@ -46,21 +52,10 @@ const Quiz = () => {
         ? "yellow-bg-300"
         : "";
 
-  useEffect(() => {
-    const playSuccess = () => {
-            if (animationRef.current) {
-                animationRef.current.play(50, 60);
-            }
-    };
-    if (answerCorrect === true) {
-        playSuccess();
-    };
-  }, [answerCorrect])
-
     // If every part of the quiz is done, display this page instead
     if (finished) {
         return (
-            <Completion points={answerCorrect ? 50 : 25} activityName="the quiz"/>
+            <Completion points={answerCorrect ? 20 : 10} activityName="the quiz"/>
         )
     }
 
@@ -81,10 +76,10 @@ const Quiz = () => {
                 : 
                 <View className="pt-[20px] px-5">
                     <Text className="text-[20px] font-bold">
-                        {question1}
+                        {question}
                     </Text>
                     <View className="mt-10">
-                        {answers1.map((option, index) => {return (
+                        {answers.map((option, index) => {return (
                             <Pressable
                                 key={index + 'answers'} className={`quiz-option ${userAnswer === index ? "text-[#81A532] bg-[#F6FAEC] border-[#A1CE3F]" : "border-[#e7e5e4]"}`}
                     
@@ -105,16 +100,6 @@ const Quiz = () => {
                             <View className="flex mb-auto justify-between">
                                 <View className="flex-v">
                                     <View className="flex items-center">
-                                        {/* {answerCorrect ?
-                                            <LottieView
-                                                ref={animationRef}
-                                                source={require("@/assets/animations/SuccessAnimation.json")}
-                                                style={{height: 50, width:40}}
-                                                loop={false}
-                                            />
-                                        :
-                                            <Image contentFit="contain" className="mr-1" source={icons.incorrect} />
-                                        } */}
                                         <Text className="sora font-bold text-[20px]">
                                             {answerCorrect ? "Nice Work!" : "Uh-oh!!"}
                                         </Text>
@@ -123,7 +108,7 @@ const Quiz = () => {
                                         {answerCorrect ? "You're on a roll!" : "Nice try! You still earned points 🎉"}
                                     </Text>
                                     <Text className="w-[50vw] text-[13px]">
-                                        {answerCorrect ? "Your knowledge helps save the planet" : `The correct answer is:`} <Text className="font-semibold"> {!answerCorrect && answers1[rightAnswerIndex]} </Text>
+                                        {answerCorrect ? "Your knowledge helps save the planet" : `The correct answer is:`} <Text className="font-semibold"> {!answerCorrect && answers[rightAnswerIndex]} </Text>
                                     </Text>
                                     <Text className="w-[50vw] text-[13px] my-2">
                                         {answerCorrect && "Come back tomorrow to keep making a difference 🌍"}
