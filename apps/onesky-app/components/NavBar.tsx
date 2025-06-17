@@ -15,38 +15,38 @@ const NavBar: React.FC<NavBarProps> = ({selectedPage}) => {
             <TouchableOpacity className="justify-center" onPress={() => {if (selected !== "Home") {setSelected("Home"); router.push('../pages/Homepage')}}}>
                 {selected === "Home" ? 
                     <View className="items-center">
-                        <Image className="navbar-images" source={icons.homeselected}/>
+                        <Image className="navbar-images" src={icons.homeselected}/>
                         <Text className="text-[10px] green-600 absolute navbar-text">Home</Text>
                     </View>
                 :
-                    <Image className="navbar-images" source={icons.home}/>
+                    <Image className="navbar-images" src={icons.home}/>
                 }
             </TouchableOpacity>
             
             <TouchableOpacity className="justify-center">
-                <Image source={icons.lightbulb}/>
+                <Image src={icons.lightbulb}/>
                 {/* <Text className="text-[10px] green-600">Challenges</Text> */}
             </TouchableOpacity>
             
             <TouchableOpacity className="justify-center" onPress={() => {if (selected !== "Dashboard") {setSelected("Dashboard"); router.push('../pages/Dashboard')}}}>
                 {selected === "Dashboard" ? 
                     <View className="items-center">
-                        <Image className="navbar-images" source={icons.dashboardselected}/>
+                        <Image className="navbar-images" src={icons.dashboardselected}/>
                         <Text className="text-[10px] green-600 absolute navbar-text">Dashboard</Text>
                     </View>
 
                 :
-                    <Image className="navbar-images" source={icons.dashboard}/>
+                    <Image className="navbar-images" src={icons.dashboard}/>
                 }
             </TouchableOpacity>
             
             <TouchableOpacity className="justify-center">
-                <Image source={icons.bag}/>
+                <Image src={icons.bag}/>
                 {/* <Text className="text-[10px] green-600">ECOmmerce</Text> */}
             </TouchableOpacity>
             
             <TouchableOpacity className="flex-v justify-center items-center">
-                <Image source={icons.group}/>
+                <Image src={icons.group}/>
                 {/* <Text className="text-[10px] green-600">Community</Text> */}
             </TouchableOpacity> 
         </View>

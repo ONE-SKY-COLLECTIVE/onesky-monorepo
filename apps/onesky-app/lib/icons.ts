@@ -60,11 +60,11 @@ import beachCleaningIcon from "../assets/images/beach-cleaning.svg";
 
 
 const icons = {
-  oneskylogo: oneskylogoIcon,
-  cloud1: cloud1Icon,
-  cloud2: cloud2Icon,
-  cloud3: cloud3Icon,
-  cloud4: cloud4Icon,
+  oneskylogo: require('../assets/images/oneskylogo.png'),
+  cloud1: require('../assets/images/cloud1.png'),
+  cloud2: require('../assets/images/cloud2.png'),
+  cloud3: require('../assets/images/cloud3.png'),
+  cloud4: require('../assets/images/cloud4.png'),
   home: homeIcon,
   homeselected: homeselectedIcon,
   lightbulb: lightbulbIcon,

@@ -4,15 +4,21 @@ import icons  from "@/lib/icons";
 import { Image } from "expo-image";
 
 interface ProgressBarProps {
-    progression: number;
-    numProgressions: number;
-    points: number;
-    utility?: () => void;
-    title?: string;
+  progression: number;
+  numProgressions: number;
+  points: number;
+  utility?: () => void;
+  title?: string;
 }
-const ProgressBar: React.FC<ProgressBarProps> = ({progression, points, numProgressions, utility, title}) => {
-    const router = useRouter();
-    const dotWidth = (100 / numProgressions) - 3
+const ProgressBar: React.FC<ProgressBarProps> = ({
+  progression,
+  points,
+  numProgressions,
+  utility,
+  title,
+}) => {
+  const router = useRouter();
+  const dotWidth = 100 / numProgressions - 3;
 
     return (
         <View className="flex-col px-5 pb-[20px]">

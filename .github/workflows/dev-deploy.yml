@@ -1,52 +1,124 @@
-name: Development Deployment
+# name: Deploy to Development Environments
 
-on:
-  push:
-    branches: [develop]
+# on:
+#   push:
+#     branches:
+#       - develop
 
-jobs:
-  deploy-dev:
-    name: Deploy to Development
-    runs-on: ubuntu-latest
-    environment: development
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'yarn'
+# env:
+#   # Define the base API URL for your development environment
+#   DEV_API_URL: https://api.your-dev-domain.com # <<< REPLACE WITH YOUR ACTUAL DEV API URL
+#   DEV_SUPABASE_PROJECT_ID: your-dev-supabase-project-id # <<< REPLACE
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+# jobs:
+#   deploy-nextjs:
+#     runs-on: ubuntu-latest
+#     environment: development # Associate with a GitHub Environment for better tracking/protection
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
 
-      - name: Build packages
-        run: yarn build
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '22'
+#           cache: 'yarn'
 
-      - name: Deploy to Development
-        env:
-          SUPABASE_URL: ${{ secrets.DEV_SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.DEV_SUPABASE_KEY }}
-          DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
-        run: |
-          # Add your development deployment commands here
-          echo "Deploying to development..."
+#       - name: Install Dependencies
+#         run: yarn install --frozen-lockfile
 
-          # Example: Deploy server
-          cd packages/server
-          yarn deploy:dev
+#       # Turborepo Cache (Optional but Recommended)
+#       - name: Turborepo Cache
+#         uses: actions/cache@v4
+#         with:
+#           path: .turbo
+#           key: ${{ runner.os }}-turbo-${{ github.sha }}
+#           restore-keys: |
+#             ${{ runner.os }}-turbo-
 
-          # Example: Deploy web app
-          cd ../../apps/web
-          yarn deploy:dev
+#       - name: Build Next.js App
+#         run: yarn build --filter=apps/nextjs # Builds only the Next.js app
+#         env:
+#           NEXT_PUBLIC_API_URL: ${{ env.DEV_API_URL }} # Pass the dev API URL to the build
+#           # Add other Next.js specific env vars (e.g., Supabase keys for Next.js server actions if used)
+#           # SUPABASE_URL: ${{ secrets.DEV_SUPABASE_URL }}
+#           # SUPABASE_ANON_KEY: ${{ secrets.DEV_SUPABASE_ANON_KEY }}
 
-      - name: Notify deployment status
-        if: always()
-        uses: slackapi/slack-github-action@v1.25.0
-        with:
-          channel-id: 'deployments-dev'
-          slack-message: |
-            Development deployment ${{ job.status }}!
-            Commit: ${{ github.sha }}
-            Author: ${{ github.actor }}
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#       - name: Deploy Next.js App to Development Vercel
+#         uses: vercel/actions/deploy@v2
+#         with:
+#           token: ${{ secrets.VERCEL_TOKEN }}
+#           teamId: ${{ secrets.VERCEL_ORG_ID }}
+#           projectId: ${{ secrets.VERCEL_NEXTJS_DEV_PROJECT_ID }} # Use a dedicated Dev project ID
+#           prod: false # This ensures it's a non-production deployment on Vercel
+#           # build-env: |
+#           #   NEXT_PUBLIC_API_URL=${{ env.DEV_API_URL }} # You can also pass env vars here if needed
+#           #   ...
+
+#   deploy-expo-dev-build:
+#     runs-on: ubuntu-latest
+#     environment: development
+#     needs: [deploy-nextjs] # Ensure Next.js is deployed first so API is ready
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '22'
+#           cache: 'yarn'
+
+#       - name: Install Dependencies
+#         run: yarn install --frozen-lockfile
+
+#       # Turborepo Cache (Optional but Recommended)
+#       - name: Turborepo Cache
+#         uses: actions/cache@v4
+#         with:
+#           path: .turbo
+#           key: ${{ runner.os }}-turbo-${{ github.sha }}
+#           restore-keys: |
+#             ${{ runner.os }}-turbo-
+
+#       - name: Run EAS Build for Development (iOS & Android)
+#         uses: expo/expo-github-action@v8
+#         with:
+#           expo-token: ${{ secrets.EXPO_TOKEN }}
+#           command: eas build --profile development --platform all # Use your 'development' profile
+#           working-directory: apps/expo # Adjust to your Expo app path
+
+#       - name: Output EAS Build URLs (for QA)
+#         run: |
+#           # This command will output the build URLs which can be shared with QA
+#           # You might need to parse the output of 'eas build' or 'eas build:list' to get exact links
+#           echo "EAS Development Build Triggered. Check Expo dashboard for links."
+
+#   run-supabase-migrations-dev:
+#     runs-on: ubuntu-latest
+#     environment: development
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
+
+#       - name: Setup Supabase CLI
+#         uses: supabase/setup-cli@v1
+#         with:
+#           version: latest # Or a specific version like '1.2.3'
+
+#       - name: Set Supabase Access Token
+#         run: supabase login --access-token ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+#       - name: Link to Development Supabase Project
+#         run: supabase link --project-ref ${{ env.DEV_SUPABASE_PROJECT_ID }} --org-id ${{ secrets.SUPABASE_ORG_ID }}
+#         working-directory: packages/api/supabase # Adjust path to your migrations folder
+
+#       - name: Apply Development Database Migrations
+#         # Use 'db push' for development, as it applies changes directly.
+#         # For production, you'd use 'db diff' first or a more cautious approach.
+#         run: supabase db push
+#         working-directory: packages/api/supabase # Adjust path to your migrations folder
+#         env:
+#           # Ensure you pass your dev database password/connection string as needed
+#           # You might need these if not using the access token method or if your migrations require it
+#           PGPASSWORD: ${{ secrets.DEV_SUPABASE_DB_PASSWORD }} # Example if your setup needs it
