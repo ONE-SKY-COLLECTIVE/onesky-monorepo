@@ -2,10 +2,9 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ActivityBox from '../../components/ActivityBox';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import images from '@/lib/images';
 import icons from '@/lib/icons';
-import React from 'react';
 
 export default function Homepage() {
   const [contentSelect, setContentSelect] = useState(0);

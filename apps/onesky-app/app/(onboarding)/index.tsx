@@ -1,11 +1,9 @@
 import { Stack, useRouter } from 'expo-router';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View , Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState } from 'react';
-import { Dimensions } from 'react-native';
+import React, { useState } from 'react';
 import images from '../../lib/images';
 import icons from '../../lib/icons';
-import React from 'react';
 import { Image } from 'expo-image';
 
 const Onboarding = () => {
