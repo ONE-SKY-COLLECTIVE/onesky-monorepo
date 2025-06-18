@@ -15,7 +15,6 @@ export default function Homepage() {
     { id: '(waterbottle)', title: 'Water refill', inactive: false },
     { id: '(meal)', title: 'Log your meal', inactive: false },
     { id: '(appliance)', title: 'Switch-off', inactive: false },
-    // { id: '4', title: 'Steps', inactive: true },
     { id: '(activities)', title: 'View more...', inactive: false },
   ];
   const events = [

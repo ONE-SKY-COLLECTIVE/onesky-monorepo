@@ -35,7 +35,7 @@ const Quiz: React.FC<{ testQuestion?: {question: string, answers: string[], righ
             setQuizProgression(quizProgression + 1)
         } else {
         // Submit route
-            if (userAnswer || userAnswer === 0) {
+            if (userAnswer !== undefined) {
                 if (rightAnswerIndex === userAnswer) {
                     setAnswerCorrect(true);
                 } else {

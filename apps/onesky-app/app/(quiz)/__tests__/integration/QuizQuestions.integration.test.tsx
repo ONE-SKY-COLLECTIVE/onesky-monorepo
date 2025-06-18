@@ -31,8 +31,11 @@ describe("Quiz Integration Test", () => {
     const button = getByText(/Continue/i);
 
     fireEvent.press(button);
+    await waitFor(() => expect(button.toBeTruthy()));
     fireEvent.press(button);
+    await waitFor(() => expect(button.toBeTruthy()));
     fireEvent.press(button);
+
 
 
     // Select correct answer
@@ -62,7 +65,9 @@ describe("Quiz Integration Test", () => {
     const button = getByText(/Continue/i);
 
     fireEvent.press(button);
+    await waitFor(() => expect(button.toBeTruthy()));
     fireEvent.press(button);
+    await waitFor(() => expect(button.toBeTruthy()));
     fireEvent.press(button);
 
     // Select wrong answer
