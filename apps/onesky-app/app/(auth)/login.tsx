@@ -8,7 +8,6 @@ import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import icons from '@/lib/authIcons';
 
-
 // ✅ Define form fields interface
 interface FormData {
   email: string;
@@ -39,14 +38,14 @@ export default function ExpoForm() {
 
   const onSubmit = (data: FormData): void => {
     console.log('Form Data:', data);
-      alert('Form submitted successfully!');
-      router.replace('/(tabs)')
+    alert('Form submitted successfully!');
+    router.replace('/(tabs)');
   };
 
   // ✅ Handles OAuth login
   const handleOAuthSignIn = (provider: string) => {
-      alert(`You have signed in with ${provider}`);
-      router.replace('/(tabs)');
+    alert(`You have signed in with ${provider}`);
+    router.replace('/(tabs)');
   };
 
   // ✅ Form Fields Configuration

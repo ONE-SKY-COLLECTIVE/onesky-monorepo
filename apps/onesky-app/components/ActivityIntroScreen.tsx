@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Checkbox from 'expo-checkbox';
 import { useRouter } from 'expo-router';
-import { activityStarterStyles , MapitemType } from '../constants/AppliancesData';
+import { activityStarterStyles, MapitemType } from '../constants/AppliancesData';
 import icons from '@/lib/icons';
 import images from '@/lib/images';
 

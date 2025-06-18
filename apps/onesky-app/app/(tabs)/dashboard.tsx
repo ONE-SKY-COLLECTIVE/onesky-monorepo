@@ -4,10 +4,7 @@ import icons from '@/lib/icons';
 import { Redirect, useRouter } from 'expo-router';
 
 const dashboard = () => {
-  return (
-   <Redirect href={'/(auth)/login'}/>
-  );
+  return <Redirect href={'/(auth)/login'} />;
 };
 
 export default dashboard;
-
