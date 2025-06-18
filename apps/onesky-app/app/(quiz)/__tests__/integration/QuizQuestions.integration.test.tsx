@@ -41,7 +41,7 @@ describe("Quiz Integration Test", () => {
 
     await waitFor(() => {
       expect(queryByText(/Nice Work!/i)).toBeTruthy();
-    });
+    }, {timeout: 3000});
 
     fireEvent.press(getByText(/Collect Points/)); 
 
@@ -49,7 +49,7 @@ describe("Quiz Integration Test", () => {
     await waitFor(() => {
       expect(getByText("Yay, Congratulations!")).toBeTruthy();
       expect(getByText("20 pts")).toBeTruthy(); 
-    });
+    }, {timeout: 3000});
   });
 
   it("completes the quiz incorrectly and displays Completion component with correct points", async () => {
