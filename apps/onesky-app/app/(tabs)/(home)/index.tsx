@@ -1,6 +1,7 @@
-import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ActivityBox from '../../components/ActivityBox';
+import ActivityBox from '../../../components/ActivityBox';
+
 import React, { useState } from 'react';
 import images from '@/lib/images';
 import icons from '@/lib/icons';
@@ -12,7 +13,7 @@ export default function Homepage() {
     { id: '(quiz)', title: 'Quiz', inactive: false },
     { id: '(waterbottle)', title: 'Water refill', inactive: false },
     { id: '(meal)', title: 'Log your meal', inactive: false },
-    { id: '(appliance)', title: 'Switch-off', inactive: false },
+    // { id: '3', title: 'View to plant', inactive: true },
     // { id: '4', title: 'Steps', inactive: true },
     { id: '(activities)', title: 'View more...', inactive: false },
   ];
@@ -45,12 +46,12 @@ export default function Homepage() {
         <View className="flex-v h-full">
           <Image className="absolute top-[130px] w-full" source={images.homebackground} />
           <View className="flex justify-between mx-8">
-            <Image resizeMode="contain" source={icons.profile} />
+            <Image contentFit="contain" source={icons.profile} />
             <View className="flex items-center">
-              <Image resizeMode="contain" className="h-[26px] w-[25px]" source={icons.fire} />
+              <Image contentFit="contain" className="h-[26px] w-[25px]" source={icons.fire} />
               <Text className="font-bold ml-1">{streak}</Text>
               <Image
-                resizeMode="contain"
+                contentFit="contain"
                 className="h-[25px] w-[25px] ml-4"
                 source={icons.diamond}
               />
@@ -69,7 +70,7 @@ export default function Homepage() {
                 style={{ backgroundColor: contentSelect === 0 ? '#A1CE3F' : undefined }}
               >
                 <Text className={`text-[14px] ${contentSelect === 0 && 'font-semibold'}`}>
-                  Today&apos;s Activities
+                  Today's Activities
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -117,7 +118,6 @@ export default function Homepage() {
               )}
             </View>
           </View>
-          <NavBar selectedPage="Home" />
         </View>
       </SafeAreaView>
     </View>

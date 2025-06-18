@@ -4,7 +4,7 @@ import { Animated, Dimensions, Easing, Image, Text, View } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import Onboarding from './(onboarding)/index';
 import icons from '@/lib/icons';
-import Homepage from './(tabs)';
+import Homepage from './(tabs)/(home)';
 
 // import Homepage from "./pages/Homepage";
 
