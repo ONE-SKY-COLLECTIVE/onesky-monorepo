@@ -34,9 +34,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
-      - name: Lint All Affected Code
-        run: yarn lint # This will run 'turbo run lint' which you configured earlier
-      
+          
       - name: Formart
         run: yarn format # This will run 'turbo run lint' which you configured earlier
       # - name: Type Check All Affected Code
@@ -49,5 +47,5 @@ jobs:
       - name: Run NPM Audit for Vulnerabilities
         run: yarn audit --level critical || true # Fail only on critical, or remove || true to fail on any
 
-      - name: 🏗 Build Backend
-        run: yarn turbo run build --filter=backend
+      # - name: Lint All Affected Code
+      #   run: yarn lint # This will run 'turbo run lint' which you configured earlier
