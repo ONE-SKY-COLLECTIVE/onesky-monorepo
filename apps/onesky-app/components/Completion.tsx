@@ -25,7 +25,8 @@ const Completion = ({points, activityName}: {points: number, activityName: strin
 
             <View className="flex-v justify-between pb-20 items-center h-full">
                 <Text className="sora text-[34px] font-bold text-center w-3/4">
-                    Yay, Congratulations!
+                    Yay,
+                     Congratulations!
                 </Text>
                 <View>
                     <Image contentFit="contain" source={icons.quizDone} style={style.quizDone}/>
