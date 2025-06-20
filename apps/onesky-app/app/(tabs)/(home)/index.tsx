@@ -44,17 +44,13 @@ export default function Homepage() {
     <View className="home-page">
       <SafeAreaView edges={['top']}>
         <View className="flex-v h-full">
-          <Image className="absolute top-[130px] w-full" source={images.homebackground} />
+          <Image className="absolute top-[130px] w-full" src={images.homebackground} />
           <View className="flex justify-between mx-8">
-            <Image contentFit="contain" source={icons.profile} />
+            <Image resizeMode="contain" src={icons.profile} />
             <View className="flex items-center">
-              <Image contentFit="contain" className="h-[26px] w-[25px]" source={icons.fire} />
+              <Image resizeMode="contain" className="h-[26px] w-[25px]" src={icons.fire} />
               <Text className="font-bold ml-1">{streak}</Text>
-              <Image
-                contentFit="contain"
-                className="h-[25px] w-[25px] ml-4"
-                source={icons.diamond}
-              />
+              <Image resizeMode="contain" className="h-[25px] w-[25px] ml-4" src={icons.diamond} />
               <Text className="font-bold ml-1">{points}</Text>
             </View>
           </View>

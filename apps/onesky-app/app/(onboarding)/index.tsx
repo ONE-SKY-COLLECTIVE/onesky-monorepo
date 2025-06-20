@@ -57,8 +57,8 @@ const Onboarding = () => {
         <Image
           resizeMode="contain"
           source={currentStep.image}
-          className="absolute top-[-80px]"
-          style={{ width: width, height: height }}
+          className="absolute"
+          style={{ width: width, height: height, bottom: 80 }}
         />
         <View className="h-[30vh] grow white-bg w-full rounded-tr-[36px] rounded-tl-[36px] p-10 flex-v items-cente absolute bottom-0">
           <Text className="text-[22px] my-3 font-semibold text-center">{currentStep.title}</Text>
