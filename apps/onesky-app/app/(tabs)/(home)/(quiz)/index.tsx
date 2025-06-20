@@ -13,7 +13,6 @@ const Quiz = () => {
   useEffect(() => {
     const loadTopics = async () => {
       const response = await getQuizTopics();
-      //   const data = await response.json();
       setTopics(response);
     };
 

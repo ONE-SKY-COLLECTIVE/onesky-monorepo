@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import Quiz from '@/app/(quiz)/questions'; // Adjust to your actual file path
+import Quiz from '@/app/(quiz)/questions';
 import { router } from 'expo-router';
 
 // Mock the router

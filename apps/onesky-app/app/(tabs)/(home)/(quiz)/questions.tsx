@@ -7,37 +7,38 @@ import ProgressBar from '@/components/Progressbar';
 import Completion from '@/components/Completion';
 import icons from '@/lib/icons';
 import { Image } from 'expo-image';
+import { getTopicInformation } from '@/api/getTopicInformation';
 const Quiz: React.FC<{
   testQuestion?: { question: string; answers: string[]; rightAnswerIndex: number };
 }> = ({ testQuestion }) => {
-  const router = useRouter();
   const [quizProgression, setQuizProgression] = useState(1);
   const [userAnswer, setUserAnswer] = useState<number | undefined>(undefined);
-  const animationRef = useRef<LottieView>(null);
   const [finished, setFinished] = useState(false);
   const { quizTopic } = useLocalSearchParams();
-
-  // Temporary question and answer options, will take from API when available
-  let question = 'How do synthetic clothes contribute to microplastics?';
-  let answers = [
-    'They release fibres that enter waterways when washed',
-    'They attract glitter from the air',
-    'When they are exposed to sunlight',
-    'If they are left in washing basket for too long',
-  ];
-  let rightAnswerIndex = 2;
-  if (testQuestion) {
-    question = testQuestion.question;
-    answers = testQuestion.answers;
-    rightAnswerIndex = testQuestion.rightAnswerIndex;
-  }
-
+  const [quizContext, setQuizContext] = useState<String[]>([]);
   const [answerCorrect, setAnswerCorrect] = useState<boolean | undefined>(undefined);
-  const quizInformation = [
-    'Synthetic fabrics like polyester release microfibres when washed.',
-    'These microplastics go down the drain and often end up in waterways.',
-    'Washing bags or filters can reduce the amount released.',
-  ];
+  const [question, setQuestion] = useState("");
+  const [answers, setAnswers] = useState<String[]>([])
+  const [rightAnswerIndex, setRightAnswerIndex] = useState<number>(0);
+
+  useEffect(() => {
+    const loadTopics = async () => {
+      const response = await getTopicInformation();
+      //   const data = await response.json();
+      setQuizContext(response.quizContext);
+      setQuestion(response.question);
+      setAnswers(response.answers);
+      setRightAnswerIndex(response.rightAnswerIndex);
+    };
+
+    loadTopics();
+  },[])
+
+  if (testQuestion) {
+    setQuestion(testQuestion.question);
+    setAnswers(testQuestion.answers);
+    setRightAnswerIndex(testQuestion.rightAnswerIndex);
+  }
   // Submit/Next Question button
   const handleSubmitAnswer = () => {
     if (answerCorrect !== undefined) {
@@ -84,7 +85,7 @@ const Quiz: React.FC<{
               </Text>
             </View>
             <Text className="text-[17px] text-[#171717] mt-[27vh]">
-              {quizInformation[quizProgression - 1]}
+              {quizContext[quizProgression - 1]}
             </Text>
           </View>
         ) : (
