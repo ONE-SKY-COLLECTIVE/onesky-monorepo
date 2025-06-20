@@ -25,6 +25,15 @@
     "node": ">=22"
   },
   "name": "with-react-native-web",
-  "packageManager": "yarn@1.22.19"
-  
+  "packageManager": "yarn@1.22.19",
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "jest --bail --findRelatedTests"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
 }

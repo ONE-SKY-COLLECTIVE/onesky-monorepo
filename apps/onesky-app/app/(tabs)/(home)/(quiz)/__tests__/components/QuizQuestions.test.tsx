@@ -1,23 +1,22 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react-native";
-import QuizQuestions from "../../questions";  
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react-native';
+import QuizQuestions from '../../questions';
 
-jest.mock("expo-router", () => ({
+jest.mock('expo-router', () => ({
   useRouter: () => ({
     push: jest.fn(),
   }),
   useLocalSearchParams: () => ({
-    quizTopic: "Environment",
+    quizTopic: 'Environment',
   }),
 }));
 
-jest.mock("expo-image", () => ({
-    Image: () => null,
-  }));
-  
+jest.mock('expo-image', () => ({
+  Image: () => null,
+}));
 
-describe("Quiz Component - Static and Dynamic Rendering", () => {
-  it("renders the quiz welcome message with quizTopic", () => {
+describe('Quiz Component - Static and Dynamic Rendering', () => {
+  it('renders the quiz welcome message with quizTopic', () => {
     render(<QuizQuestions />);
 
     // Dynamic text check
@@ -36,12 +35,11 @@ describe("Quiz Component - Static and Dynamic Rendering", () => {
     // Setting quiz progression to 2
     fireEvent.press(button);
 
-    expect(queryByText(/Start the quiz/i)).toBeNull()
+    expect(queryByText(/Start the quiz/i)).toBeNull();
     expect(getByText(/Continue/i)).toBeTruthy();
-  })
+  });
 
-
-  it("renders different button text when quiz progression is 3", () => {
+  it('renders different button text when quiz progression is 3', () => {
     const { getByText, queryByText } = render(<QuizQuestions />);
     const button = getByText(/Continue/i);
 
@@ -49,8 +47,7 @@ describe("Quiz Component - Static and Dynamic Rendering", () => {
     fireEvent.press(button);
     fireEvent.press(button);
 
-    expect(queryByText(/Continue/i)).toBeNull()
+    expect(queryByText(/Continue/i)).toBeNull();
     expect(getByText(/Start the quiz/i)).toBeTruthy();
-  })
-
+  });
 });
