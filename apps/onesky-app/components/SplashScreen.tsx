@@ -1,8 +1,7 @@
 import icons from '@/lib/icons';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import React from 'react';
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Dimensions, Animated, Easing, View } from 'react-native';
 
 export const SplashScreen = () => {

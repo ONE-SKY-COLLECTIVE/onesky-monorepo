@@ -16,7 +16,6 @@ import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import icons from '@/lib/authIcons';
 
-
 // ✅ Define form fields interface
 interface FormData {
   name: string;

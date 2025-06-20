@@ -5,7 +5,6 @@ import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import icons from '@/lib/authIcons';
 
-
 export default function Email() {
   return (
     <SafeAreaView className="flex-1 place-content-center items-center justify-center bg-white">
@@ -22,10 +21,7 @@ export default function Email() {
           email to continue.
         </Text>
       </View>
-      <Link
-        className="mt-10 w-[80%] rounded-lg bg-[var(--bright-lime)] p-4"
-        href={'/(auth)/login'}
-      >
+      <Link className="mt-10 w-[80%] rounded-lg bg-[var(--bright-lime)] p-4" href={'/(auth)/login'}>
         <Text className="p-4 text-center">Go to login</Text>
       </Link>
     </SafeAreaView>

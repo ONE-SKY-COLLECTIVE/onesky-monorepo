@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Redirect, useRouter } from 'expo-router';
 import { Animated, Dimensions, Easing, Image, Text, View } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import Onboarding from './(onboarding)/index';
 import icons from '@/lib/icons';
-import Homepage from './(tabs)';
-import React from 'react';
+import Homepage from './(tabs)/(home)';
 
 // import Homepage from "./pages/Homepage";
 
@@ -106,7 +105,7 @@ export default function Index() {
     const initialize = async () => {
       // Include this line of code to see how a first-time user will see the onboarding
       // await SecureStore.deleteItemAsync("hasLaunched");
-      await new Promise((res) => setTimeout(res, 8000));
+      await new Promise(res => setTimeout(res, 8000));
 
       // const launchStatus = await SecureStore.getItemAsync("hasLaunched");
       // if (launchStatus === null) {

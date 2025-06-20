@@ -12,7 +12,7 @@ const NavBar: React.FC<NavBarProps> = ({selectedPage}) => {
     const [selected, setSelected] = useState(selectedPage);
     return (
         <View className="navbar">
-            <TouchableOpacity className="justify-center" onPress={() => {if (selected !== "Home") {setSelected("Home"); router.push('/(homepage)')}}}>
+            <TouchableOpacity className="justify-center" onPress={() => {if (selected !== "Home") {setSelected("Home"); router.push("/(tabs)/(home)")}}}>
                 {selected === "Home" ? 
                     <View className="items-center">
                         <Image className="navbar-images" source={icons.homeselected} style={style.icon}/>
