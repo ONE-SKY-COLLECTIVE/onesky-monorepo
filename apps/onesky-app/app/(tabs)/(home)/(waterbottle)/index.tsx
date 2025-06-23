@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Pressable, Image } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useRouter } from 'expo-router';
@@ -6,7 +6,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ProgressBar from '@/components/Progressbar';
 import Completion from '@/components/Completion';
 import icons from '@/lib/icons';
-import React from 'react';
 
 const Waterbottle = () => {
   const refillAnimationRef = useRef<LottieView>(null);

@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  Image,
-  ImageSourcePropType,
-  Pressable,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -24,6 +21,7 @@ import images from '@/lib/images';
 import icons from '@/lib/icons';
 import ActivityIntroScreen from '@/components/ActivityIntroScreen';
 import LottieView from 'lottie-react-native';
+import { Image } from 'expo-image';
 
 const Appliance = () => {
   const router = useRouter();
@@ -298,7 +296,7 @@ const Appliance = () => {
 
               <View>
                 <TouchableOpacity
-                  onPress={() => router.push('/(homepage)')}
+                  onPress={() => router.push('/(tabs)/(home)')}
                   className="border-2 rounded-[8px] py-3 mb-2 mt-8"
                 >
                   <Text className="text-center">Quit</Text>
