@@ -1,14 +1,13 @@
-import { useRouter } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LottieView from 'lottie-react-native';
 import ProgressBar from '@/components/Progressbar';
 import Completion from '@/components/Completion';
 import icons from '@/lib/icons';
+import { Image } from 'expo-image';
 
 const Quiz = () => {
-  const router = useRouter();
   const [quizProgression, setQuizProgression] = useState(1);
   const [userAnswer, setUserAnswer] = useState<number | undefined>(undefined);
   const animationRef = useRef<LottieView>(null);
@@ -100,7 +99,7 @@ const Quiz = () => {
                         loop={false}
                       />
                     ) : (
-                      <Image resizeMode="contain" className="mr-1" source={icons.incorrect} />
+                      <Image contentFit="contain" className="mr-1" source={icons.incorrect} />
                     )}
                     <Text className="sora font-bold text-[20px]">
                       {answerCorrect ? 'Correct' : 'Oops!!'}
@@ -116,13 +115,13 @@ const Quiz = () => {
                 {answerCorrect ? (
                   <Image
                     source={answerCorrect ? icons.correctWorld : icons.incorrectWorld}
-                    resizeMode="contain"
+                    contentFit="contain"
                     className="h-[120px] w-[138px]"
                   />
                 ) : (
                   <Image
                     source={answerCorrect ? icons.correctWorld : icons.incorrectWorld}
-                    resizeMode="contain"
+                    contentFit="contain"
                     className="h-[120px] w-[147px]"
                   />
                 )}

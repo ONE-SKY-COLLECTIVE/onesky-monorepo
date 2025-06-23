@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Checkbox } from 'expo-checkbox';
 import * as SecureStore from 'expo-secure-store';
@@ -94,7 +89,7 @@ const Appliance = () => {
       ownedAppliances.filter(item => selectedOwnedAppliances[item.id] === true).length
     );
     setPoints(ownedAppliances.filter(item => selectedOwnedAppliances[item.id] === true).length * 2);
-  }, [selectedOwnedAppliances]);
+  }, [selectedOwnedAppliances, ownedAppliances]);
 
   useEffect(() => {
     setProgressBarLength(ownedAppliances.length);
