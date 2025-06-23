@@ -70,7 +70,7 @@ export default function Homepage() {
                 style={{ backgroundColor: contentSelect === 0 ? '#A1CE3F' : undefined }}
               >
                 <Text className={`text-[14px] ${contentSelect === 0 && 'font-semibold'}`}>
-                  Today's Activities
+                  Today&apos;s Activities
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity

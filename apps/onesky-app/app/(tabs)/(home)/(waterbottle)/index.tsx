@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, Pressable, Image } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProgressBar from '@/components/Progressbar';
 import Completion from '@/components/Completion';
 import icons from '@/lib/icons';
+import { Image } from 'expo-image';
 
 const Waterbottle = () => {
   const refillAnimationRef = useRef<LottieView>(null);
@@ -21,7 +22,7 @@ const Waterbottle = () => {
   // TODO: When integrated with backend, take this from API
   const dailyGoal = 7;
   // TODO: When integrated with backend, must know when user has completed the activity
-  const [fulfilled, setFulfilled] = useState(false);
+  // const [fulfilled, setFulfilled] = useState(false);
 
   const handleRefillConfirm = () => {
     setTotalRefills(totalRefills + refillNum);
@@ -106,7 +107,7 @@ const Waterbottle = () => {
             </Text>
             {confirm && totalRefills < dailyGoal && (
               <Image
-                resizeMode="contain"
+                contentFit="contain"
                 source={icons.refillConfirm}
                 className="absolute h-[100px] w-[100px] left-3/4 top-[20px]"
               />
@@ -170,14 +171,14 @@ const Waterbottle = () => {
         ) : (
           <View className="refill-div">
             <View className="flex items-center">
-              <Image resizeMode="contain" source={icons.warning} className="w-[40px] h-[40px]" />
-              <Text className="text-[20px] font-semibold sora py-5">Don't leave us!</Text>
+              <Image contentFit="contain" source={icons.warning} className="w-[40px] h-[40px]" />
+              <Text className="text-[20px] font-semibold sora py-5">Don&apos;t leave us!</Text>
             </View>
             <Text className="text-[14px] raleway w-half">
               Don’t leave us yet without refilling your bottle.
             </Text>
             <Image
-              resizeMode="contain"
+              contentFit="contain"
               source={icons.leave}
               className="absolute h-[100px] w-[100px] left-3/4 top-[20px]"
             />

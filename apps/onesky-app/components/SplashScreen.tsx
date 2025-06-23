@@ -1,11 +1,9 @@
 import icons from '@/lib/icons';
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
 import React, { useRef, useEffect } from 'react';
 import { Dimensions, Animated, Easing, View } from 'react-native';
 
 export const SplashScreen = () => {
-  const router = useRouter();
   const { width } = Dimensions.get('window');
   const cloudPosition = useRef(new Animated.Value(width)).current;
   const cloudPosition2 = useRef(new Animated.Value(width)).current;
@@ -63,7 +61,7 @@ export const SplashScreen = () => {
     setTimeout(() => {
       animateCloudOthers();
     }, 2000);
-  }, []);
+  }, [cloudPosition, cloudPosition2, cloudPosition3, cloudPosition4, fadeAnim, width]);
 
   return (
     <View className="h-full w-full blue-bg-300 p-4">
