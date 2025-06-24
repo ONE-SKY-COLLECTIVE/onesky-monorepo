@@ -1,6 +1,6 @@
-import icons from '@/lib/icons';
+import React from "react";
 
-export async function getTopicInformation() {
+const getTopicInformation = (quizTopic: string) => {
   return {
     question: 'How do synthetic clothes contribute to microplastics?',
     answers: [
@@ -17,3 +17,5 @@ export async function getTopicInformation() {
       ]
   };
 }
+
+export default getTopicInformation;

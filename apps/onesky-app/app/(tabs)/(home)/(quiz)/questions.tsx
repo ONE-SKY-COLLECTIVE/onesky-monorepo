@@ -2,12 +2,11 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import LottieView from 'lottie-react-native';
 import ProgressBar from '@/components/Progressbar';
 import Completion from '@/components/Completion';
 import icons from '@/lib/icons';
 import { Image } from 'expo-image';
-import { getTopicInformation } from '@/api/getTopicInformation';
+import getTopicInformation from '@/api/getTopicInformation';
 const Quiz: React.FC<{
   testQuestion?: { question: string; answers: string[]; rightAnswerIndex: number };
 }> = ({ testQuestion }) => {
@@ -22,9 +21,8 @@ const Quiz: React.FC<{
   const [rightAnswerIndex, setRightAnswerIndex] = useState<number>(0);
 
   useEffect(() => {
-    const loadTopics = async () => {
-      const response = await getTopicInformation();
-      //   const data = await response.json();
+    const loadTopics = () => {
+      const response = getTopicInformation(quizTopic as string);
       setQuizContext(response.quizContext);
       setQuestion(response.question);
       setAnswers(response.answers);

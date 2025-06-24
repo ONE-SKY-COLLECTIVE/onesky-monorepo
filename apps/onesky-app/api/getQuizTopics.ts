@@ -6,7 +6,7 @@ export async function getQuizTopics() {
     'Single User Plastic': icons.singleUserPlastic,
     'Climate Change': icons.climateChange,
     'Circular Economy': icons.circularEconomy,
-    Sustainability: icons.sustainability,
+    'Sustainability': icons.sustainability,
     'Active Travel': icons.activeTravel,
     'Global Warming': icons.globalWarming,
     'Beach Cleaning': icons.beachCleaning,

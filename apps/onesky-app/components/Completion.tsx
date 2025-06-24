@@ -3,16 +3,18 @@ import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '@/lib/icons';
 import { Image } from 'expo-image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import LottieView from 'lottie-react-native';
+import getUserPoints from '@/api/getUserPoints';
 const Completion = ({ points, activityName }: { points: number; activityName: string }) => {
-  // TODO: API to check user's total points, replace this
-  const userPoints = 12020;
+  const [userPoints, setUserPoints] = useState(0);
   const confettiAnimationRef = useRef<LottieView>(null);
   useEffect(() => {
     if (confettiAnimationRef.current) {
       confettiAnimationRef.current.play(0, 110);
     }
+    const response = getUserPoints();
+    setUserPoints(response.userPoints);
   }, []);
   return (
     <SafeAreaView className="pt-4 flex-v h-full green-bg-50 px-5" edges={['top', 'bottom']}>
