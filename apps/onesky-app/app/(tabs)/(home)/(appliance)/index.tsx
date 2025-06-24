@@ -1,13 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  Image,
-  ImageSourcePropType,
-  Pressable,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Checkbox } from 'expo-checkbox';
 import * as SecureStore from 'expo-secure-store';
@@ -24,6 +16,7 @@ import images from '@/lib/images';
 import icons from '@/lib/icons';
 import ActivityIntroScreen from '@/components/ActivityIntroScreen';
 import LottieView from 'lottie-react-native';
+import { Image } from 'expo-image';
 
 const Appliance = () => {
   const router = useRouter();
@@ -96,7 +89,7 @@ const Appliance = () => {
       ownedAppliances.filter(item => selectedOwnedAppliances[item.id] === true).length
     );
     setPoints(ownedAppliances.filter(item => selectedOwnedAppliances[item.id] === true).length * 2);
-  }, [selectedOwnedAppliances]);
+  }, [selectedOwnedAppliances, ownedAppliances]);
 
   useEffect(() => {
     setProgressBarLength(ownedAppliances.length);
@@ -298,7 +291,7 @@ const Appliance = () => {
 
               <View>
                 <TouchableOpacity
-                  onPress={() => router.push('/(homepage)')}
+                  onPress={() => router.push('/(tabs)/(home)')}
                   className="border-2 rounded-[8px] py-3 mb-2 mt-8"
                 >
                   <Text className="text-center">Quit</Text>

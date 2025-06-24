@@ -1,10 +1,10 @@
 import { router } from 'expo-router';
-import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import icons from '@/lib/icons';
+import React from 'react';
 import { Image } from 'expo-image';
-import { useEffect, useRef } from 'react';
-import LottieView from 'lottie-react-native';
+
 const Completion = ({ points, activityName }: { points: number; activityName: string }) => {
   // TODO: API to check user's total points, replace this
   const userPoints = 12020;
@@ -15,43 +15,19 @@ const Completion = ({ points, activityName }: { points: number; activityName: st
     }
   }, []);
   return (
-    <SafeAreaView className="pt-4 flex-v h-full green-bg-50 px-5" edges={['top', 'bottom']}>
-      <View className="w-full items-end">
-        <View className="bg-white px-3 py-2 flex-row rounded-[18px] border-[.5px] items-center">
-          <Image contentFit="contain" source={icons.diamond} style={style.diamond} />
-          <Text className="mx-1">{userPoints}</Text>
-        </View>
-      </View>
-
-      <View className="flex-v justify-between pb-20 items-center h-full">
-        <Text className="sora text-[34px] font-bold text-center w-3/4">Yay, Congratulations!</Text>
-        <View>
-          <Image contentFit="contain" source={icons.quizDone} style={style.quizDone} />
-          <LottieView
-            ref={confettiAnimationRef}
-            source={require('@/assets/animations/ConfettiAnimation.json')}
-            style={style.confettiAnimation}
-            autoPlay={false}
-            loop={false}
-          />
-          <Text className="text-center mt-8 mb-8 gray-800 text-[15px]">
-            You have successfully completed {activityName}!
-          </Text>
-        </View>
-
-        <View className="flex-col items-center w-full">
-          <View className="flex items-center justify-center">
-            <Text className="text-[16px] font-semibold">You Earned</Text>
-            <Image style={style.largeDiamond} source={icons.diamond} />
-            <Text className="text-[16px] font-semibold">{points} pts</Text>
-          </View>
-
-          <TouchableOpacity
-            className="w-full py-4 mt-10 green-bg-500 rounded-[8px]"
-            onPress={() => router.push('/(homepage)')}
-          >
-            <Text className="text-center">Back to Home</Text>
-          </TouchableOpacity>
+    <SafeAreaView className=" pt-4 flex-v h-full green-bg-50" edges={['top']}>
+      <TouchableOpacity className="px-5" onPress={() => router.replace('/(tabs)/(home)')}>
+        <Image contentFit="contain" className="h-[40px] w-[40px]" source={icons.xbutton} />
+      </TouchableOpacity>
+      <View className="flex-v justify-center flex-grow pb-20">
+        <Text className="raleway text-[22px] font-bold text-center">Yay, Congratulations!</Text>
+        <Image contentFit="contain" source={icons.quizDone} className="quiz-done" />
+        <Text className="text-center mt-4 mb-8 gray-800">
+          You have successfully completed {activityName}!
+        </Text>
+        <View className="flex items-center justify-center">
+          <Image className="diamond-large" source={icons.diamond} />
+          <Text className="raleway test-[16px] font-bold ml-2">{points} pts</Text>
         </View>
       </View>
     </SafeAreaView>

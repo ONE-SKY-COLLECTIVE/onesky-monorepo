@@ -1,8 +1,3 @@
-import oneskylogoIcon from '../assets/images/oneskylogo.png';
-import cloud1Icon from '../assets/images/cloud1.png';
-import cloud2Icon from '../assets/images/cloud2.png';
-import cloud3Icon from '../assets/images/cloud3.png';
-import cloud4Icon from '../assets/images/cloud4.png';
 import homeIcon from '../assets/images/home.png';
 import homeselectedIcon from '../assets/images/home-selected.png';
 import lightbulbIcon from '../assets/images/light-bulb.png';
@@ -44,7 +39,6 @@ import flexitarianMealIcon from '../assets/images/flexitarian-meal-icon.png';
 import thecloudIcon from '../assets/images/thecloud.png';
 import starIcon from '../assets/images/star.png';
 import planetIcon from '../assets/images/planet.png';
-import arrowIcon from '../assets/images/arrow.png';
 import platesIcon from '../assets/images/plates.png';
 import mealPlanetIcon from '../assets/images/meal-planet.png';
 import shootingStarIcon from '../assets/images/shooting-star.svg';
@@ -104,7 +98,7 @@ const icons = {
   thecloud: thecloudIcon,
   star: starIcon,
   planet: planetIcon,
-  arrow: arrowIcon,
+  arrow: require('../assets/images/arrow.png'),
   plates: platesIcon,
   mealPlanet: mealPlanetIcon,
   shootingStar: shootingStarIcon,

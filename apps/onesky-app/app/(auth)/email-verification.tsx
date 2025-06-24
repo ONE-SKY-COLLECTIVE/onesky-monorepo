@@ -17,7 +17,7 @@ export default function Email() {
           alt="an icon"
         />
         <Text className="mt-5 text-center text-sm text-[#797C7C]">
-          We've sent a verification link to your email. Please check your inbox and verify your
+          We&aposve sent a verification link to your email. Please check your inbox and verify your
           email to continue.
         </Text>
       </View>

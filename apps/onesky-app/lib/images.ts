@@ -26,7 +26,7 @@ const images = {
   vegetarianMeal: vegetarianMeal,
   flexitarianMeal: flexitarianMeal,
   plates: plates,
-  applianceStartedMain: applianceStartedMain,
+  applianceStartedMain: require('../assets/images/socket-with-charger 1.png'),
   applianceStarter1,
   applianceStarter2,
   applianceStarter3,
