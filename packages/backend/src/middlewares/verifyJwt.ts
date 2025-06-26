@@ -4,6 +4,10 @@ import { db } from "../db/client";
 import { users } from "../db/schema";
 import { eq } from "drizzle-orm";
 
+
+interface AuthenticatedRequest extends Request {
+   user: { id: string; userRole: string | null; [key: string]: any; };}
+
 export const verifyJwt = async (
   req: Request,
   res: Response,
@@ -35,7 +39,7 @@ export const verifyJwt = async (
     }
 
     // attach Supabase user to request
-    (req as any).user = { ...data.user, userRole: dbUser.userRole };
+    (req as AuthenticatedRequest).user = { ...data.user, userRole: dbUser.userRole };
     next();
   } catch (err: any) {
     return res.status(401).json({ message: "Unauthorized." });

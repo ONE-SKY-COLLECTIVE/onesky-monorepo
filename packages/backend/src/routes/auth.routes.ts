@@ -21,6 +21,10 @@ const router = Router();
  *               password: { type: string, minLength: 6 }
  *               firstname: { type: string }
  *               lastname: { type: string }
+ *               userRole:  
+ *                  type: string 
+ *                  enum: [Admin, Customer, Client] 
+ *                  default: Customer
  *     responses:
  *       200: { description: registered }
  *       409: { description: User with this email already exists }
@@ -66,7 +70,7 @@ router.post('/login', login);
  *             properties:
  *               email: { type: string, format: email }
  *     responses:
- *       200: { description: user logged in }
+ *       200: { description: password reset link sent }
  */
 router.post('/reset-password', requestPasswordReset);
 
@@ -88,7 +92,7 @@ router.post('/reset-password', requestPasswordReset);
  *               password: { type: string, minLength: 6 }
  *               confirmPassword: { type: string }
  *     responses:
- *       200: { description: registered }
+ *       200: { description: password change successful }
  */
 router.put('/change-password', updateUserPassword);
 
