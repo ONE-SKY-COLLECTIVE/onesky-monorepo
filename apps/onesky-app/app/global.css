@@ -122,12 +122,11 @@
   
   .main-content {
     background-color: #fafafa;
-    /* flex-grow: 1; */
+    flex-grow: 1;
     border-top-right-radius: 40px;
     border-top-left-radius: 40px;
     padding: 5%;
     padding-bottom: 0%;
-    height: 490px;
     width: 100%;
   }
   
