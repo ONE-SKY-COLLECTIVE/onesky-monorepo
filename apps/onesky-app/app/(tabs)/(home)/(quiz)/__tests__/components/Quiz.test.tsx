@@ -56,7 +56,7 @@ describe('Quiz Component', () => {
     fireEvent.press(getByText(topic));
 
     expect(router.push).toHaveBeenCalledWith({
-      pathname: '/(quiz)/questions',
+      pathname: '/(tabs)/(home)/(quiz)/questions',
       params: { quizTopic: topic },
     });
   });

@@ -1,10 +1,11 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ActivityBox from '../../../components/ActivityBox';
 
 import React, { useState } from 'react';
 import images from '@/lib/images';
 import icons from '@/lib/icons';
+import { Image } from 'expo-image';
 
 export default function Homepage() {
   const [contentSelect, setContentSelect] = useState(0);
@@ -44,13 +45,19 @@ export default function Homepage() {
     <View className="home-page">
       <SafeAreaView edges={['top']}>
         <View className="flex-v h-full">
-          <Image className="absolute top-[130px] w-full" src={images.homebackground} />
+          {/* <Image source={icons.apple} contentFit='contain' /> */}
+          <Image source={images.homebackground} style={style.background} contentFit='contain' />
+
           <View className="flex justify-between mx-8">
-            <Image resizeMode="contain" src={icons.profile} />
+            <Image contentFit="contain" source={icons.profile} style={style.profile} />
             <View className="flex items-center">
-              <Image resizeMode="contain" className="h-[26px] w-[25px]" src={icons.fire} />
+              <Image contentFit="contain" style={style.userIcons} source={icons.fire} />
               <Text className="font-bold ml-1">{streak}</Text>
-              <Image resizeMode="contain" className="h-[25px] w-[25px] ml-4" src={icons.diamond} />
+              <Image
+                contentFit="contain"
+                style={style.userIcons}
+                source={icons.diamond}
+              />
               <Text className="font-bold ml-1">{points}</Text>
             </View>
           </View>
@@ -119,3 +126,21 @@ export default function Homepage() {
     </View>
   );
 }
+
+const style = StyleSheet.create({
+  userIcons: {
+    width: 25,
+    height: 25,
+    marginLeft: 3
+  },
+  background: {
+    position: 'absolute',
+    width: 500,
+    height: 200,
+    top: 110
+  },
+  profile: {
+    height: 30,
+    width: 30
+  }
+});

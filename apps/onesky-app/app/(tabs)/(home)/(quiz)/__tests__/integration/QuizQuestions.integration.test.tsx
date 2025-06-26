@@ -1,18 +1,19 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import Quiz from '@/app/(quiz)/questions';
-import { router } from 'expo-router';
+import Quiz from '@/app/(tabs)/(home)/(quiz)/questions';
 
-// Mock the router
+const mockReplace = jest.fn();
 jest.mock('expo-router', () => ({
   useRouter: () => ({
     push: jest.fn(),
+    replace: mockReplace,
   }),
   useLocalSearchParams: () => ({
     quizTopic: 'Plastic Pollution',
   }),
   router: {
     push: jest.fn(),
+    replace: jest.fn(),
   },
 }));
 
@@ -31,9 +32,9 @@ describe('Quiz Integration Test', () => {
     const button = getByText(/Continue/i);
 
     fireEvent.press(button);
-    await waitFor(() => expect(button.toBeTruthy()));
+    await waitFor(() => expect(getByText(/Continue/i)).toBeTruthy());
     fireEvent.press(button);
-    await waitFor(() => expect(button.toBeTruthy()));
+    await waitFor(() => expect(getByText(/Start the quiz/i)).toBeTruthy());
     fireEvent.press(button);
 
     // Select correct answer
@@ -69,9 +70,9 @@ describe('Quiz Integration Test', () => {
     const button = getByText(/Continue/i);
 
     fireEvent.press(button);
-    await waitFor(() => expect(button.toBeTruthy()));
+    await waitFor(() => expect(getByText(/Continue/i)).toBeTruthy());
     fireEvent.press(button);
-    await waitFor(() => expect(button.toBeTruthy()));
+    await waitFor(() => expect(getByText(/Start the quiz/i)).toBeTruthy());
     fireEvent.press(button);
 
     // Select wrong answer
@@ -89,5 +90,48 @@ describe('Quiz Integration Test', () => {
       expect(getByText('Yay, Congratulations!')).toBeTruthy();
       expect(getByText('10 pts')).toBeTruthy();
     });
+  });
+  it('does not complete the quiz, user goes back to homepage', async () => {
+    const mockQuestion = {
+      question: "What's 2 + 2?",
+      answers: ['1', '2', '4', '5'],
+      rightAnswerIndex: 2,
+    };
+    const { getByText, getByTestId } = render(<Quiz testQuestion={mockQuestion} />);
+    const button = getByText(/Continue/i);
+
+    fireEvent.press(button);
+    await waitFor(() => expect(getByText(/Continue/i)).toBeTruthy());
+    fireEvent.press(button);
+
+    // Try to exit the quiz
+    const exitButton = getByTestId("exit-button");
+    fireEvent.press(exitButton)
+    await waitFor(() => expect(getByText(/Don't leave us/i)).toBeTruthy());
+    fireEvent.press(getByText(/Back to Home Page/i));
+    expect(mockReplace).toHaveBeenCalledWith('/(tabs)/(home)');
+  });
+
+  it('does not complete the quiz, user continues with the quiz', async () => {
+    const mockQuestion = {
+      question: "What's 2 + 2?",
+      answers: ['1', '2', '4', '5'],
+      rightAnswerIndex: 2,
+    };
+    const { getByText, getByTestId, queryByText } = render(<Quiz testQuestion={mockQuestion} />);
+    const button = getByText(/Continue/i);
+
+    fireEvent.press(button);
+    await waitFor(() => expect(getByText(/Continue/i)).toBeTruthy());
+    fireEvent.press(button);
+    await waitFor(() => expect(getByText(/Start the quiz/i)).toBeTruthy());
+    fireEvent.press(button);
+
+    // Try to exit the quiz
+    const exitButton = getByTestId("exit-button");
+    fireEvent.press(exitButton)
+    await waitFor(() => expect(getByText(/Don't leave us/i)).toBeTruthy());
+    fireEvent.press(getByText(/Continue/i));
+    expect(queryByText(/Don't leave us/i)).toBeNull();
   });
 });

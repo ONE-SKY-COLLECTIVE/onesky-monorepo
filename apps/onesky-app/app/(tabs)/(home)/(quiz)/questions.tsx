@@ -34,11 +34,14 @@ const Quiz: React.FC<{
     loadTopics();
   },[])
 
-  if (testQuestion) {
-    setQuestion(testQuestion.question);
-    setAnswers(testQuestion.answers);
-    setRightAnswerIndex(testQuestion.rightAnswerIndex);
-  }
+  useEffect(() => {
+    if (testQuestion) {
+      setQuestion(testQuestion.question);
+      setAnswers(testQuestion.answers);
+      setRightAnswerIndex(testQuestion.rightAnswerIndex);
+    }
+  }, [testQuestion]);
+  
   // Submit/Next Question button
   const handleSubmitAnswer = () => {
     if (answerCorrect !== undefined) {

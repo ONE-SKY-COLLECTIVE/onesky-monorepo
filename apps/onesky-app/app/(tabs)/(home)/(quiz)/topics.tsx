@@ -4,20 +4,9 @@ import { router } from 'expo-router';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Image } from 'expo-image';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useEffect, useState } from 'react';
-import { getQuizTopics } from '@/api/getQuizTopics';
+import { quizTopics } from '@/constants/Quiz';
 
 const Quiz = () => {
-  const [topics, setTopics] = useState([]);
-
-  useEffect(() => {
-    const loadTopics = async () => {
-      const response = await getQuizTopics();
-      setTopics(response);
-    };
-
-    loadTopics();
-  }, []);
   return (
     <View>
       <Header title="Quiz" />
@@ -39,7 +28,7 @@ const Quiz = () => {
             contentContainerStyle={{ paddingBottom: 50 }}
             showsVerticalScrollIndicator={false}
           >
-            {Object.entries(topics).map(([key, value], index) => {
+            {Object.entries(quizTopics).map(([key, value], index) => {
               return (
                 <TouchableOpacity
                   key={index + 'topic'}

@@ -1,5 +1,5 @@
 import { Stack, useRouter } from 'expo-router';
-import { Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Text, TouchableOpacity, View, Dimensions, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 import images from '../../lib/images';
@@ -55,10 +55,9 @@ const Onboarding = () => {
       <View className="blue-bg-300 entire-screen flex-v">
         <Image source={icons.oneskylogo} className="self-center my-12" />
         <Image
-          resizeMode="contain"
+          contentFit="contain"
           source={currentStep.image}
-          className="absolute"
-          style={{ width: width, height: height, bottom: 80 }}
+          style={{ width: width, height: height, position: 'absolute', top: -60 }}
         />
         <View className="h-[30vh] grow white-bg w-full rounded-tr-[36px] rounded-tl-[36px] p-10 flex-v items-cente absolute bottom-0">
           <Text className="text-[22px] my-3 font-semibold text-center">{currentStep.title}</Text>

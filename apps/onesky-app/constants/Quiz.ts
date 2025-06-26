@@ -1,7 +1,6 @@
-import icons from '@/lib/icons';
+import icons from "@/lib/icons";
 
-export async function getQuizTopics() {
-  return {
+export const quizTopics = {
     'Plastic Pollution': icons.plasticPollution,
     'Single User Plastic': icons.singleUserPlastic,
     'Climate Change': icons.climateChange,
@@ -11,4 +10,3 @@ export async function getQuizTopics() {
     'Global Warming': icons.globalWarming,
     'Beach Cleaning': icons.beachCleaning,
   };
-}
