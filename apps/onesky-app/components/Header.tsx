@@ -1,6 +1,7 @@
 import icons from '@/lib/icons';
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Header: React.FC<{ title: string }> = ({ title }) => {
@@ -8,9 +9,9 @@ const Header: React.FC<{ title: string }> = ({ title }) => {
   return (
     <View>
       <SafeAreaView edges={['top']} className="bg-[#C4EFF7]"></SafeAreaView>
-      <View className="bg-[#C4EFF7] flex-row items-center py-5 px-3 rounded-b-[40px]">
+      <View className="bg-[#C4EFF7] flex-row items-center py-4 px-5 rounded-b-[40px]">
         <TouchableOpacity onPress={() => router.back()}>
-          <Image resizeMode="contain" source={icons.arrow} className="h-[30px] w-[48px]" />
+          <Image contentFit="contain" source={icons.arrow} style={style.arrow} />
         </TouchableOpacity>
         <Text className="sora text-[18px] font-semibold ml-2">{title}</Text>
       </View>
@@ -19,3 +20,11 @@ const Header: React.FC<{ title: string }> = ({ title }) => {
 };
 
 export default Header;
+
+const style = StyleSheet.create({
+  arrow: {
+    height: 48,
+    width: 30,
+    marginInline: 8
+  }
+})

@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,6 +7,7 @@ import Completion from '@/components/Completion';
 import icons from '@/lib/icons';
 import { Image } from 'expo-image';
 import getTopicInformation from '@/api/getTopicInformation';
+import ConfirmExit from '@/components/ConfirmExit';
 const Quiz: React.FC<{
   testQuestion?: { question: string; answers: string[]; rightAnswerIndex: number };
 }> = ({ testQuestion }) => {
@@ -19,6 +20,7 @@ const Quiz: React.FC<{
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState<String[]>([])
   const [rightAnswerIndex, setRightAnswerIndex] = useState<number>(0);
+  const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
     const loadTopics = () => {
@@ -70,6 +72,7 @@ const Quiz: React.FC<{
           progression={quizProgression}
           numProgressions={4}
           points={20}
+          utility={() => setConfirmation(true)}
           title={quizTopic as string}
         />
         {quizProgression !== 4 ? (
@@ -108,7 +111,7 @@ const Quiz: React.FC<{
           </View>
         )}
         <View
-          className={`h-[300px] absolute bottom-0 z-[1000] w-full rounded-t-[36px] pt-5 pb-[15%] ${bgClass}`}
+          className={`h-[300px] absolute bottom-0 z-[1000] w-full rounded-t-[36px] pt-5 ${bgClass}`}
         >
           <View className={`flex-v justify-end pt-5 px-5 h-full`}>
             {answerCorrect !== undefined && (
@@ -150,8 +153,11 @@ const Quiz: React.FC<{
                 )}
               </View>
             )}
+            {confirmation ?
+              <ConfirmExit utility={() => setConfirmation(false)}/>
+              :
             <TouchableOpacity
-              className="flex-row green-bg-500 w-full py-5 rounded-[8px] justify-center items-center"
+              className="flex-row green-bg-500 w-full py-5 mb-[15%] rounded-[8px] justify-center items-center"
               onPress={handleSubmitAnswer}
             >
               {answerCorrect ||
@@ -168,6 +174,8 @@ const Quiz: React.FC<{
                       : 'Start the quiz'}
               </Text>
             </TouchableOpacity>
+            }
+            
           </View>
         </View>
       </SafeAreaView>

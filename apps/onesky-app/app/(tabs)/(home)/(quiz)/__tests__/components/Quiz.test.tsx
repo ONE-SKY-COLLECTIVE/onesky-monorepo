@@ -10,7 +10,7 @@ jest.mock('expo-router', () => ({
   },
 }));
 
-import Quiz from '../../index';
+import Quiz from '../../topics';
 
 jest.mock('@/components/Header', () => {
   return () => <></>;

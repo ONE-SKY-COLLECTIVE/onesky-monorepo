@@ -1,5 +1,3 @@
-import React from "react";
-
 const getTopicInformation = (quizTopic: string) => {
   return {
     question: 'How do synthetic clothes contribute to microplastics?',

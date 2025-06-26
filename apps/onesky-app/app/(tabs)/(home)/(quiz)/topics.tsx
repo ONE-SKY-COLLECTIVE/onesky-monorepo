@@ -46,7 +46,7 @@ const Quiz = () => {
                   onPress={() =>
                     router.push({
                       pathname: '/(tabs)/(home)/(quiz)/questions',
-                      params: { quizTopic: key },
+                      params: { quizTopic: key as string },
                     })
                   }
                   className="flex-row items-center w-full border-[1.3px] border-[#E5E5E5] rounded-[8px] py-5 px-5 mb-3"
