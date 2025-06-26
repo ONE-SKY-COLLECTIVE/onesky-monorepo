@@ -123,7 +123,7 @@ export const updateUserPassword = async (req: Request, res: Response): Promise<a
     }
 
     if (password !== confirmPassword) {
-      return res.status(400).json({ message: 'Password and confrim Password must match' });
+      return res.status(400).json({ message: 'Password and confrim password must match' });
     }
 
     const { data, error } = await supabase.auth.updateUser({ password });

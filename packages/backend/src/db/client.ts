@@ -6,7 +6,13 @@ import * as schema from './schema';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Create the connection using the URL from our config
+
+const databaseUrl = process.env.DATABASE_URL;
+
+if (!databaseUrl) {
+ throw new Error('DATABASE_URL environment variable is required');
+}
+
 const client = postgres(process.env.DATABASE_URL!, { max: 1 });
 
 // Create the Drizzle instance
