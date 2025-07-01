@@ -22,6 +22,8 @@ export const communityTypeEnum = pgEnum('community_type', [
 // Community member role enum
 export const memberRoleEnum = pgEnum('member_role', ['Owner', 'Admin', 'Moderator', 'Member']);
 
+export const communityStatusEnum = pgEnum('community_status', ['Active', 'Inactive', 'Suspended']);
+
 /**
  * Communities Table Schema
  * Represents different groups or communities within Treekly.
