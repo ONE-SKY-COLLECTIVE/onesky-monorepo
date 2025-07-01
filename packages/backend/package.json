@@ -5,11 +5,16 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
+    "start": "node dist/server.js || nodemon --exec ts-node src/index.ts",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts || ts-node-dev --respawn --transpile-only src/index.ts",
     "lint": "eslint 'src/**/*.ts'",
     "test": "jest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "generate": "drizzle-kit generate:pg",
+    "ts:dev": "npx ts-node-dev src/index.ts",
+    "start:node": "node dist/index.js",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
     "dotenv": "^16.5.0",
