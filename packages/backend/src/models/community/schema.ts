@@ -84,3 +84,30 @@ export const communityMembers = pgTable(
     uniqueMembership: unique().on(table.communityId, table.userId),
   })
 );
+
+/** Community activities/events table
+ * Tracks activities or events within a community.
+ * 'id' is a UUID for global uniqueness and security.
+ * 'communityId' references the communities table.
+ * 'userId' references the users table.
+ * 'activityType' indicates the type of activity (e.g., 'joined', 'planted_tree', 'earned_coins', 'level_up').
+ * 'description' provides details about the activity.
+ * 'coinsEarned' tracks the coins earned from the activity.
+ * 'treesPlanted' tracks the number of trees planted in the activity.
+ * 'metadata' can store additional information in JSON format.
+ * 'createdAt' is the timestamp when the activity was created.
+ */
+export const communityActivities = pgTable('community_activities', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  communityId: uuid('community_id')
+    .references(() => communities.id, { onDelete: 'cascade' })
+    .notNull(),
+  userId: uuid('user_id')
+    .references(() => users.id)
+    .notNull(),
+  activityType: varchar('activity_type', { length: 100 }).notNull(),
+  coinsEarned: integer('coins_earned').default(0),
+  treesPlanted: integer('trees_planted').default(0),
+  metadata: text('metadata'),
+  createdAt: timestamp('created_at').defaultNow(),
+});
