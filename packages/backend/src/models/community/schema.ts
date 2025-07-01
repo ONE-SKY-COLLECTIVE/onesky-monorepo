@@ -30,18 +30,25 @@ export const communityStatusEnum = pgEnum('community_status', ['Active', 'Inacti
  * 'id' is a UUID for global uniqueness and security.
  */
 export const communities = pgTable('communities', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  name: text('name').notNull(),
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: varchar('name', { length: 255 }).notNull(),
   description: text('description'),
-  type: text('type').notNull(), // 'standard', 'global'
-  isGlobal: boolean('is_global').default(false),
-  createdBy: uuid('created_by').references(() => users.id),
-  memberCount: integer('member_count').default(0),
-  totalTreesPlanted: integer('total_trees_planted').default(0),
-  weeklyTreesPlanted: integer('weekly_trees_planted').default(0),
-  inviteCode: text('invite_code').unique(),
+  type: communityTypeEnum('type').default('Standard').notNull(),
+  status: communityStatusEnum('status').default('Active').notNull(),
+  isPrivate: boolean('is_private').default(false),
   requiresPassword: boolean('requires_password').default(false),
-  password: text('password'), // hashed
+  password: varchar('password', { length: 255 }),
+  inviteCode: varchar('invite_code', { length: 50 }).unique(),
+  maxMembers: integer('max_members').default(1000),
+  memberCount: integer('member_count').default(0),
+  totalTreesPlanted: integer('trees_planted').default(0),
+  totalCoins: integer('total_coins').default(0),
+  ownerId: uuid('owner_id')
+    .references(() => users.id)
+    .notNull(),
+  avatar: text('avatar'),
+  bannerImage: text('banner_image'),
+  isVerified: boolean('is_verified').default(false),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
 });
