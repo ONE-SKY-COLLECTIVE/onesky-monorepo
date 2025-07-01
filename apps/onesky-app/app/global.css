@@ -122,12 +122,11 @@
   
   .main-content {
     background-color: #fafafa;
-    /* flex-grow: 1; */
+    flex-grow: 1;
     border-top-right-radius: 40px;
     border-top-left-radius: 40px;
     padding: 5%;
     padding-bottom: 0%;
-    height: 490px;
     width: 100%;
   }
   
@@ -296,13 +295,13 @@
   .navbar {
     background-color: #ffffff;
     width: 100%;
+    position: absolute;
+    bottom: 0;
     height: 9%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     border-top: #d9ebb2 1px solid;
-    position: absolute;
-    bottom: 0%;
     padding-top: 0;
     padding-bottom: 3%;
     padding: 3%;
@@ -394,7 +393,6 @@
   }
   
   .quiz-option {
-    border-color: #e7e5e4;
     border-radius: 8px;
     border-width: 1.3;
     width: 100%;
@@ -427,10 +425,6 @@
     align-self: center;
   }
   
-  .diamond-large {
-    height: 40px;
-    width: 45px;
-  }
   
   .diamond-small {
     width: 18px;

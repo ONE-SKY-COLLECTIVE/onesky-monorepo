@@ -1,8 +1,3 @@
-import oneskylogoIcon from '../assets/images/oneskylogo.png';
-import cloud1Icon from '../assets/images/cloud1.png';
-import cloud2Icon from '../assets/images/cloud2.png';
-import cloud3Icon from '../assets/images/cloud3.png';
-import cloud4Icon from '../assets/images/cloud4.png';
 import homeIcon from '../assets/images/home.png';
 import homeselectedIcon from '../assets/images/home-selected.png';
 import lightbulbIcon from '../assets/images/light-bulb.png';
@@ -10,7 +5,7 @@ import dashboardIcon from '../assets/images/dashboard.png';
 import dashboardselectedIcon from '../assets/images/dashboard-selected.png';
 import bagIcon from '../assets/images/bag.png';
 import groupIcon from '../assets/images/group.png';
-import xbuttonIcon from '../assets/images/x-button.png';
+import xbuttonIcon from '../assets/images/x-button.svg';
 import quizIcon from '../assets/images/quiz2.png';
 import logMealIcon from '../assets/images/log-meal.png';
 import waterRefillIcon from '../assets/images/water-refill.png';
@@ -29,7 +24,7 @@ import vintedAppIcon from '../assets/images/vinted-app.png';
 import appleIcon from '../assets/images/apple.png';
 import profileIcon from '../assets/images/profile.png';
 import fireIcon from '../assets/images/fire.png';
-import diamondIcon from '../assets/images/diamond.png';
+import diamondIcon from '../assets/images/diamond.svg';
 import quizDoneIcon from '../assets/images/quiz-done.png';
 import incorrectIcon from '../assets/images/incorrect.png';
 import correctIcon from '../assets/images/correct.png';
@@ -44,9 +39,18 @@ import flexitarianMealIcon from '../assets/images/flexitarian-meal-icon.png';
 import thecloudIcon from '../assets/images/thecloud.png';
 import starIcon from '../assets/images/star.png';
 import planetIcon from '../assets/images/planet.png';
-import arrowIcon from '../assets/images/arrow.png';
 import platesIcon from '../assets/images/plates.png';
 import mealPlanetIcon from '../assets/images/meal-planet.png';
+import shootingStarIcon from '../assets/images/shooting-star.svg';
+import plasticPollutionIcon from '../assets/images/plastic-pollution.svg';
+import singleUserPlasticIcon from '../assets/images/single-use-plastic.svg';
+import climateChangeIcon from '../assets/images/climate-change.svg';
+import circularEconomyIcon from '../assets/images/circular-economy.svg';
+import sustainabilityIcon from '../assets/images/sustainability.svg';
+import activeTravelIcon from '../assets/images/active-travel.svg';
+import globalWarmingIcon from '../assets/images/global-warming.svg';
+import beachCleaningIcon from '../assets/images/beach-cleaning.svg';
+import dontLeaveIcon from "../assets/images/dont-leave.svg";
 
 const icons = {
   oneskylogo: require('../assets/images/oneskylogo.png'),
@@ -95,9 +99,19 @@ const icons = {
   thecloud: thecloudIcon,
   star: starIcon,
   planet: planetIcon,
-  arrow: arrowIcon,
+  arrow: require('../assets/images/arrow.png'),
   plates: platesIcon,
   mealPlanet: mealPlanetIcon,
+  shootingStar: shootingStarIcon,
+  plasticPollution: plasticPollutionIcon,
+  singleUserPlastic: singleUserPlasticIcon,
+  climateChange: climateChangeIcon,
+  circularEconomy: circularEconomyIcon,
+  sustainability: sustainabilityIcon,
+  activeTravel: activeTravelIcon,
+  globalWarming: globalWarmingIcon,
+  beachCleaning: beachCleaningIcon,
+  dontLeave: dontLeaveIcon
 };
 
 export default icons;

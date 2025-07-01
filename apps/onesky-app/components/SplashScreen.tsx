@@ -1,11 +1,9 @@
 import icons from '@/lib/icons';
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
 import React, { useRef, useEffect } from 'react';
-import { Dimensions, Animated, Easing, View } from 'react-native';
+import { Dimensions, Animated, Easing, View, StyleSheet } from 'react-native';
 
 export const SplashScreen = () => {
-  const router = useRouter();
   const { width } = Dimensions.get('window');
   const cloudPosition = useRef(new Animated.Value(width)).current;
   const cloudPosition2 = useRef(new Animated.Value(width)).current;
@@ -63,33 +61,52 @@ export const SplashScreen = () => {
     setTimeout(() => {
       animateCloudOthers();
     }, 2000);
-  }, []);
+  }, [cloudPosition, cloudPosition2, cloudPosition3, cloudPosition4, fadeAnim, width]);
 
   return (
     <View className="h-full w-full blue-bg-300 p-4">
       <Animated.View style={{ opacity: fadeAnim }} className="self-center my-auto">
-        <Image source={icons.oneskylogo} className="self-center my-auto" />
+        <Image source={icons.oneskylogo} className="self-center my-auto" style={style.logo} contentFit='contain' alt="Company Logo"/>
       </Animated.View>
       <View className="absolute top-[350px]">
         <Animated.View style={{ transform: [{ translateX: cloudPosition }] }}>
-          <Image source={icons.cloud1} contentFit="contain" />
+          <Image source={icons.cloud1} contentFit="contain" style={style.cloud1} alt="cloud"/>
         </Animated.View>
       </View>
       <View className="absolute top-[220px]">
         <Animated.View style={{ transform: [{ translateX: cloudPosition2 }] }}>
-          <Image source={icons.cloud2} contentFit="contain" />
+          <Image source={icons.cloud2} contentFit="contain" style={style.cloud2} alt="cloud"/>
         </Animated.View>
       </View>
       <View className="absolute top-[250px]">
         <Animated.View style={{ transform: [{ translateX: cloudPosition3 }] }}>
-          <Image source={icons.cloud3} contentFit="contain" />
+          <Image source={icons.cloud3} contentFit="contain" style={style.cloud3} alt="cloud"/>
         </Animated.View>
       </View>
       <View className="absolute top-[600px]">
         <Animated.View style={{ transform: [{ translateX: cloudPosition2 }] }}>
-          <Image source={icons.cloud4} contentFit="contain" />
+          <Image source={icons.cloud2} contentFit="contain" style={style.cloud1} alt="cloud"/>
         </Animated.View>
       </View>
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  logo: {
+    height: 70,
+    width: 150
+  },
+  cloud1: {
+    height: 100,
+    width: 200
+  },
+  cloud2: {
+    height: 80,
+    width: 200
+  },
+  cloud3: {
+    height: 120,
+    width: 250,
+  }
+})

@@ -1,16 +1,17 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ActivityBox from '../../../components/ActivityBox';
 
 import React, { useState } from 'react';
 import images from '@/lib/images';
 import icons from '@/lib/icons';
+import { Image } from 'expo-image';
 
 export default function Homepage() {
   const [contentSelect, setContentSelect] = useState(0);
   // TODO: Complete commented out activities, replace id with page name for routing
   const activities = [
-    { id: '(quiz)', title: 'Quiz', inactive: false },
+    { id: '(quiz)/topics', title: 'Quiz', inactive: false },
     { id: '(waterbottle)', title: 'Water refill', inactive: false },
     { id: '(meal)', title: 'Log your meal', inactive: false },
     // { id: '3', title: 'View to plant', inactive: true },
@@ -44,15 +45,17 @@ export default function Homepage() {
     <View className="home-page">
       <SafeAreaView edges={['top']}>
         <View className="flex-v h-full">
-          <Image className="absolute top-[130px] w-full" source={images.homebackground} />
+          {/* <Image source={icons.apple} contentFit='contain' /> */}
+          <Image source={images.homebackground} style={style.background} contentFit='contain' />
+
           <View className="flex justify-between mx-8">
-            <Image contentFit="contain" source={icons.profile} />
+            <Image contentFit="contain" source={icons.profile} style={style.profile} />
             <View className="flex items-center">
-              <Image contentFit="contain" className="h-[26px] w-[25px]" source={icons.fire} />
+              <Image contentFit="contain" style={style.userIcons} source={icons.fire} />
               <Text className="font-bold ml-1">{streak}</Text>
               <Image
                 contentFit="contain"
-                className="h-[25px] w-[25px] ml-4"
+                style={style.userIcons}
                 source={icons.diamond}
               />
               <Text className="font-bold ml-1">{points}</Text>
@@ -70,7 +73,7 @@ export default function Homepage() {
                 style={{ backgroundColor: contentSelect === 0 ? '#A1CE3F' : undefined }}
               >
                 <Text className={`text-[14px] ${contentSelect === 0 && 'font-semibold'}`}>
-                  Today's Activities
+                  Today&apos;s Activities
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -123,3 +126,21 @@ export default function Homepage() {
     </View>
   );
 }
+
+const style = StyleSheet.create({
+  userIcons: {
+    width: 25,
+    height: 25,
+    marginLeft: 3
+  },
+  background: {
+    position: 'absolute',
+    width: 500,
+    height: 200,
+    top: 110
+  },
+  profile: {
+    height: 30,
+    width: 30
+  }
+});

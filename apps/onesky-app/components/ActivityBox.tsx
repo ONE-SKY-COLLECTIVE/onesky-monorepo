@@ -1,6 +1,8 @@
-import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import icons from '@/lib/icons';
+import React from 'react';
+import { Image } from 'expo-image';
 
 interface ActivityBoxProps {
   title: string;
@@ -50,14 +52,14 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({ title, id, event, inactive })
     >
       {title !== 'More coming soon' && title !== 'View more...' && (
         <View className="activity-points">
-          <Image resizeMode="contain" className="diamond-small" source={icons.diamond} />
+          <Image contentFit="contain" style={style.diamond} source={icons.diamond} />
           <Text className="text-[11px] font-semibold">+50 pts</Text>
         </View>
       )}
       <View className="flex-v">
         <Image
-          resizeMode="contain"
-          className="h-[65px]"
+          contentFit="contain"
+          style={style.activityIcon}
           source={iconTracker[title as keyof typeof iconTracker]}
         />
         <Text className="raleway mt-2 font-semibold">{title}</Text>
@@ -73,3 +75,14 @@ const ActivityBox: React.FC<ActivityBoxProps> = ({ title, id, event, inactive })
 };
 
 export default ActivityBox;
+
+const style = StyleSheet.create({
+  diamond: {
+    width: 18,
+    height: 16,
+  },
+  activityIcon: {
+    height: 65,
+    width: 'auto'
+  }
+});
