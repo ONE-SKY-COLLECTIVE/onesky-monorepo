@@ -8,10 +8,19 @@ import {
   uuid,
   varchar,
   pgEnum,
+  unique,
 } from 'drizzle-orm/pg-core';
-
-import { userRoleEnum } from '../../db/schema';
 import { users } from '../../db/schema';
+
+// Community type enum
+export const communityTypeEnum = pgEnum('community_type', [
+  'Standard',
+  'Treekly Community',
+  'Global Community',
+]);
+
+// Community member role enum
+export const memberRoleEnum = pgEnum('member_role', ['Owner', 'Admin', 'Moderator', 'Member']);
 
 /**
  * Communities Table Schema
