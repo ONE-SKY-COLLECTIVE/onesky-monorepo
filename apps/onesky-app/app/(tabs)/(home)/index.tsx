@@ -12,7 +12,7 @@ export default function Homepage() {
   // TODO: Complete commented out activities, replace id with page name for routing
   const activities = [
     { id: '(quiz)/topics', title: 'Quiz', inactive: false },
-    { id: '(waterbottle)', title: 'Water refill', inactive: false },
+    { id: '(waterbottle)/refill', title: 'Water refill', inactive: false },
     { id: '(meal)', title: 'Log your meal', inactive: false },
     // { id: '3', title: 'View to plant', inactive: true },
     // { id: '4', title: 'Steps', inactive: true },
