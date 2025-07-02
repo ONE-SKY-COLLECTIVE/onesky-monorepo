@@ -19,7 +19,6 @@ const Waterbottle = () => {
   const [confirm, setConfirm] = useState(false);
   const [collectPoints, setCollectPoints] = useState(false);
   const router = useRouter();
-  const [exitWithoutRefilling, setExitWithoutRefilling] = useState(false);
   const [acknowledged, setAcknowledge] = useState(true);
   const [confirmation, setConfirmation] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -169,7 +168,7 @@ const Waterbottle = () => {
                 ) : (
                   <View>
                     <TouchableOpacity
-                      onPress={() => router.replace('../(tabs)')}
+                      onPress={() => router.replace('/(tabs)/(home)')}
                       className="border-1 rounded-[8px] py-3 mb-2 mt-5 bg-[#ffffff]"
                     >
                       <Text className="text-center">Go to home</Text>
