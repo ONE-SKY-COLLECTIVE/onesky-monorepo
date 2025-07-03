@@ -92,3 +92,22 @@ export interface CommunityResponse {
   createdAt: Date;
   updatedAt: Date;
 }
+/**
+ * Represents a response object for community leaderboards.
+ * Contains a list of leaderboard entries with user details and contribution statistics.
+ * This is used to display community rankings based on contributions.
+ * It includes user information, weekly and total contributions, and position in the leaderboard.
+ */
+export interface LeaderboardEntry {
+  userId: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  weeklyCoins: number;
+  weeklyTrees: number;
+  totalCoins: number;
+  totalTrees: number;
+  position: number;
+  streakCount: number;
+  avatar?: string;
+}
