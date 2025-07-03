@@ -88,7 +88,6 @@ export const communityMembers = pgTable(
     role: memberRoleEnum('role').default('Member').notNull(),
     contributedCoins: integer('contributed_coins').default(0),
     contributedTrees: integer('contributed_trees').default(0),
-    weeklyCoins: integer('weekly_coins').default(0),
     joinedAt: timestamp('joined_at').defaultNow(),
     lastActiveAt: timestamp('last_active_at').defaultNow(),
     isActive: boolean('is_active').default(true),
