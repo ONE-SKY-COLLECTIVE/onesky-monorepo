@@ -130,3 +130,20 @@ export interface CommunityActivityResponse {
   metadata?: any;
   createdAt: Date;
 }
+
+/**
+ * Represents a response object for community invitations.
+ * Contains details about the invitation, including the inviter, invite code,
+ * and whether the invitation has been used.
+ * This is used to manage community invitations and track their status.
+ */
+export interface CommunityInvitationResponse {
+  id: string;
+  communityId: string;
+  communityName: string;
+  inviterName: string;
+  inviteCode: string;
+  isUsed: boolean;
+  expiresAt: Date;
+  createdAt: Date;
+}
