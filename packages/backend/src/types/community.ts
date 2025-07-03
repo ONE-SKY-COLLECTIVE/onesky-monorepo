@@ -39,8 +39,8 @@ export interface JoinCommunityRequest {
 }
 
 /**
- * Represents a community response object returned by the API.
- * Includes basic community details and statistics.
+ * Represents a community members response object returned by the API.
+ * Includes basic community member details and statistics.
  */
 export interface CommunityMemberResponse {
   id: string;
@@ -57,4 +57,38 @@ export interface CommunityMemberResponse {
   isActive: boolean;
   streakCount: number;
   coins: number;
+}
+
+/**
+ * Represents a community response object returned by the API.
+ * This is the main response type for community-related API endpoints.
+ * It provides a comprehensive overview of the community, including its status,
+ * ownership, and user contributions
+ */
+export interface CommunityResponse {
+  id: string;
+  name: string;
+  description?: string;
+  type: 'Standard' | 'Treekly Community' | 'Global Community';
+  status: 'Active' | 'Inactive' | 'Suspended';
+  isPrivate: boolean;
+  requiresPassword: boolean;
+  inviteCode?: string;
+  maxMembers: number;
+  currentMembers: number;
+  treesPlanted: number;
+  totalCoins: number;
+  ownerId: string;
+  ownerName: string;
+  avatar?: string;
+  bannerImage?: string;
+  isVerified: boolean;
+  userRole?: 'Owner' | 'Admin' | 'Moderator' | 'Member';
+  userContribution?: {
+    coins: number;
+    trees: number;
+    weeklyCoins: number;
+  };
+  createdAt: Date;
+  updatedAt: Date;
 }
