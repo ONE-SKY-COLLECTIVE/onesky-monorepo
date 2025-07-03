@@ -64,7 +64,7 @@ const Waterbottle = () => {
             <Text className='text-[13px] flex-shrink w-0 flex-grow'>Join the One Sky community in making a difference for our environment</Text>
           </View>
         </View>
-        <View className='grow flex-col-reverse pb-5 px-4'>
+        <View className='grow flex-col-reverse pb-12 px-4'>
           <Button title='Get Started' utility={() => setAcknowledge(false)}/>
           <View className='flex'>
             <Pressable
