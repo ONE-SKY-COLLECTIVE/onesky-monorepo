@@ -41,7 +41,7 @@ const Quiz: React.FC<{
       setRightAnswerIndex(testQuestion.rightAnswerIndex);
     }
   }, [testQuestion]);
-  
+
   // Submit/Next Question button
   const handleSubmitAnswer = () => {
     if (answerCorrect !== undefined) {
@@ -159,8 +159,9 @@ const Quiz: React.FC<{
             {confirmation ?
               <ConfirmExit utility={() => setConfirmation(false)}/>
               :
+              
             <TouchableOpacity
-              className="flex-row green-bg-500 w-full py-5 mb-[15%] rounded-[8px] justify-center items-center"
+              className="green-bg-500 w-full py-5 mb-[15%] rounded-[8px] justify-center items-center"
               onPress={handleSubmitAnswer}
             >
               {answerCorrect ||

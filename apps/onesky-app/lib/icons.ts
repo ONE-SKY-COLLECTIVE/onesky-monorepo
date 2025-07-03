@@ -30,7 +30,7 @@ import incorrectIcon from '../assets/images/incorrect.png';
 import correctIcon from '../assets/images/correct.png';
 import incorrectWorldIcon from '../assets/images/incorrect-world.png';
 import correctWorldIcon from '../assets/images/correct-world.png';
-import refillConfirmIcon from '../assets/images/refill-confirm.png';
+import refillConfirmIcon from '../assets/images/refill-confirm.svg';
 import leaveIcon from '../assets/images/leave-icon.png';
 import warningIcon from '../assets/images/warning.png';
 import veganMealIcon from '../assets/images/vegan-meal-icon.png';
@@ -51,6 +51,12 @@ import activeTravelIcon from '../assets/images/active-travel.svg';
 import globalWarmingIcon from '../assets/images/global-warming.svg';
 import beachCleaningIcon from '../assets/images/beach-cleaning.svg';
 import dontLeaveIcon from "../assets/images/dont-leave.svg";
+import refillBottleIcon from "../assets/images/refill-bottle.svg";
+import refillStarIcon from "../assets/images/refill-star.svg";
+import refillGroupIcon from "../assets/images/refill-group.svg";
+import refillFinishedIcon from "../assets/images/refill-finished.svg";
+
+
 
 const icons = {
   oneskylogo: require('../assets/images/oneskylogo.png'),
@@ -111,7 +117,11 @@ const icons = {
   activeTravel: activeTravelIcon,
   globalWarming: globalWarmingIcon,
   beachCleaning: beachCleaningIcon,
-  dontLeave: dontLeaveIcon
+  dontLeave: dontLeaveIcon,
+  refillBottle: refillBottleIcon,
+  refillStar: refillStarIcon,
+  refillGroup: refillGroupIcon,
+  refillFinished: refillFinishedIcon
 };
 
 export default icons;

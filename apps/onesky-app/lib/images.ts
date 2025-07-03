@@ -16,15 +16,16 @@ import applianceTv from '../assets/images/tv-appl.png';
 import appliancePrinter from '../assets/images/printer-appl.png';
 import applianceJoystick from '../assets/images/joystick-appl.png';
 import applianceOven from '../assets/images/oven-appl1.png';
+import refillImage from "../assets/images/refill-image.png"
 
 const images = {
-  onboarding1: onboarding1,
-  onboarding2: onboarding2,
-  onboarding3: onboarding3,
-  homebackground: homebackground,
-  veganMeal: veganMeal,
-  vegetarianMeal: vegetarianMeal,
-  flexitarianMeal: flexitarianMeal,
+  onboarding1,
+  onboarding2,
+  onboarding3,
+  homebackground,
+  veganMeal,
+  vegetarianMeal,
+  flexitarianMeal,
   plates: plates,
   applianceStartedMain: require('../assets/images/socket-with-charger 1.png'),
   applianceStarter1,
@@ -36,6 +37,7 @@ const images = {
   appliancePrinter,
   applianceJoystick,
   applianceOven,
+  refillImage
 };
 
 export default images;
