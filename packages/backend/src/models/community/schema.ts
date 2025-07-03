@@ -170,3 +170,35 @@ export const communityLeaderboard = pgTable(
     scoreIndex: index().on(table.communityId, table.totalScore), // For ranking queries
   })
 );
+
+/**
+ * Community invitations table
+ * Manages invitations to join communities.
+ * 'id' is a UUID for global uniqueness and security.
+ * 'communityId' references the communities table.
+ * 'inviterId' references the users table for the user who sent the invitation.
+ * 'inviteeEmail' is the email of the person being invited.
+ * 'inviteeId' references the users table for the user being invited (if they are already registered).
+ * 'inviteCode' is a unique code used for the invitation.
+ * 'isUsed' indicates if the invitation has been accepted.
+ * 'expiresAt' is the timestamp when the invitation expires.
+ * 'usedAt' is the timestamp when the invitation was accepted.
+ * 'createdAt' is the timestamp when the invitation was created.
+ */
+
+export const communityInvitations = pgTable('community_invitations', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  communityId: uuid('community_id')
+    .references(() => communities.id, { onDelete: 'cascade' })
+    .notNull(),
+  inviterId: uuid('inviter_id')
+    .references(() => users.id)
+    .notNull(),
+  inviteeEmail: varchar('invitee_email', { length: 255 }),
+  inviteeId: uuid('invitee_id').references(() => users.id),
+  inviteCode: varchar('invite_code', { length: 50 }).notNull(),
+  isUsed: boolean('is_used').default(false),
+  expiresAt: timestamp('expires_at').notNull(),
+  usedAt: timestamp('used_at'),
+  createdAt: timestamp('created_at').defaultNow(),
+});
