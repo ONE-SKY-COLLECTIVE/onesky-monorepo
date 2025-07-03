@@ -123,3 +123,36 @@ export const communityActivities = pgTable('community_activities', {
   metadata: text('metadata'),
   createdAt: timestamp('created_at').defaultNow(),
 });
+
+/** Community leaderboard table
+ * Tracks the weekly leaderboard for communities.
+ * 'id' is a UUID for global uniqueness and security.
+ * 'communityId' references the communities table.
+ * 'userId' references the users table.
+ * 'weekStartDate' is the start date of the week for the leaderboard.
+ * 'weekEndDate' is the end date of the week for the leaderboard.
+ * 'weeklyCoins' tracks the coins earned by the user in that week.
+ * 'weeklyTrees' tracks the trees planted by the user in that week.
+ * 'position' indicates the user's position in the leaderboard for that week.
+ * 'createdAt' is the timestamp when the leaderboard entry was created.
+ */
+
+export const communityLeaderboard = pgTable(
+  'community_leaderboard',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    communityId: uuid('community_id').references(() => communities.id, { onDelete: 'cascade' }),
+    userId: uuid('user_id')
+      .references(() => users.id, { onDelete: 'cascade' })
+      .notNull(),
+    weekStartDate: timestamp('week_start_date').notNull(),
+    weekEndDate: timestamp('week_end_date').notNull(),
+    weeklyCoins: integer('weekly_coins').default(0),
+    weeklyTrees: integer('weekly_trees').default(0),
+    position: integer('position'),
+    createdAt: timestamp('created_at').defaultNow(),
+  },
+  table => ({
+    uniqueWeeklyEntry: unique().on(table.communityId, table.userId, table.weekStartDate),
+  })
+);
