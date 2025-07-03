@@ -186,3 +186,27 @@ export interface PaginatedResponse<T> {
     hasPrev: boolean;
   };
 }
+
+/**
+ * Represents a generic API response structure.
+ * This is used for all API responses to maintain consistency.
+ * It includes a success flag, message, and optional data or error details.
+ */
+export interface ApiResponse<T = any> {
+  success: boolean;
+  message: string;
+  data?: T;
+  error?: string;
+}
+
+/**
+ * Represents a request to manage community members.
+ * This includes adding or updating a member's role within the community.
+ * The role can be Owner, Admin, Moderator, or Member.
+ */
+export interface CommunityMemberManagementRequest {
+  communityId: string;
+  userId: string;
+  action: 'add' | 'update' | 'remove';
+  role?: 'Owner' | 'Admin' | 'Moderator' | 'Member';
+}
