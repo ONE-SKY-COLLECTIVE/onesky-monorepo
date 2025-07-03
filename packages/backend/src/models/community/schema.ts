@@ -10,6 +10,7 @@ import {
   pgEnum,
   unique,
   index,
+  uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import { users } from '../../db/schema';
 
@@ -42,29 +43,40 @@ export const communityStatusEnum = pgEnum('community_status', ['Active', 'Inacti
  * 'totalTreesPlanted' tracks the total number of trees planted by the community.
  * 'totalCoins' tracks the total number of coins earned by the community.
  */
-export const communities = pgTable('communities', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  name: varchar('name', { length: 255 }).notNull(),
-  description: text('description'),
-  type: communityTypeEnum('type').default('Standard').notNull(),
-  status: communityStatusEnum('status').default('Active').notNull(),
-  isPrivate: boolean('is_private').default(false),
-  requiresPassword: boolean('requires_password').default(false),
-  password: varchar('password', { length: 255 }),
-  inviteCode: varchar('invite_code', { length: 50 }).unique(),
-  maxMembers: integer('max_members').default(1000),
-  memberCount: integer('member_count').default(0),
-  totalTreesPlanted: integer('trees_planted').default(0),
-  totalCoins: integer('total_coins').default(0),
-  ownerId: uuid('owner_id')
-    .references(() => users.id)
-    .notNull(),
-  avatar: text('avatar'),
-  bannerImage: text('banner_image'),
-  isVerified: boolean('is_verified').default(false),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
-});
+export const communities = pgTable(
+  'communities',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    name: varchar('name', { length: 255 }).notNull(),
+    description: text('description'),
+    type: communityTypeEnum('type').default('Standard').notNull(),
+    status: communityStatusEnum('status').default('Active').notNull(),
+    isPrivate: boolean('is_private').default(false),
+    requiresPassword: boolean('requires_password').default(false),
+    password: varchar('password', { length: 255 }),
+    inviteCode: varchar('invite_code', { length: 50 }).unique(),
+    inviteCodeExpiry: timestamp('invite_code_expiry'),
+    maxMembers: integer('max_members').default(1000),
+    memberCount: integer('member_count').default(0),
+    totalTreesPlanted: integer('trees_planted').default(0),
+    totalCoins: integer('total_coins').default(0),
+    ownerId: uuid('owner_id')
+      .references(() => users.id)
+      .notNull(),
+    avatar: text('avatar'),
+    bannerImage: text('banner_image'),
+    isVerified: boolean('is_verified').default(false),
+    createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow(),
+  },
+  table => ({
+    nameIdx: index('communities_name_idx').on(table.name),
+    typeIdx: index('communities_type_idx').on(table.type),
+    statusIdx: index('communities_status_idx').on(table.status),
+    ownerIdx: index('communities_owner_idx').on(table.ownerId),
+    inviteCodeIdx: uniqueIndex('communities_invite_code_idx').on(table.inviteCode),
+  })
+);
 
 /** Community members table
  * Represents the members of a community.
