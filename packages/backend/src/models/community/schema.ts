@@ -9,6 +9,7 @@ import {
   varchar,
   pgEnum,
   unique,
+  index,
 } from 'drizzle-orm/pg-core';
 import { users } from '../../db/schema';
 
@@ -133,15 +134,20 @@ export const communityActivities = pgTable('community_activities', {
  * 'weekEndDate' is the end date of the week for the leaderboard.
  * 'weeklyCoins' tracks the coins earned by the user in that week.
  * 'weeklyTrees' tracks the trees planted by the user in that week.
+ * 'totalScore' is the combined score used for ranking (coins + trees * multiplier).
  * 'position' indicates the user's position in the leaderboard for that week.
+ * 'isCalculated' indicates if the leaderboard entry has been processed.
+ * 'calculatedAt' is the timestamp when the position was calculated.
  * 'createdAt' is the timestamp when the leaderboard entry was created.
+ * 'updatedAt' tracks when the entry was last modified (e.g., position changes).
  */
-
 export const communityLeaderboard = pgTable(
   'community_leaderboard',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    communityId: uuid('community_id').references(() => communities.id, { onDelete: 'cascade' }),
+    communityId: uuid('community_id')
+      .references(() => communities.id, { onDelete: 'cascade' })
+      .notNull(),
     userId: uuid('user_id')
       .references(() => users.id, { onDelete: 'cascade' })
       .notNull(),
@@ -149,10 +155,19 @@ export const communityLeaderboard = pgTable(
     weekEndDate: timestamp('week_end_date').notNull(),
     weeklyCoins: integer('weekly_coins').default(0),
     weeklyTrees: integer('weekly_trees').default(0),
+    totalScore: integer('total_score').default(0),
     position: integer('position'),
+    isCalculated: boolean('is_calculated').default(false),
+    calculatedAt: timestamp('calculated_at'),
     createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow(),
   },
   table => ({
     uniqueWeeklyEntry: unique().on(table.communityId, table.userId, table.weekStartDate),
+    // Performance indexes for common queries
+    communityWeekIndex: index().on(table.communityId, table.weekStartDate),
+    positionIndex: index().on(table.communityId, table.position),
+    userWeekIndex: index().on(table.userId, table.weekStartDate),
+    scoreIndex: index().on(table.communityId, table.totalScore), // For ranking queries
   })
 );
