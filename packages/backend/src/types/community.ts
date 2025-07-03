@@ -169,3 +169,20 @@ export interface CommunityStatsResponse {
     contribution: number;
   };
 }
+
+/**
+ * Represents a paginated response for community-related data.
+ * This is used to handle large datasets by breaking them into manageable pages.
+ * It includes the current page, limit, total items, total pages, and navigation flags.
+ */
+export interface PaginatedResponse<T> {
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+    hasNext: boolean;
+    hasPrev: boolean;
+  };
+}
