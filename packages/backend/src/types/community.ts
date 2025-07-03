@@ -147,3 +147,25 @@ export interface CommunityInvitationResponse {
   expiresAt: Date;
   createdAt: Date;
 }
+
+/**
+ * Represents a response object for community statistics.
+ * Contains aggregated data about the community,
+ * such as total members, active members, trees planted, and coins contributed.
+ * This is used to provide an overview of community health and engagement.
+ * It includes weekly statistics, top contributors, and overall community performance metrics.
+ */
+export interface CommunityStatsResponse {
+  totalMembers: number;
+  activeMembers: number;
+  totalTreesPlanted: number;
+  totalCoins: number;
+  weeklyTrees: number;
+  weeklyCoins: number;
+  weeklyNewMembers: number;
+  topContributor: {
+    userId: string;
+    name: string;
+    contribution: number;
+  };
+}
