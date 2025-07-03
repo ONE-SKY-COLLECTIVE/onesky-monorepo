@@ -1,3 +1,7 @@
+/**
+ * Represents a request to create a new community.
+ * Includes fields for community details, privacy settings, and media assets.
+ */
 export interface CreateCommunityRequest {
   name: string;
   description?: string;
@@ -10,6 +14,10 @@ export interface CreateCommunityRequest {
   bannerImage?: string;
 }
 
+/**
+ * Represents a request to update an existing community.
+ * Includes optional fields for community details, privacy settings, and media assets.
+ */
 export interface UpdateCommunityRequest {
   name?: string;
   description?: string;
@@ -19,4 +27,34 @@ export interface UpdateCommunityRequest {
   maxMembers?: number;
   avatar?: string;
   bannerImage?: string;
+}
+
+/**
+ * Represents a request to join a community.
+ * Can include an invite code and an optional password if the community is private.
+ */
+export interface JoinCommunityRequest {
+  inviteCode?: string;
+  password?: string;
+}
+
+/**
+ * Represents a community response object returned by the API.
+ * Includes basic community details and statistics.
+ */
+export interface CommunityMemberResponse {
+  id: string;
+  userId: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  role: 'Owner' | 'Admin' | 'Moderator' | 'Member';
+  contributedCoins: number;
+  contributedTrees: number;
+  weeklyCoins: number;
+  joinedAt: Date;
+  lastActiveAt: Date;
+  isActive: boolean;
+  streakCount: number;
+  coins: number;
 }
