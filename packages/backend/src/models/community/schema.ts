@@ -202,3 +202,32 @@ export const communityInvitations = pgTable('community_invitations', {
   usedAt: timestamp('used_at'),
   createdAt: timestamp('created_at').defaultNow(),
 });
+
+/** Community announcements table
+ * Manages announcements made within communities.
+ * 'id' is a UUID for global uniqueness and security.
+ * 'communityId' references the communities table.
+ * 'authorId' references the users table for the user who created the announcement.
+ * 'title' is the title of the announcement.
+ * 'content' is the content of the announcement.
+ * 'isPinned' indicates if the announcement is pinned to the top.
+ * 'isActive' indicates if the announcement is currently active.
+ * 'createdAt' is the timestamp when the announcement was created.
+ * 'updatedAt' is the timestamp when the announcement was last updated.
+ */
+
+export const communityAnnouncements = pgTable('community_announcements', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  communityId: uuid('community_id')
+    .references(() => communities.id, { onDelete: 'cascade' })
+    .notNull(),
+  authorId: uuid('author_id')
+    .references(() => users.id)
+    .notNull(),
+  title: varchar('title', { length: 255 }).notNull(),
+  content: text('content').notNull(),
+  isPinned: boolean('is_pinned').default(false),
+  isActive: boolean('is_active').default(true),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
