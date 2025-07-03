@@ -28,6 +28,18 @@ export const communityStatusEnum = pgEnum('community_status', ['Active', 'Inacti
  * Communities Table Schema
  * Represents different groups or communities within Treekly.
  * 'id' is a UUID for global uniqueness and security.
+ * 'name' is the name of the community.
+ * 'description' provides details about the community.
+ * 'type' indicates the type of community (e.g., Standard, Treekly Community, Global Community).
+ * 'status' indicates the current status of the community (e.g., Active, Inactive, Suspended).
+ * 'isPrivate' indicates if the community is private.
+ * 'requiresPassword' indicates if the community requires a password to join.
+ * 'password' is the hashed password for private communities.
+ * 'inviteCode' is a unique code for inviting members to the community.
+ * 'maxMembers' is the maximum number of members allowed in the community.
+ * 'memberCount' tracks the current number of members in the community.
+ * 'totalTreesPlanted' tracks the total number of trees planted by the community.
+ * 'totalCoins' tracks the total number of coins earned by the community.
  */
 export const communities = pgTable('communities', {
   id: uuid('id').defaultRandom().primaryKey(),
