@@ -9,3 +9,14 @@ export interface CreateCommunityRequest {
   avatar?: string;
   bannerImage?: string;
 }
+
+export interface UpdateCommunityRequest {
+  name?: string;
+  description?: string;
+  isPrivate?: boolean;
+  requiresPassword?: boolean;
+  password?: string;
+  maxMembers?: number;
+  avatar?: string;
+  bannerImage?: string;
+}
