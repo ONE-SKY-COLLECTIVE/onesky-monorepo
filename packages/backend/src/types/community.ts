@@ -111,3 +111,22 @@ export interface LeaderboardEntry {
   streakCount: number;
   avatar?: string;
 }
+/**
+ * Represents a response object for community activities.
+ * Contains details about user activities within the community,
+ * such as contributions and achievements.
+ * This is used to track user engagement and contributions in the community.
+ * It includes user information, activity type, description, and any associated metadata.
+ */
+export interface CommunityActivityResponse {
+  id: string;
+  communityId: string;
+  userId: string;
+  userName: string;
+  activityType: string;
+  description: string;
+  coinsEarned: number;
+  treesPlanted: number;
+  metadata?: any;
+  createdAt: Date;
+}
