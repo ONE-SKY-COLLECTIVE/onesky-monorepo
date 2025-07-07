@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProgressBar from '@/components/Progressbar';
@@ -15,10 +15,10 @@ const Quiz: React.FC<{
   const [userAnswer, setUserAnswer] = useState<number | undefined>(undefined);
   const [finished, setFinished] = useState(false);
   const { quizTopic } = useLocalSearchParams();
-  const [quizContext, setQuizContext] = useState<String[]>([]);
+  const [quizContext, setQuizContext] = useState<string[]>([]);
   const [answerCorrect, setAnswerCorrect] = useState<boolean | undefined>(undefined);
-  const [question, setQuestion] = useState("");
-  const [answers, setAnswers] = useState<String[]>([])
+  const [question, setQuestion] = useState('');
+  const [answers, setAnswers] = useState<string[]>([]);
   const [rightAnswerIndex, setRightAnswerIndex] = useState<number>(0);
   const [confirmation, setConfirmation] = useState(false);
 
@@ -32,7 +32,7 @@ const Quiz: React.FC<{
     };
 
     loadTopics();
-  },[])
+  }, []);
 
   useEffect(() => {
     if (testQuestion) {
@@ -41,7 +41,7 @@ const Quiz: React.FC<{
       setRightAnswerIndex(testQuestion.rightAnswerIndex);
     }
   }, [testQuestion]);
-  
+
   // Submit/Next Question button
   const handleSubmitAnswer = () => {
     if (answerCorrect !== undefined) {
@@ -85,7 +85,7 @@ const Quiz: React.FC<{
                 Welcome to the {quizTopic} quiz!
               </Text>
               <Text className="text-[#525252] text-[15px]">
-                Let's explore some key information before we get started.
+                Let&apos;s explore some key information before we get started.
               </Text>
             </View>
             <Text className="text-[17px] text-[#171717] mt-[27vh]">
@@ -156,29 +156,28 @@ const Quiz: React.FC<{
                 )}
               </View>
             )}
-            {confirmation ?
-              <ConfirmExit utility={() => setConfirmation(false)}/>
-              :
-            <TouchableOpacity
-              className="flex-row green-bg-500 w-full py-5 mb-[15%] rounded-[8px] justify-center items-center"
-              onPress={handleSubmitAnswer}
-            >
-              {answerCorrect ||
-                (answerCorrect !== undefined && (
-                  <Image contentFit="contain" source={icons.diamond} style={style.diamond} />
-                ))}
-              <Text className="text-center raleway text-[14px] ">
-                {answerCorrect
-                  ? 'Collect Points'
-                  : answerCorrect !== undefined
-                    ? "Got it, let's move on"
-                    : quizProgression !== 3
-                      ? 'Continue'
-                      : 'Start the quiz'}
-              </Text>
-            </TouchableOpacity>
-            }
-            
+            {confirmation ? (
+              <ConfirmExit utility={() => setConfirmation(false)} />
+            ) : (
+              <TouchableOpacity
+                className="flex-row green-bg-500 w-full py-5 mb-[15%] rounded-[8px] justify-center items-center"
+                onPress={handleSubmitAnswer}
+              >
+                {answerCorrect ||
+                  (answerCorrect !== undefined && (
+                    <Image contentFit="contain" source={icons.diamond} style={style.diamond} />
+                  ))}
+                <Text className="text-center raleway text-[14px] ">
+                  {answerCorrect
+                    ? 'Collect Points'
+                    : answerCorrect !== undefined
+                      ? "Got it, let's move on"
+                      : quizProgression !== 3
+                        ? 'Continue'
+                        : 'Start the quiz'}
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </SafeAreaView>

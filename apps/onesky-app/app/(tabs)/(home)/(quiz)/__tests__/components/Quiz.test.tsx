@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { router } from 'expo-router';
+
+import Quiz from '../../topics';
 // jest.useFakeTimers();
 
 // Mock expo-router
@@ -9,8 +11,6 @@ jest.mock('expo-router', () => ({
     push: jest.fn(),
   },
 }));
-
-import Quiz from '../../topics';
 
 jest.mock('@/components/Header', () => {
   return () => <></>;

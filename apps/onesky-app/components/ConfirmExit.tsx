@@ -9,8 +9,8 @@ const ConfirmExit: React.FC<{utility: () => void}> = ({utility}) => {
         <View className="flex-col absolute bottom-0 px-7 pt-10 pb-20 items-center self-center w-[100vw] bg-[#FCF2E2] rounded-t-[36px]">
             <View className="flex items-center w-[100%] justify-between">
                 <View>
-                    <Text className="text-[30px] font-semibold my-2">Don't leave us</Text>
-                    <Text className="text-[15px] my-1">You're close to finishing!</Text>
+                    <Text className="text-[30px] font-semibold my-2">Don&apos;t leave us</Text>
+                    <Text className="text-[15px] my-1">You&apos;re close to finishing!</Text>
                     <Text className="text-[15px] my-1">Keep going to earn your points!</Text>
                 </View>
                 <Image contentFit="contain" source={icons.dontLeave} style={style.world}/>

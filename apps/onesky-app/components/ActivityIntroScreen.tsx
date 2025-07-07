@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, ImageSourcePropType, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageSourcePropType, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Checkbox } from 'expo-checkbox';
 import { useRouter } from 'expo-router';
@@ -33,10 +33,12 @@ const ActivityIntroScreen: React.FC<ActivityIntroProps> = ({
           <View className="dashboard-header">
             <View className="flex items-end justify-between">
               <View className="flex items-center">
-                <TouchableOpacity onPress={() => router.push('../(homepage)')}>
-                  <Image source={icons.arrow} />
+                <TouchableOpacity onPress={() => router.replace('/(tabs)/(home)')}>
+                  <Image source={icons.arrow} style={style.arrow} />
                 </TouchableOpacity>
-                <Text className="raleway text-[14px] font-semibold">{pageHeader.title}</Text>
+                <Text className="raleway text-[14px] font-semibold ml-[16px]">
+                  {pageHeader.title}
+                </Text>
               </View>
             </View>
           </View>
@@ -44,14 +46,14 @@ const ActivityIntroScreen: React.FC<ActivityIntroProps> = ({
             <Image className="socket-image" source={pageHeader.mainImage} />
             <View className="flex-v w-[350px] gap-14">
               <View className="flex-v gap-4">
-                <Text className="sora text-[20px] font-bold">{title}</Text>
+                <Text className="sora text-[20px] font-semibold">{title}</Text>
                 <View className="flex-v gap-6">
                   {mapData.map((d: MapitemType, id: number) => (
                     <View className="vamp-list" key={id}>
                       <Image source={d.uri} />
                       <Text
                         style={{ lineHeight: 18 }}
-                        className="raleway flex-1 text-[14px] font-medium"
+                        className="raleway flex-1 text-[13px] font-normal"
                       >
                         {d.text}
                       </Text>
@@ -67,7 +69,7 @@ const ActivityIntroScreen: React.FC<ActivityIntroProps> = ({
                     value={isChecked}
                     onValueChange={setChecked}
                   />
-                  <Text style={{ lineHeight: 18 }} className="raleway w-80 text-[14px] font-medium">
+                  <Text style={{ lineHeight: 18 }} className="raleway w-80 text-[14px] font-normal">
                     Got it! No need to remind me again
                   </Text>
                 </View>
@@ -99,3 +101,11 @@ const ActivityIntroScreen: React.FC<ActivityIntroProps> = ({
 };
 
 export default ActivityIntroScreen;
+
+const style = StyleSheet.create({
+  arrow: {
+    width: 32,
+    height: 32,
+    // padding: 16,
+  },
+});
