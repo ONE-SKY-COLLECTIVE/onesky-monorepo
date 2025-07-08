@@ -248,7 +248,7 @@ const Appliance = () => {
         <ActivityIntroScreen
           mapData={mapData}
           title="Keep vampire power at bay"
-          utility={() => router.push('../(appliance)')}
+          utility={() => router.replace('../(appliance)/workflow')}
           setCheckBox={setCheckedRemindMe}
           pageHeader={{
             title: 'Vampire Power',
