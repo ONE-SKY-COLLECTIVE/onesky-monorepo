@@ -1,5 +1,5 @@
 import { Stack, useRouter } from 'expo-router';
-import { Text, TouchableOpacity, View, Dimensions, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, View, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 import images from '../../lib/images';

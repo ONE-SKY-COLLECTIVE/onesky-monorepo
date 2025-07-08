@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Checkbox } from 'expo-checkbox';
 import * as SecureStore from 'expo-secure-store';
@@ -105,7 +105,7 @@ const Appliance = () => {
     if (!completed) {
       setExitWithoutCompletion(true);
     } else {
-      router.push('../(homepage)');
+      router.replace('/(tabs)/(home)');
     }
   };
 
@@ -114,7 +114,7 @@ const Appliance = () => {
       className={step === 2 ? 'flex-v gap-[22px] px-5 pt-3 mt-12' : 'flex-v gap-[22px] px-5 pt-3'}
     >
       <View className="flex-v gap-2">
-        <Text className="raleway text-[20px] font-bold">Keep vampire power at bay</Text>
+        {/* <Text className="raleway text-[20px] font-bold">Keep vampire power at bay</Text> */}
         <Text className="raleway pr-5 text-[14px] font-medium" numberOfLines={3}>
           {text}
         </Text>
@@ -125,13 +125,26 @@ const Appliance = () => {
             step === 1
               ? (checkedItems[item.id] ?? false)
               : (selectedOwnedAppliances[item.id] ?? false);
+
+          const count = appliances.length;
+          let boxWd;
+          if (count === 6) {
+            boxWd = 'w-[47%]';
+          } else if (count < 4) {
+            boxWd = 'w-full';
+          } else if (count === 4) {
+            boxWd = index === 0 || index === 1 ? 'w-[47%]' : 'w-full';
+          } else {
+            boxWd = index === 0 || index === 1 || index === 2 || index === 3 ? 'w-[47%]' : 'w-full';
+          }
           const listClass = isChecked
-            ? 'flex-v item-appliance-selected justify-between items-evenly gap-3 p-3 w-1/2 px-[10px] mb-[12px]'
-            : 'flex-v item-appliance justify-between gap-3 p-3 w-1/2 px-[10px] mb-[12px]';
+            ? 'flex-v item-appl-selected-bg justify-between items-evenly gap-3 p-3 px-[10px] mb-[12px] h-[180px] border border-[#a1ce3f] rounded-[12px]'
+            : 'flex-v justify-between gap-3 p-3 px-[10px] mb-[12px] h-[180px] border border-[#a1ce3f] rounded-[12px]';
           return (
             <TouchableOpacity
               key={index}
-              className={listClass}
+              // className={listClass}
+              className={step === 1 ? `${listClass} item-appliance` : `${listClass} ${boxWd}`}
               onPress={() => {
                 if (step === 1) {
                   setCheckedItems(prev => ({
@@ -167,14 +180,14 @@ const Appliance = () => {
                 }}
               />
               <View className="flex-v items-center gap-3">
-                <Image source={item.uri} />
+                <Image source={item.uri} style={style.applImage} />
                 <Text className="raleway font-semibold">{item.text}</Text>
               </View>
             </TouchableOpacity>
           );
         })}
       </View>
-      <View className="flex-v gap-3 ">
+      <View className="flex-v gap-3">
         <TouchableOpacity
           style={unplugAppliancesStyles.selectbutton}
           onPress={() => {
@@ -225,15 +238,6 @@ const Appliance = () => {
             Submit
           </Text>
         </TouchableOpacity>
-        {/* {step === 2 && completed && (
-          <LottieView
-            ref={confettiAnimationRef}
-            source={require('@/assets/animations/ConfettiAnimation.json')}
-            style={unplugAppliancesStyles.confettiAnimation}
-            autoPlay={true}
-            loop={false}
-          />
-        )} */}
       </View>
     </View>
   );
@@ -243,11 +247,11 @@ const Appliance = () => {
       {!remindMe || !remindMeLog ? (
         <ActivityIntroScreen
           mapData={mapData}
-          title="Keep campire power at bay"
-          utility={() => router.push('../(appliance)')}
+          title="Keep vampire power at bay"
+          utility={() => router.replace('../(appliance)/workflow')}
           setCheckBox={setCheckedRemindMe}
           pageHeader={{
-            title: 'Appliances Off',
+            title: 'Vampire Power',
             mainImage: images.applianceStartedMain,
           }}
         />
@@ -259,6 +263,7 @@ const Appliance = () => {
               numProgressions={progressBarLength}
               points={points}
               utility={handleExitWithoutCompletion}
+              title="Keep Vampire Power at Bay"
             />
           </View>
           <ScrollView className="flex-1 pb-9">
@@ -277,21 +282,17 @@ const Appliance = () => {
           {exitWithoutCompletion && (
             <View className="refill-div">
               <View className="flex items-center">
-                <Image resizeMode="contain" source={icons.warning} className="w-[40px] h-[40px]" />
+                <Image source={icons.warning} style={style.warning} className="w-[40px] h-[40px]" />
                 <Text className="text-[20px] font-semibold sora py-5">Don&apos;t leave us!</Text>
               </View>
               <Text className="text-[14px] raleway w-half">
                 Don&apos;t leave without logging your unplugged appliances.
               </Text>
-              <Image
-                resizeMode="contain"
-                source={icons.leave}
-                className="absolute h-[100px] w-[100px] left-3/4 top-[20px]"
-              />
+              <Image resizeMode="contain" source={icons.dontLeave} style={style.world} />
 
               <View>
                 <TouchableOpacity
-                  onPress={() => router.push('/(tabs)/(home)')}
+                  onPress={() => router.replace('/(tabs)/(home)')}
                   className="border-2 rounded-[8px] py-3 mb-2 mt-8"
                 >
                   <Text className="text-center">Quit</Text>
@@ -314,3 +315,22 @@ const Appliance = () => {
 };
 
 export default Appliance;
+
+const style = StyleSheet.create({
+  warning: {
+    height: 40,
+    width: 40,
+  },
+  world: {
+    position: 'absolute',
+    height: 110,
+    width: 110,
+    left: '75%',
+    top: 20,
+  },
+  applImage: {
+    height: 100,
+    aspectRatio: 1,
+    resizeMode: 'contain',
+  },
+});

@@ -13,7 +13,7 @@ const Activities = () => {
     { id: '(meal)', title: 'Log your meal', inactive: true },
     { id: '(waterbottle)', title: 'Water refill', inactive: false },
     { id: '3', title: 'View to plant', inactive: true },
-    { id: 'Appliances', title: 'Switch-off', inactive: false },
+    { id: '(appliance)/workflow', title: 'Switch-off', inactive: false },
     { id: '6', title: 'Recycle', inactive: true },
     { id: '7', title: 'Steps', inactive: true },
     { id: '8', title: 'Donate/resell', inactive: true },
@@ -26,10 +26,10 @@ const Activities = () => {
         <View className="flex-v h-full">
           <View className="header">
             <Pressable
-              onPress={() => router.replace('../(tabs)')}
+              onPress={() => router.replace('/(tabs)/(home)')}
               className="align-items-center flex"
             >
-              <Image className="ml-2" source={icons.arrow} />
+              <Image className="ml-2" source={icons.arrow} style={styles.arrow} />
               <Text className="raleway text-[13px] font-bold"> All Activities</Text>
             </Pressable>
           </View>
@@ -60,6 +60,10 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 18,
+  },
+  arrow: {
+    width: 32,
+    height: 32,
   },
 });
 
