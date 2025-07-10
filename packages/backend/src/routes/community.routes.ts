@@ -12,4 +12,11 @@ const router = Router();
  */
 router.post('/', verifyJwt, CommunityController.createCommunity);
 
+/**
+ * @route GET /api/communities
+ * @desc Get all communities
+ * @access Public
+ */
+router.get('/', verifyJwt, CommunityController.getCommunities);
+
 export default router;
