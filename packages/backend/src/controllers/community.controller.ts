@@ -158,9 +158,11 @@ export class CommunityController {
     }
   }
 
-  // Get all communities with owner details
+  // Get all communities with user context
   static async getCommunities(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
+      const userId = req.user?.id;
+
       const result = await db
         .select({
           id: communities.id,
@@ -170,6 +172,7 @@ export class CommunityController {
           status: communities.status,
           isPrivate: communities.isPrivate,
           requiresPassword: communities.requiresPassword,
+          inviteCode: communities.inviteCode,
           maxMembers: communities.maxMembers,
           memberCount: communities.memberCount,
           totalTreesPlanted: communities.totalTreesPlanted,
@@ -182,9 +185,21 @@ export class CommunityController {
           updatedAt: communities.updatedAt,
           ownerFirstname: users.firstname,
           ownerLastname: users.lastname,
+          userRole: userId ? communityMembers.role : sql`NULL`,
+          userContributedCoins: userId ? communityMembers.contributedCoins : sql`NULL`,
+          userContributedTrees: userId ? communityMembers.contributedTrees : sql`NULL`,
         })
         .from(communities)
         .leftJoin(users, eq(communities.ownerId, users.id))
+        .leftJoin(
+          communityMembers,
+          userId
+            ? and(
+                eq(communityMembers.communityId, communities.id),
+                eq(communityMembers.userId, userId)
+              )
+            : sql`FALSE`
+        )
         .where(eq(communities.status, 'Active'))
         .orderBy(desc(communities.createdAt));
 
@@ -196,7 +211,10 @@ export class CommunityController {
         status: row.status,
         isPrivate: row.isPrivate || false,
         requiresPassword: row.requiresPassword || false,
-        inviteCode: undefined, // Hide invite codes for now
+        inviteCode:
+          row.userRole === 'Owner' || row.userRole === 'Admin'
+            ? row.inviteCode || undefined
+            : undefined,
         maxMembers: row.maxMembers || 1000,
         currentMembers: row.memberCount || 0,
         treesPlanted: row.totalTreesPlanted || 0,
@@ -206,8 +224,16 @@ export class CommunityController {
         avatar: row.avatar || undefined,
         bannerImage: row.bannerImage || undefined,
         isVerified: row.isVerified || false,
-        userRole: undefined, // Will add user context later
-        userContribution: undefined, // Will add user context later
+        userRole: row.userRole as 'Owner' | 'Admin' | 'Moderator' | 'Member' | undefined,
+        userContribution: row.userRole
+          ? {
+              coins: (row.userContributedCoins as number) || 0,
+              trees: (row.userContributedTrees as number) || 0,
+              // Note: weeklyCoins not available in communityMembers schema
+              // either add it or remove this line
+              weeklyCoins: 0,
+            }
+          : undefined,
         createdAt: row.createdAt || new Date(),
         updatedAt: row.updatedAt || new Date(),
       }));
