@@ -1,7 +1,12 @@
 import { Request, Response } from 'express';
 import { eq, and, desc, asc, sql, count, isNull, or } from 'drizzle-orm';
 import { db } from '../db/client';
-import { communities, communityMembers, communityActivities } from '../models/community/schema';
+import {
+  communities,
+  communityMembers,
+  communityActivities,
+  communityLeaderboard,
+} from '../models/community/schema';
 import { users } from '../db/schema';
 import { CreateCommunityRequest, CommunityResponse, PaginatedResponse } from '../types/community';
 import { generateInviteCode, hashPassword, verifyPassword } from '../utils/helpers';
@@ -158,7 +163,7 @@ export class CommunityController {
     }
   }
 
-  // Get all communities with user context
+  // Get all communities with user context and weekly coins
   static async getCommunities(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       const userId = req.user?.id;
@@ -188,6 +193,7 @@ export class CommunityController {
           userRole: userId ? communityMembers.role : sql`NULL`,
           userContributedCoins: userId ? communityMembers.contributedCoins : sql`NULL`,
           userContributedTrees: userId ? communityMembers.contributedTrees : sql`NULL`,
+          userWeeklyCoins: userId ? communityLeaderboard.weeklyCoins : sql`NULL`,
         })
         .from(communities)
         .leftJoin(users, eq(communities.ownerId, users.id))
@@ -197,6 +203,17 @@ export class CommunityController {
             ? and(
                 eq(communityMembers.communityId, communities.id),
                 eq(communityMembers.userId, userId)
+              )
+            : sql`FALSE`
+        )
+        .leftJoin(
+          communityLeaderboard,
+          userId
+            ? and(
+                eq(communityLeaderboard.communityId, communities.id),
+                eq(communityLeaderboard.userId, userId),
+                sql`${communityLeaderboard.weekStartDate} <= NOW()`,
+                sql`${communityLeaderboard.weekEndDate} >= NOW()`
               )
             : sql`FALSE`
         )
@@ -229,9 +246,7 @@ export class CommunityController {
           ? {
               coins: (row.userContributedCoins as number) || 0,
               trees: (row.userContributedTrees as number) || 0,
-              // Note: weeklyCoins not available in communityMembers schema
-              // either add it or remove this line
-              weeklyCoins: 0,
+              weeklyCoins: (row.userWeeklyCoins as number) || 0, // Now uses weeklyCoins from leaderboard table
             }
           : undefined,
         createdAt: row.createdAt || new Date(),
