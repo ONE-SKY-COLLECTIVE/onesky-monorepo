@@ -3,7 +3,7 @@ import { eq, and, desc, asc, sql, count, isNull, or } from 'drizzle-orm';
 import { db } from '../db/client';
 import { communities, communityMembers, communityActivities } from '../models/community/schema';
 import { users } from '../db/schema';
-import { CreateCommunityRequest } from '../types/community';
+import { CreateCommunityRequest, CommunityResponse, PaginatedResponse } from '../types/community';
 import { generateInviteCode, hashPassword, verifyPassword } from '../utils/helpers';
 
 // Extend Request type to include user
@@ -154,6 +154,71 @@ export class CommunityController {
       res.status(500).json({
         success: false,
         message: 'Failed to create community. Please try again.',
+      });
+    }
+  }
+
+  // Get all communities - basic implementation
+  static async getCommunities(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      const result = await db
+        .select({
+          id: communities.id,
+          name: communities.name,
+          description: communities.description,
+          type: communities.type,
+          status: communities.status,
+          isPrivate: communities.isPrivate,
+          requiresPassword: communities.requiresPassword,
+          maxMembers: communities.maxMembers,
+          memberCount: communities.memberCount,
+          totalTreesPlanted: communities.totalTreesPlanted,
+          totalCoins: communities.totalCoins,
+          ownerId: communities.ownerId,
+          avatar: communities.avatar,
+          bannerImage: communities.bannerImage,
+          isVerified: communities.isVerified,
+          createdAt: communities.createdAt,
+          updatedAt: communities.updatedAt,
+        })
+        .from(communities)
+        .where(eq(communities.status, 'Active'))
+        .orderBy(desc(communities.createdAt));
+
+      const communitiesData: CommunityResponse[] = result.map(row => ({
+        id: row.id,
+        name: row.name,
+        description: row.description || undefined,
+        type: row.type,
+        status: row.status,
+        isPrivate: row.isPrivate || false,
+        requiresPassword: row.requiresPassword || false,
+        inviteCode: undefined, // Hide invite codes for now
+        maxMembers: row.maxMembers || 1000,
+        currentMembers: row.memberCount || 0,
+        treesPlanted: row.totalTreesPlanted || 0,
+        totalCoins: row.totalCoins || 0,
+        ownerId: row.ownerId,
+        ownerName: '', // Will add owner details later
+        avatar: row.avatar || undefined,
+        bannerImage: row.bannerImage || undefined,
+        isVerified: row.isVerified || false,
+        userRole: undefined, // Will add user context later
+        userContribution: undefined, // Will add user context later
+        createdAt: row.createdAt || new Date(),
+        updatedAt: row.updatedAt || new Date(),
+      }));
+
+      res.status(200).json({
+        success: true,
+        message: 'Communities retrieved successfully',
+        data: communitiesData,
+      });
+    } catch (error) {
+      console.error('Error getting communities:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to retrieve communities. Please try again.',
       });
     }
   }
