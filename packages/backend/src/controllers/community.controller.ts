@@ -158,7 +158,7 @@ export class CommunityController {
     }
   }
 
-  // Get all communities - basic implementation
+  // Get all communities with owner details
   static async getCommunities(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       const result = await db
@@ -180,8 +180,11 @@ export class CommunityController {
           isVerified: communities.isVerified,
           createdAt: communities.createdAt,
           updatedAt: communities.updatedAt,
+          ownerFirstname: users.firstname,
+          ownerLastname: users.lastname,
         })
         .from(communities)
+        .leftJoin(users, eq(communities.ownerId, users.id))
         .where(eq(communities.status, 'Active'))
         .orderBy(desc(communities.createdAt));
 
@@ -199,7 +202,7 @@ export class CommunityController {
         treesPlanted: row.totalTreesPlanted || 0,
         totalCoins: row.totalCoins || 0,
         ownerId: row.ownerId,
-        ownerName: '', // Will add owner details later
+        ownerName: `${row.ownerFirstname || ''} ${row.ownerLastname || ''}`.trim(),
         avatar: row.avatar || undefined,
         bannerImage: row.bannerImage || undefined,
         isVerified: row.isVerified || false,
