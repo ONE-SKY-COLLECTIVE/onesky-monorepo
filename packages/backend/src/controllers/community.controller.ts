@@ -163,10 +163,32 @@ export class CommunityController {
     }
   }
 
-  // Get all communities with user context and weekly coins
+  // Get all communities with user context and filtering
   static async getCommunities(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       const userId = req.user?.id;
+      const type = req.query.type as string;
+      const status = req.query.status as string;
+
+      let whereConditions: any[] = [];
+
+      // Only show active communities by default
+      if (!status) {
+        whereConditions.push(eq(communities.status, 'Active'));
+      }
+
+      if (type) {
+        whereConditions.push(eq(communities.type, type as any));
+      }
+
+      if (status) {
+        whereConditions.push(eq(communities.status, status as any));
+      }
+
+      const whereClause =
+        whereConditions.length > 0
+          ? whereConditions.reduce((acc, condition) => (acc ? and(acc, condition) : condition))
+          : undefined;
 
       const result = await db
         .select({
@@ -217,7 +239,7 @@ export class CommunityController {
               )
             : sql`FALSE`
         )
-        .where(eq(communities.status, 'Active'))
+        .where(whereClause)
         .orderBy(desc(communities.createdAt));
 
       const communitiesData: CommunityResponse[] = result.map(row => ({
@@ -246,7 +268,7 @@ export class CommunityController {
           ? {
               coins: (row.userContributedCoins as number) || 0,
               trees: (row.userContributedTrees as number) || 0,
-              weeklyCoins: (row.userWeeklyCoins as number) || 0, // Now uses weeklyCoins from leaderboard table
+              weeklyCoins: (row.userWeeklyCoins as number) || 0,
             }
           : undefined,
         createdAt: row.createdAt || new Date(),
