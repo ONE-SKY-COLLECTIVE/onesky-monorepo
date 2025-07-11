@@ -163,13 +163,16 @@ export class CommunityController {
     }
   }
 
-  // Get all communities with user context, filtering, and search
+  // Get all communities with user context, filtering, search, and pagination
   static async getCommunities(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       const userId = req.user?.id;
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 10;
       const search = req.query.search as string;
       const type = req.query.type as string;
       const status = req.query.status as string;
+      const offset = (page - 1) * limit;
 
       let whereConditions: any[] = [];
 
@@ -199,6 +202,9 @@ export class CommunityController {
         whereConditions.length > 0
           ? whereConditions.reduce((acc, condition) => (acc ? and(acc, condition) : condition))
           : undefined;
+
+      const totalQuery = await db.select({ count: count() }).from(communities).where(whereClause);
+      const total = totalQuery[0].count;
 
       const result = await db
         .select({
@@ -250,7 +256,9 @@ export class CommunityController {
             : sql`FALSE`
         )
         .where(whereClause)
-        .orderBy(desc(communities.createdAt));
+        .orderBy(desc(communities.createdAt))
+        .limit(limit)
+        .offset(offset);
 
       const communitiesData: CommunityResponse[] = result.map(row => ({
         id: row.id,
@@ -285,10 +293,22 @@ export class CommunityController {
         updatedAt: row.updatedAt || new Date(),
       }));
 
+      const response: PaginatedResponse<CommunityResponse> = {
+        data: communitiesData,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages: Math.ceil(total / limit),
+          hasNext: page < Math.ceil(total / limit),
+          hasPrev: page > 1,
+        },
+      };
+
       res.status(200).json({
         success: true,
         message: 'Communities retrieved successfully',
-        data: communitiesData,
+        data: response,
       });
     } catch (error) {
       console.error('Error getting communities:', error);
