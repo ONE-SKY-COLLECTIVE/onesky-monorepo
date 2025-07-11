@@ -163,10 +163,11 @@ export class CommunityController {
     }
   }
 
-  // Get all communities with user context and filtering
+  // Get all communities with user context, filtering, and search
   static async getCommunities(req: AuthenticatedRequest, res: Response): Promise<void> {
     try {
       const userId = req.user?.id;
+      const search = req.query.search as string;
       const type = req.query.type as string;
       const status = req.query.status as string;
 
@@ -175,6 +176,15 @@ export class CommunityController {
       // Only show active communities by default
       if (!status) {
         whereConditions.push(eq(communities.status, 'Active'));
+      }
+
+      if (search) {
+        whereConditions.push(
+          or(
+            sql`${communities.name} ILIKE ${`%${search}%`}`,
+            sql`${communities.description} ILIKE ${`%${search}%`}`
+          )!
+        );
       }
 
       if (type) {
