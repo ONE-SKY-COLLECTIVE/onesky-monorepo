@@ -1,11 +1,14 @@
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ActivityBox from '../../../components/ActivityBox';
-
+import { RootState } from '@/lib/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUsername, addPoints, removePoints } from '@/lib/store/profileSlice';
 import React, { useState } from 'react';
 import images from '@/lib/images';
 import icons from '@/lib/icons';
 import { Image } from 'expo-image';
+import Button from '@/components/Button';
 
 export default function Homepage() {
   const [contentSelect, setContentSelect] = useState(0);
@@ -39,13 +42,14 @@ export default function Homepage() {
 
   // Temporary streak and points until we get API
   const streak = 10;
-  const points = '3,363';
+  const points = useSelector((state: RootState) => state.profile.points);
+  const username = useSelector((state: RootState) => state.profile.name);
+  const dispatch = useDispatch();
 
   return (
     <View className="home-page">
       <SafeAreaView edges={['top']}>
         <View className="flex-v h-full">
-          {/* <Image source={icons.apple} contentFit='contain' /> */}
           <Image source={images.homebackground} style={style.background} contentFit='contain' />
 
           <View className="flex justify-between mx-8">
@@ -62,7 +66,7 @@ export default function Homepage() {
             </View>
           </View>
           <View style={styles.title} className="ml-8 mt-10">
-            <Text className="mb-3 text-13">Hello John!</Text>
+            <Text className="mb-3 text-13">Hello {username}!</Text>
             <Text className="title">What would you like to do today?</Text>
           </View>
           <View className="main-content">

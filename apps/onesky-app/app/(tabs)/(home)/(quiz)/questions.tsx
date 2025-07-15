@@ -161,13 +161,13 @@ const Quiz: React.FC<{
               :
               
             <TouchableOpacity
-              className="green-bg-500 w-full py-5 mb-[15%] rounded-[8px] justify-center items-center"
+              className="green-bg-500 w-full py-5 mb-[15%] rounded-[8px] justify-center items-center flex"
               onPress={handleSubmitAnswer}
             >
-              {answerCorrect ||
-                (answerCorrect !== undefined && (
+              {answerCorrect !== undefined
+                 && (
                   <Image contentFit="contain" source={icons.diamond} style={style.diamond} />
-                ))}
+                )}
               <Text className="text-center raleway text-[14px] ">
                 {answerCorrect
                   ? 'Collect Points'
