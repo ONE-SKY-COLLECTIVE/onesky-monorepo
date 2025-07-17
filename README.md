@@ -86,7 +86,6 @@ To run this project, ensure you have the following installed on your system:
 ### Continuous Integration
 
 1. **Pre-commit Hooks**
-
    - Linting
    - Type checking
    - Unit tests
@@ -101,7 +100,6 @@ To run this project, ensure you have the following installed on your system:
 ### Continuous Deployment
 
 1. **Staging Environment**
-
    - Automatic deployment on merge to `develop`
    - Integration testing
    - Performance testing
@@ -139,20 +137,17 @@ There are two ways to run the application, depending on whether you want to run 
 ## New Developer Onboarding
 
 1. **Prerequisites**
-
    - Complete the development environment setup
    - Request access to necessary repositories and tools
    - Set up SSH keys for Git
 
 2. **First Week Tasks**
-
    - Review project documentation
    - Set up local development environment
    - Complete a small bug fix or feature
    - Attend team standups and planning meetings
 
 3. **Required Tools**
-
    - VS Code with recommended extensions
    - Postman for API testing
    - Docker for containerization

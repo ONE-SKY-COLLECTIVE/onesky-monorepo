@@ -83,6 +83,6 @@ const style = StyleSheet.create({
   },
   activityIcon: {
     height: 65,
-    width: 'auto'
-  }
+    width: 'auto',
+  },
 });

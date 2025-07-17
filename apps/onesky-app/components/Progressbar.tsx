@@ -24,7 +24,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     <View className="flex-col px-5 pb-[20px]">
       <View className="flex-row items-center align-self-start">
         <TouchableOpacity
-          testID='exit-button'
+          testID="exit-button"
           className="p-1"
           onPress={utility ? utility : () => router.push('/(tabs)/(home)')}
         >

@@ -16,7 +16,7 @@ import applianceTv from '../assets/images/tv-appl.png';
 import appliancePrinter from '../assets/images/printer-appl.png';
 import applianceJoystick from '../assets/images/joystick-appl.png';
 import applianceOven from '../assets/images/oven-appl1.png';
-import refillImage from "../assets/images/refill-image.png"
+import refillImage from '../assets/images/refill-image.png';
 
 const images = {
   onboarding1,
@@ -37,7 +37,7 @@ const images = {
   appliancePrinter,
   applianceJoystick,
   applianceOven,
-  refillImage
+  refillImage,
 };
 
 export default images;

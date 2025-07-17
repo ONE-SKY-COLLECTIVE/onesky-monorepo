@@ -17,8 +17,8 @@ const Quiz: React.FC<{
   const { quizTopic } = useLocalSearchParams();
   const [quizContext, setQuizContext] = useState<String[]>([]);
   const [answerCorrect, setAnswerCorrect] = useState<boolean | undefined>(undefined);
-  const [question, setQuestion] = useState("");
-  const [answers, setAnswers] = useState<String[]>([])
+  const [question, setQuestion] = useState('');
+  const [answers, setAnswers] = useState<String[]>([]);
   const [rightAnswerIndex, setRightAnswerIndex] = useState<number>(0);
   const [confirmation, setConfirmation] = useState(false);
 
@@ -32,7 +32,7 @@ const Quiz: React.FC<{
     };
 
     loadTopics();
-  },[])
+  }, []);
 
   useEffect(() => {
     if (testQuestion) {
@@ -156,30 +156,28 @@ const Quiz: React.FC<{
                 )}
               </View>
             )}
-            {confirmation ?
-              <ConfirmExit utility={() => setConfirmation(false)}/>
-              :
-              
-            <TouchableOpacity
-              className="green-bg-500 w-full py-5 mb-[15%] rounded-[8px] justify-center items-center"
-              onPress={handleSubmitAnswer}
-            >
-              {answerCorrect ||
-                (answerCorrect !== undefined && (
-                  <Image contentFit="contain" source={icons.diamond} style={style.diamond} />
-                ))}
-              <Text className="text-center raleway text-[14px] ">
-                {answerCorrect
-                  ? 'Collect Points'
-                  : answerCorrect !== undefined
-                    ? "Got it, let's move on"
-                    : quizProgression !== 3
-                      ? 'Continue'
-                      : 'Start the quiz'}
-              </Text>
-            </TouchableOpacity>
-            }
-            
+            {confirmation ? (
+              <ConfirmExit utility={() => setConfirmation(false)} />
+            ) : (
+              <TouchableOpacity
+                className="green-bg-500 w-full py-5 mb-[15%] rounded-[8px] justify-center items-center"
+                onPress={handleSubmitAnswer}
+              >
+                {answerCorrect ||
+                  (answerCorrect !== undefined && (
+                    <Image contentFit="contain" source={icons.diamond} style={style.diamond} />
+                  ))}
+                <Text className="text-center raleway text-[14px] ">
+                  {answerCorrect
+                    ? 'Collect Points'
+                    : answerCorrect !== undefined
+                      ? "Got it, let's move on"
+                      : quizProgression !== 3
+                        ? 'Continue'
+                        : 'Start the quiz'}
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </SafeAreaView>

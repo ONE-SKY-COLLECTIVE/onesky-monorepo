@@ -50,13 +50,11 @@ import sustainabilityIcon from '../assets/images/sustainability.svg';
 import activeTravelIcon from '../assets/images/active-travel.svg';
 import globalWarmingIcon from '../assets/images/global-warming.svg';
 import beachCleaningIcon from '../assets/images/beach-cleaning.svg';
-import dontLeaveIcon from "../assets/images/dont-leave.svg";
-import refillBottleIcon from "../assets/images/refill-bottle.svg";
-import refillStarIcon from "../assets/images/refill-star.svg";
-import refillGroupIcon from "../assets/images/refill-group.svg";
-import refillFinishedIcon from "../assets/images/refill-finished.svg";
-
-
+import dontLeaveIcon from '../assets/images/dont-leave.svg';
+import refillBottleIcon from '../assets/images/refill-bottle.svg';
+import refillStarIcon from '../assets/images/refill-star.svg';
+import refillGroupIcon from '../assets/images/refill-group.svg';
+import refillFinishedIcon from '../assets/images/refill-finished.svg';
 
 const icons = {
   oneskylogo: require('../assets/images/oneskylogo.png'),
@@ -121,7 +119,7 @@ const icons = {
   refillBottle: refillBottleIcon,
   refillStar: refillStarIcon,
   refillGroup: refillGroupIcon,
-  refillFinished: refillFinishedIcon
+  refillFinished: refillFinishedIcon,
 };
 
 export default icons;

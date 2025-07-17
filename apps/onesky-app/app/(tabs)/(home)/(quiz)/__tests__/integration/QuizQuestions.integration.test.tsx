@@ -105,8 +105,8 @@ describe('Quiz Integration Test', () => {
     fireEvent.press(button);
 
     // Try to exit the quiz
-    const exitButton = getByTestId("exit-button");
-    fireEvent.press(exitButton)
+    const exitButton = getByTestId('exit-button');
+    fireEvent.press(exitButton);
     await waitFor(() => expect(getByText(/Don't leave us/i)).toBeTruthy());
     fireEvent.press(getByText(/Back to Home Page/i));
     expect(mockReplace).toHaveBeenCalledWith('/(tabs)/(home)');
@@ -128,8 +128,8 @@ describe('Quiz Integration Test', () => {
     fireEvent.press(button);
 
     // Try to exit the quiz
-    const exitButton = getByTestId("exit-button");
-    fireEvent.press(exitButton)
+    const exitButton = getByTestId('exit-button');
+    fireEvent.press(exitButton);
     await waitFor(() => expect(getByText(/Don't leave us/i)).toBeTruthy());
     fireEvent.press(getByText(/Continue/i));
     expect(queryByText(/Don't leave us/i)).toBeNull();
