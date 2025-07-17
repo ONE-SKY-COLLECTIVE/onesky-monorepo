@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { registerUser, login, requestPasswordReset, updateUserPassword } from '../controllers/auth.controller';
+import {
+  registerUser,
+  login,
+  requestPasswordReset,
+  updateUserPassword,
+} from '../controllers/auth.controller';
 
 const router = Router();
 
@@ -21,9 +26,9 @@ const router = Router();
  *               password: { type: string, minLength: 6 }
  *               firstname: { type: string }
  *               lastname: { type: string }
- *               userRole:  
- *                  type: string 
- *                  enum: [Admin, Customer, Client] 
+ *               userRole:
+ *                  type: string
+ *                  enum: [Admin, Customer, Client]
  *                  default: Customer
  *     responses:
  *       200: { description: registered }
@@ -33,7 +38,7 @@ router.post('/register', registerUser);
 
 /**
  * @openapi
- * 
+ *
  * /auth/login:
  *   post:
  *     summary: Login
@@ -55,7 +60,7 @@ router.post('/login', login);
 
 /**
  * @openapi
- * 
+ *
  * /auth/reset-password:
  *   post:
  *     summary: Reset password

@@ -8,9 +8,7 @@ const options = {
       version: '1.0.0',
       description: 'User authentication and management API',
     },
-    servers: [
-      { url: 'http://localhost:3000/api', description: 'Development server' },
-    ],
+    servers: [{ url: 'http://localhost:3000/api', description: 'Development server' }],
     components: {
       schemas: {
         User: {
@@ -19,19 +17,19 @@ const options = {
             id: { type: 'integer' },
             email: { type: 'string' },
             name: { type: 'string' },
-            createdAt: { type: 'string', format: 'date-time' }
-          }
-        }
+            createdAt: { type: 'string', format: 'date-time' },
+          },
+        },
       },
       securitySchemes: {
         BearerAuth: {
           type: 'http',
           scheme: 'bearer',
-          bearerFormat: 'JWT'
-        }
-      }
+          bearerFormat: 'JWT',
+        },
+      },
     },
-    security: [{ BearerAuth: [] }]
+    security: [{ BearerAuth: [] }],
   },
   apis: ['./src/routes/*.ts'],
 };

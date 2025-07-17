@@ -1,15 +1,12 @@
 // src/routes/user.routes.ts
-import { Router } from "express";
-import {  getAllUsers,
-  getUserById,
-  updateUser,
-  deleteUser, } from "../controllers/users.controller";
-import { verifyJwt } from "../middlewares/verifyJwt";
-import { authorizeUserOrAdmin } from "../middlewares/authorizedUserOrAdmin";
+import { Router } from 'express';
+import { getAllUsers, getUserById, updateUser, deleteUser } from '../controllers/users.controller';
+import { verifyJwt } from '../middlewares/verifyJwt';
+import { authorizeUserOrAdmin } from '../middlewares/authorizedUserOrAdmin';
 
 const router = Router();
 
-router.use(verifyJwt)
+router.use(verifyJwt);
 /**
  * @openapi
  * /api/users:
@@ -67,7 +64,7 @@ router.get('/', authorizeUserOrAdmin(), getAllUsers);
  *       404:
  *         description: User not found
  */
-router.get('/:id',authorizeUserOrAdmin(), getUserById);
+router.get('/:id', authorizeUserOrAdmin(), getUserById);
 
 /**
  * @openapi
@@ -106,7 +103,7 @@ router.get('/:id',authorizeUserOrAdmin(), getUserById);
  *       404:
  *         description: User not found
  */
-router.put('/:id',authorizeUserOrAdmin(), updateUser);
+router.put('/:id', authorizeUserOrAdmin(), updateUser);
 
 /**
  * @openapi
@@ -127,6 +124,6 @@ router.put('/:id',authorizeUserOrAdmin(), updateUser);
  *       404:
  *         description: User not found
  */
-router.delete('/:id',authorizeUserOrAdmin(), deleteUser);
+router.delete('/:id', authorizeUserOrAdmin(), deleteUser);
 
 export default router;

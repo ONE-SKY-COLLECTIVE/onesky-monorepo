@@ -67,12 +67,9 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
       password,
     });
 
-  
-      if (error) return res.status(400).json({ error: error.message });
-    
+    if (error) return res.status(400).json({ error: error.message });
 
     if (!data) return res.status(400).json({ error: 'User registration failed' });
-    
 
     const updatedUser = await db
       .update(users)
@@ -93,7 +90,11 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
   }
 };
 
-export const requestPasswordReset = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+export const requestPasswordReset = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
   try {
     const { email } = req.body;
 
