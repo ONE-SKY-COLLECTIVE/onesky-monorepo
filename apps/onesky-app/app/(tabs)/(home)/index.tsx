@@ -46,18 +46,14 @@ export default function Homepage() {
       <SafeAreaView edges={['top']}>
         <View className="flex-v h-full">
           {/* <Image source={icons.apple} contentFit='contain' /> */}
-          <Image source={images.homebackground} style={style.background} contentFit='contain' />
+          <Image source={images.homebackground} style={style.background} contentFit="contain" />
 
           <View className="flex justify-between mx-8">
             <Image contentFit="contain" source={icons.profile} style={style.profile} />
             <View className="flex items-center">
               <Image contentFit="contain" style={style.userIcons} source={icons.fire} />
               <Text className="font-bold ml-1">{streak}</Text>
-              <Image
-                contentFit="contain"
-                style={style.userIcons}
-                source={icons.diamond}
-              />
+              <Image contentFit="contain" style={style.userIcons} source={icons.diamond} />
               <Text className="font-bold ml-1">{points}</Text>
             </View>
           </View>
@@ -131,16 +127,16 @@ const style = StyleSheet.create({
   userIcons: {
     width: 25,
     height: 25,
-    marginLeft: 3
+    marginLeft: 3,
   },
   background: {
     position: 'absolute',
     width: 500,
     height: 200,
-    top: 110
+    top: 110,
   },
   profile: {
     height: 30,
-    width: 30
-  }
+    width: 30,
+  },
 });

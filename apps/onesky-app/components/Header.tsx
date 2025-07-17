@@ -25,6 +25,6 @@ const style = StyleSheet.create({
   arrow: {
     height: 48,
     width: 30,
-    marginInline: 8
-  }
-})
+    marginInline: 8,
+  },
+});
