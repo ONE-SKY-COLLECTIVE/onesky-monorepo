@@ -12,6 +12,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "ts:dev": "npx ts-node-dev src/index.ts",
     "build": "tsc",
+    "serve": "node dist/src/index.js",
     "start:node": "node dist/index.js",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push"
