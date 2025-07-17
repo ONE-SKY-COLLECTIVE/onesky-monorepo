@@ -24,6 +24,7 @@ const options = {
                         id: { type: 'integer' },
                         email: { type: 'string' },
                         name: { type: 'string' },
+                        username: { type: 'string' },
                         createdAt: { type: 'string', format: 'date-time' }
                     }
                 }

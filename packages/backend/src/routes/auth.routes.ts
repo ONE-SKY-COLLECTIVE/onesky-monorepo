@@ -15,10 +15,11 @@ const router = Router();
  *         application/json:
  *           schema:
  *             type: object
- *             required: [email, password, firstname, lastname]
+ *             required: [email, password, username]
  *             properties:
  *               email: { type: string, format: email }
  *               password: { type: string, minLength: 6 }
+ *               username: { type: string }
  *               firstname: { type: string }
  *               lastname: { type: string }
  *               userRole:  
