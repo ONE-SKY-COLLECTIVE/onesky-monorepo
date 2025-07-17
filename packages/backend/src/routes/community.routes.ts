@@ -29,9 +29,9 @@ const router = Router();
  *               name: { type: string }
  *               description: { type: string }
  *               requiresApproval: { type: string}
- *               type:  
- *                  type: string 
- *                  enum: [Admin, Customer, Client] 
+ *               type:
+ *                  type: string
+ *                  enum: [Admin, Customer, Client]
  *                  default: Customer
  *     responses:
  *       200: { description: registered }
@@ -55,7 +55,7 @@ router.post('/', verifyJwt, CommunityController.createCommunity);
  *       - in: query
  *         name: email
  *         schema: { type: string }
- *  
+ *
  *       - in: query
  *         name: sortBy
  *         schema:

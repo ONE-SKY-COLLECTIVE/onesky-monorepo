@@ -10,7 +10,7 @@ export const registerUser = async (
   next: NextFunction
 ): Promise<any> => {
   try {
-    const { email, password, firstname, lastname, userRole } = req.body;
+    const { email, password, firstname, lastname, userRole, username } = req.body;
 
     const existingUser = await db.select().from(users).where(eq(users.email, email));
 
@@ -44,6 +44,7 @@ export const registerUser = async (
         email: email,
         isActive: false,
         userRole: userRole ?? 'Customer',
+        username: username,
       })
       .returning();
 
